@@ -128,9 +128,11 @@ int
 sys_getpinfo(void)
 {
   struct pstat *ps=NULL;
-  if(argpstat(0, ps) < 0)
+  char ** ps_ptr=NULL;
+  if(argptr(0, ps_ptr,sizeof(struct pstat)) < 0)
     return -1;
   else{
+    ps=(struct pstat*) *ps_ptr;
     //return the system process information in to pstat
     struct proc *p;
     extern struct ptable_t ptable;

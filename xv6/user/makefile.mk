@@ -16,6 +16,7 @@ USER_PROGS := \
 	stressfs\
 	tester\
 	usertests\
+	mps\
 	wc\
 	zombie
 
