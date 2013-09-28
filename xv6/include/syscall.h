@@ -23,8 +23,9 @@
 #define SYS_sbrk   19
 #define SYS_sleep  20
 #define SYS_uptime 21
-
 //add getsysinfo function for getting num of syscall issued. (p1.2)
 #define SYS_getsyscallinfo 22
+//add settickets system call for p2.2 to set the tickets of a particular process (p2.2)
+#define SYS_settickets 23
 
 #endif // _SYSCALL_H_

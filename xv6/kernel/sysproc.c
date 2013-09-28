@@ -98,3 +98,21 @@ sys_getsyscallinfo(void)
 {
   return numsyscall;
 }
+
+
+//set the tickets for the particular process (p2.2).
+int
+sys_settickets(void)
+{
+  int ticketNum;
+  if(argint(0, &ticketNum) < 0)
+    return -1;
+  else if (1 > ticketNum)
+    return -1;
+  else{
+    //set the tickets number of current process
+    proc->tickets = ticketNum;
+    return 0;
+  }
+}
+

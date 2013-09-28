@@ -29,6 +29,8 @@ int uptime(void);
 //added system call for p1.2. Used to get number of system call issued
 int getsyscallinfo(void);
 
+//added system call for p2.2. Used to set the tickets of a particular process
+int settickets(int);
 
 
 // user library functions (ulib.c)

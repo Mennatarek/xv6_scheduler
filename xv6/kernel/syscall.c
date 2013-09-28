@@ -103,8 +103,10 @@ static int (*syscalls[])(void) = {
 [SYS_wait]    sys_wait,
 [SYS_write]   sys_write,
 [SYS_uptime]  sys_uptime,
-//add getsyscall info function for p1.2. implementation is in 
-[SYS_getsyscallinfo] sys_getsyscallinfo
+//add getsyscall info function for p1.2. implementation is in sysproc.c
+[SYS_getsyscallinfo] sys_getsyscallinfo,
+//add set tickets system call for p2.2. implementation in sysproc.c
+[SYS_settickets] sys_settickets
 };
 
 // Called on a syscall trap. Checks that the syscall number (passed via eax)

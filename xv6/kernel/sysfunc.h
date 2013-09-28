@@ -29,4 +29,8 @@ int sys_getsyscallinfo(void);
 //global variable used to count num of syscall issued. defined in sysproc.c
 extern int numsyscall;
 
+//add system call handler for settickets(p2.2)
+int sys_settickets(void);
+
+
 #endif // _SYSFUNC_H_
