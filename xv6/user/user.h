@@ -29,9 +29,13 @@ int uptime(void);
 //added system call for p1.2. Used to get number of system call issued
 int getsyscallinfo(void);
 
+////////////////////////////////////p2.2 scheduler///////////////////////////
 //added system call for p2.2. Used to set the tickets of a particular process
 int settickets(int);
-
+//get current process info
+struct pstat;
+int getpinfo(struct pstat *);
+//////////////////////////////////////////////////////////////////////////////
 
 // user library functions (ulib.c)
 int stat(char*, struct stat*);

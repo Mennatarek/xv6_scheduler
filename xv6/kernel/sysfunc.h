@@ -31,6 +31,7 @@ extern int numsyscall;
 
 //add system call handler for settickets(p2.2)
 int sys_settickets(void);
+int sys_getpinfo(void);
 
 
 #endif // _SYSFUNC_H_

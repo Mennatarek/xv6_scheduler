@@ -6,6 +6,7 @@
 #include "x86.h"
 #include "syscall.h"
 #include "sysfunc.h"
+#include "pstat.h"
 
 // User code makes a system call with INT T_SYSCALL.
 // System call number in %eax.
@@ -47,6 +48,26 @@ argint(int n, int *ip)
 {
   return fetchint(proc, proc->tf->esp + 4 + 4*n, ip);
 }
+
+/////////////////////////p2.2 scheduler /////////////////////////
+//fetch the pstat at the addr of given process p
+int
+fetchpstat(struct proc *p, uint addr, struct pstat* ip)
+{
+  if(addr >= p->sz || addr+4 > p->sz)
+    return -1;
+  *ip = *(struct pstat*)(addr);
+  return 0;
+}
+
+// return the nth pstat system call argument.
+int
+argpstat(int n, struct pstat *ip)
+{
+  return fetchpstat(proc, proc->tf->esp + 4 + sizeof(struct pstat)*n, ip);
+}
+/////////////////////////////////////////////////////////////////////
+
 
 // Fetch the nth word-sized system call argument as a pointer
 // to a block of memory of size n bytes.  Check that the pointer
@@ -105,8 +126,12 @@ static int (*syscalls[])(void) = {
 [SYS_uptime]  sys_uptime,
 //add getsyscall info function for p1.2. implementation is in sysproc.c
 [SYS_getsyscallinfo] sys_getsyscallinfo,
+
+/////////////////////////////p2.2 scheduler //////////////////////
 //add set tickets system call for p2.2. implementation in sysproc.c
-[SYS_settickets] sys_settickets
+[SYS_settickets] sys_settickets,
+[SYS_getpinfo] sys_getpinfo
+////////////////////////////////////////////////////////////////
 };
 
 // Called on a syscall trap. Checks that the syscall number (passed via eax)

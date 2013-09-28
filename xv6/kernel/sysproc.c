@@ -5,6 +5,8 @@
 #include "mmu.h"
 #include "proc.h"
 #include "sysfunc.h"
+#include "pstat.h"
+#include "spinlock.h"
 
 int
 sys_fork(void)
@@ -99,7 +101,7 @@ sys_getsyscallinfo(void)
   return numsyscall;
 }
 
-
+/////////////////p2.2 scheduler ////////////////////////////////
 //set the tickets for the particular process (p2.2).
 int
 sys_settickets(void)
@@ -114,5 +116,47 @@ sys_settickets(void)
     proc->tickets = ticketNum;
     return 0;
   }
+}
+
+struct ptable_t {
+  struct spinlock lock;
+  struct proc proc[NPROC];
+};
+
+//get the process info
+int
+sys_getpinfo(void)
+{
+  struct pstat *ps=NULL;
+  if(argpstat(0, ps) < 0)
+    return -1;
+  else{
+    //return the system process information in to pstat
+    struct proc *p;
+    extern struct ptable_t ptable;
+    // Loop over process table looking for information
+    acquire(&(ptable.lock));
+    int index=0;
+    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+      ps->pid[index]=p->pid;
+      if (p->state == UNUSED)
+        ps->inuse[index]=0;
+      else
+        ps->inuse[index]=1;
+      if (1 == p->priority){//high priority
+        ps->hticks[index]= p->tickets;
+        ps->lticks[index]=0;
+      } else if (0 == p->priority) { // low priority
+        ps->lticks[index]= p->tickets;
+        ps->hticks[index]=0;
+      } else {
+        panic("sys_getpinfo!!!: the priority of the process is not defined");
+      }
+      index++;
+    }
+    release(&ptable.lock);
+    return 0;
+  }
+  ////////////////////////////////////////////////////////////
 }
 

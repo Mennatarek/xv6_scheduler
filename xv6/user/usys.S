@@ -33,5 +33,8 @@ SYSCALL(uptime)
 //added syscall for getting number of system call issued. (p1.2)
 SYSCALL(getsyscallinfo)
 
+/////////////////////////////////p2.2 scheduler//////////////
 //add syscall for setting the ticket number for scheduler
 SYSCALL(settickets)
+SYSCALL(getpinfo)
+/////////////////////////////////////////////////////////////

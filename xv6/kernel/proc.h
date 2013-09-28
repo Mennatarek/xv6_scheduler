@@ -28,6 +28,7 @@ struct cpu {
 extern struct cpu cpus[NCPU];
 extern int ncpu;
 
+
 // Per-CPU variables, holding pointers to the
 // current cpu and to the current process.
 // The asm suffix tells gcc to use "%gs:0" to refer to cpu
@@ -74,9 +75,11 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
-  
+
+  ///////////////////////////////p2.2 scheduler///////////////////////////
   int tickets; // p2.2 added. number of tickets process have
-  unsigned int priority; //p2.2 added. record the priority of ps. 0 - high, 1-low
+  unsigned int priority; //p2.2 added. record the priority of ps. 1 - high, 0-low
+  /////////////////////////////////////////////////////////////////
 };
 
 // Process memory is laid out contiguously, low addresses first:
