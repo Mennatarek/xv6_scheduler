@@ -51,21 +51,21 @@ argint(int n, int *ip)
 
 /////////////////////////p2.2 scheduler /////////////////////////
 //fetch the pstat at the addr of given process p
-int
-fetchpstat(struct proc *p, uint addr, struct pstat* ip)
-{
-  if(addr >= p->sz || addr+4 > p->sz)
-    return -1;
-  *ip = *(struct pstat*)(addr);
-  return 0;
-}
+/* int */
+/* fetchpstat(struct proc *p, uint addr, struct pstat* ip) */
+/* { */
+/*   if(addr >= p->sz || addr+4 > p->sz) */
+/*     return -1; */
+/*   *ip = *(struct pstat*)(addr); */
+/*   return 0; */
+/* } */
 
-// return the nth pstat system call argument.
-int
-argpstat(int n, struct pstat *ip)
-{
-  return fetchpstat(proc, proc->tf->esp + 4 + sizeof(struct pstat)*n, ip);
-}
+/* // return the nth pstat system call argument. */
+/* int */
+/* argpstat(int n, struct pstat *ip) */
+/* { */
+/*   return fetchpstat(proc, proc->tf->esp + 4 + sizeof(struct pstat)*n, ip); */
+/* } */
 /////////////////////////////////////////////////////////////////////
 
 

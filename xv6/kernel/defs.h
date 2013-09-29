@@ -141,8 +141,8 @@ int             fetchint(struct proc*, uint, int*);
 int             fetchstr(struct proc*, uint, char**);
 void            syscall(void);
 ///////////////////p2.2 scheduler//////////////////////////////
-int             fetchpstat(struct proc* , uint, struct pstat *);
-int             argpstat(int, struct pstat *);
+/* int             fetchpstat(struct proc* , uint, struct pstat *); */
+/* int             argpstat(int, struct pstat *); */
 //////////////////////////////////////////////////////////////
 // timer.c
 void            timerinit(void);

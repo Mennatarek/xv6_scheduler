@@ -78,7 +78,12 @@ struct proc {
 
   ///////////////////////////////p2.2 scheduler///////////////////////////
   int tickets; // p2.2 added. number of tickets process have
-  unsigned int priority; //p2.2 added. record the priority of ps. 1 - high, 0-low
+  //p2.2 added. record the priority of ps. 0 - high, 1-low
+  //important to make high priority to 0; therefore new process get assigned to high 
+  //priority by default
+  unsigned int priority; 
+  int h_runned_times;
+  int l_runned_times;
   /////////////////////////////////////////////////////////////////
 };
 

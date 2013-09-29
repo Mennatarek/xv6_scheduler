@@ -145,15 +145,8 @@ sys_getpinfo(void)
         ps->inuse[index]=0;
       else
         ps->inuse[index]=1;
-      if (1 == p->priority){//high priority
-        ps->hticks[index]= p->tickets;
-        ps->lticks[index]=0;
-      } else if (0 == p->priority) { // low priority
-        ps->lticks[index]= p->tickets;
-        ps->hticks[index]=0;
-      } else {
-        panic("sys_getpinfo!!!: the priority of the process is not defined");
-      }
+      ps->hticks[index]= p->h_runned_times;
+      ps->lticks[index]=p->l_runned_times;
       index++;
     }
     release(&ptable.lock);

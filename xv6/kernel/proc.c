@@ -12,8 +12,11 @@ static struct proc *initproc;
 int nextpid = 1;
 extern void forkret(void);
 extern void trapret(void);
-
 static void wakeup1(void *chan);
+
+////////////////////p2.2 scheduler/////////
+//2-level process queue
+/////////////////////////////////////////////
 
 struct ptable_t {
   struct spinlock lock;
@@ -46,6 +49,11 @@ allocproc(void)
 found:
   p->state = EMBRYO;
   p->pid = nextpid++;
+  ////////////////////////////p2.2 scheduler/////////////////////////
+  //initialize tickets//////////////////////////////////////////////
+  p->tickets=1;
+  //////////////////////////////////////////////////////////////////
+  
   release(&ptable.lock);
 
   // Allocate kernel stack if possible.
@@ -246,6 +254,20 @@ wait(void)
   }
 }
 
+
+//////////////////////p2.2 scheduler/////////////////////
+//random generator: return a number that is [1,random_max]
+unsigned long next=1;
+int randomGen(int rand_max){
+   next = next * 1103515245 + 12345;
+   int rand=((unsigned)(next/65536) % 32768);
+   //above are the default implemenation of random generator with random max value 32768
+   //need to map it to the 
+   int result =rand % rand_max+1;
+   return result;
+}
+
+
 // Per-CPU process scheduler.
 // Each CPU calls scheduler() after setting itself up.
 // Scheduler never returns.  It loops, doing:
@@ -256,34 +278,133 @@ wait(void)
 void
 scheduler(void)
 {
-  struct proc *p;
-
+  struct proc *p_next;
   for(;;){
     // Enable interrupts on this processor.
     sti();
 
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);
+
+    struct proc *p;//iterator
+    //high and low priority queues
+    struct proc *h_que[NPROC]={0};
+    struct proc *l_que[NPROC]={0};
+    //number of the process belonging to each prioirty queues
+    unsigned int h_num=0;
+    unsigned int l_num=0;
+    struct proc *l_last_run=NULL;
+    
+    /* //reassign priority based on how many times have been runned */
+    /* for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){ */
+    /*   if(p->state != RUNNABLE) */
+    /*     continue; */
+    /*   if (0 == p->priority){ // high priority */
+    /*     if (1 == p-> */
+    /*   } */
+    /*   if (1 == p->priority){ */
+    /*     l_que[l_num]=*p; */
+    /*     l_num++; */
+    /*   } else { */
+    /*     panic("scheduler: no such priority should be assigned to process %d",p->pid); */
+    /*   } */
+    /* } */
+    
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
         continue;
+      //find all the process with high priority
+      if (0 == p->priority){
+        if (1 == p->h_runned_times){
+          //runned this process in high priority
+          p->priority=1;
+        } else {
+          h_que[h_num]=p;
+          h_num++;
+        }
+      }
+      else if (1 == p->priority){
+        if (1 == (p->l_runned_times % 2)){
+          //should keep running this process. low-level process should run 2 time slices before
+          //relinquish CPU
+          l_last_run=p;
+        } 
+        l_que[l_num]=p;
+        l_num++;
+      } else {
+        panic("scheduler: no such priority should be assigned to process");
+       }
+    }
 
+     //if we have a low-level ps, that is in the middle of running 2 time slices, then keep running that process
+    //assume it is not the first ps by default
+    int init_ps=1;
+    unsigned int totalTicket=0;
+    unsigned int index=0;
+    if (NULL != l_last_run){
+      p_next=l_last_run;
+      p_next->l_runned_times++;
       // Switch to chosen process.  It is the process's job
       // to release ptable.lock and then reacquire it
       // before jumping back to us.
-      proc = p;
-      switchuvm(p);
-      p->state = RUNNING;
+      proc = p_next;
+      switchuvm(p_next);
+      p_next->state = RUNNING;
       swtch(&cpu->scheduler, proc->context);
       switchkvm();
-
+      // Process is done running for now.
+      // It should have changed its p->state before coming back.
+      proc = 0;
+    } else if (0!=h_num){ // run high prority
+        //get the total ticket number
+        for (index=0; index<h_num;index++)
+          //need +1, cuz initially every ps should have 1 tickets
+          totalTicket+=h_que[index]->tickets;
+        int lottery=randomGen(totalTicket);
+        int lot_value=0;
+        for (index=0; index<h_num;index++){
+          lot_value+=h_que[index]->tickets;
+          if (lot_value >=lottery){//find the lottery winner
+            p_next=h_que[index];
+            //move down to low level
+            p_next->priority ++;
+            p_next->h_runned_times++;
+            break;
+          }
+        }
+      } else if (0!=l_num){ //run low queu
+        for (index=0; index<l_num;index++)
+          totalTicket+=l_que[index]->tickets;
+        int lottery=randomGen(totalTicket);
+        int lot_value=0;
+        for (index=0; index<l_num;index++){
+          lot_value+=l_que[index]->tickets;
+          if (lot_value >=lottery){//find the lottery winner
+            p_next=l_que[index];
+            p_next->l_runned_times++;
+            break;
+          }
+        }
+    } else {
+      init_ps=0;
+    }
+    if (1 == init_ps){ // when it is not first ps
+      proc = p_next;
+      switchuvm(p_next);
+      p_next->state = RUNNING;
+      swtch(&cpu->scheduler, proc->context);
+      switchkvm();
       // Process is done running for now.
       // It should have changed its p->state before coming back.
       proc = 0;
     }
+    
+    //directly release and do nothing when the first process tries to starts
     release(&ptable.lock);
   }
 }
+
+
 
 // Enter scheduler.  Must hold only ptable.lock
 // and have changed proc->state.
