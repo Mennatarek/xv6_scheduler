@@ -295,21 +295,6 @@ scheduler(void)
     unsigned int l_num=0;
     struct proc *l_last_run=NULL;
     
-    /* //reassign priority based on how many times have been runned */
-    /* for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){ */
-    /*   if(p->state != RUNNABLE) */
-    /*     continue; */
-    /*   if (0 == p->priority){ // high priority */
-    /*     if (1 == p-> */
-    /*   } */
-    /*   if (1 == p->priority){ */
-    /*     l_que[l_num]=*p; */
-    /*     l_num++; */
-    /*   } else { */
-    /*     panic("scheduler: no such priority should be assigned to process %d",p->pid); */
-    /*   } */
-    /* } */
-    
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
         continue;
@@ -347,14 +332,14 @@ scheduler(void)
       // Switch to chosen process.  It is the process's job
       // to release ptable.lock and then reacquire it
       // before jumping back to us.
-      proc = p_next;
-      switchuvm(p_next);
-      p_next->state = RUNNING;
-      swtch(&cpu->scheduler, proc->context);
-      switchkvm();
-      // Process is done running for now.
-      // It should have changed its p->state before coming back.
-      proc = 0;
+      /* proc = p_next; */
+      /* switchuvm(p_next); */
+      /* p_next->state = RUNNING; */
+      /* swtch(&cpu->scheduler, proc->context); */
+      /* switchkvm(); */
+      /* // Process is done running for now. */
+      /* // It should have changed its p->state before coming back. */
+      /* proc = 0; */
     } else if (0!=h_num){ // run high prority
         //get the total ticket number
         for (index=0; index<h_num;index++)
@@ -398,7 +383,6 @@ scheduler(void)
       // It should have changed its p->state before coming back.
       proc = 0;
     }
-    
     //directly release and do nothing when the first process tries to starts
     release(&ptable.lock);
   }
