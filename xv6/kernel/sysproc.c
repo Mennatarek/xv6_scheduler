@@ -122,7 +122,7 @@ struct ptable_t {
   struct spinlock lock;
   struct proc proc[NPROC];
 };
-
+extern struct ptable_t ptable;
 //get the process info
 int
 sys_getpinfo(void)
@@ -135,7 +135,6 @@ sys_getpinfo(void)
     ps=(struct pstat*) *ps_ptr;
     //return the system process information in to pstat
     struct proc *p;
-    extern struct ptable_t ptable;
     // Loop over process table looking for information
     acquire(&(ptable.lock));
     int index=0;
