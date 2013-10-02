@@ -4,8 +4,7 @@
 //#include "stat.h"
 #include "user.h"
 
-struct pstat *m_ps;
-void printPS(){
+void printPS(struct pstat * m_ps){
   getpinfo(m_ps);
   int index;
   for (index=0; index<10; index++){
@@ -27,26 +26,29 @@ void spin(int num){
 int
 main(int argc, char *argv[])
 {
+  struct pstat *m_ps;
   m_ps = malloc(sizeof(struct pstat));
   spin(133);
-  getpinfo(m_ps);
-  int index;
-  for (index=0; index<10; index++){
-    printf(1,"inuse: %d,",m_ps->inuse[index]);
-    printf(1,"pid: %d,",m_ps->pid[index]);
-    printf(1,"high tick: %d,",m_ps->hticks[index]);
-    printf(1,"low tick: %d,\n",m_ps->lticks[index]);
-  }
+  //  getpinfo(m_ps);
+  /* int index; */
+  /* for (index=0; index<10; index++){ */
+  /*   printf(1,"inuse: %d,",m_ps->inuse[index]); */
+  /*   printf(1,"pid: %d,",m_ps->pid[index]); */
+  /*   printf(1,"high tick: %d,",m_ps->hticks[index]); */
+  /*   printf(1,"low tick: %d,\n",m_ps->lticks[index]); */
+  /* } */
+  printPS(m_ps);
   settickets(1000);
   spin(133);
   printf(1,"issue the second getpinfo \n");
-  getpinfo(m_ps);
-  for (index=0; index<10; index++){
-    printf(1,"inuse: %d,",m_ps->inuse[index]);
-    printf(1,"pid: %d,",m_ps->pid[index]);
-    printf(1,"high tick: %d,",m_ps->hticks[index]);
-    printf(1,"low tick: %d,\n",m_ps->lticks[index]);
-  }
+  printPS(m_ps);
+  /* getpinfo(m_ps); */
+  /* for (index=0; index<10; index++){ */
+  /*   printf(1,"inuse: %d,",m_ps->inuse[index]); */
+  /*   printf(1,"pid: %d,",m_ps->pid[index]); */
+  /*   printf(1,"high tick: %d,",m_ps->hticks[index]); */
+  /*   printf(1,"low tick: %d,\n",m_ps->lticks[index]); */
+  /* } */
   int rc=fork();
   if (0 == rc){
     settickets(1);
@@ -62,6 +64,7 @@ main(int argc, char *argv[])
     spin(30000);
     wait();
     getpinfo(m_ps);
+    int index;
     for (index=0; index<10; index++){
       printf(1,"inuse: %d,",m_ps->inuse[index]);
       printf(1,"pid: %d,",m_ps->pid[index]);

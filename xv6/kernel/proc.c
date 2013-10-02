@@ -6,7 +6,6 @@
 #include "proc.h"
 #include "spinlock.h"
 
-
 static struct proc *initproc;
 
 int nextpid = 1;
@@ -282,6 +281,7 @@ void
 scheduler(void)
 {
   struct proc *p_next;
+
   for(;;){
     // Enable interrupts on this processor.
     sti();

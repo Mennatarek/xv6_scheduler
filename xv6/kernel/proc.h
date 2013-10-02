@@ -77,13 +77,13 @@ struct proc {
   char name[16];               // Process name (debugging)
 
   ///////////////////////////////p2.2 scheduler///////////////////////////
-  int tickets; // p2.2 added. number of tickets process have
+  volatile int tickets; // p2.2 added. number of tickets process have
   //p2.2 added. record the priority of ps. 0 - high, 1-low
   //important to make high priority to 0; therefore new process get assigned to high 
   //priority by default
-  unsigned int priority; 
-  int h_runned_times;
-  int l_runned_times;
+  volatile unsigned int priority; 
+  volatile int h_runned_times;
+  volatile int l_runned_times;
   /////////////////////////////////////////////////////////////////
 };
 

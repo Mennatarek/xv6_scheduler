@@ -17,6 +17,7 @@ USER_PROGS := \
 	tester\
 	usertests\
 	mps\
+	spin\
 	wc\
 	zombie
 
