@@ -7,8 +7,6 @@ build xv6 using make
 **********************************************************************
 Trying to clean project using make clean
 make clean
-gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
-		-M -MG kernel/proc.c -MF kernel/proc.d -MT kernel/proc.d -MT kernel/proc.o
 rm -rf kernel/bio.o kernel/console.o kernel/exec.o kernel/file.o kernel/fs.o kernel/ide.o kernel/ioapic.o kernel/kalloc.o kernel/kbd.o kernel/lapic.o kernel/main.o kernel/mp.o kernel/picirq.o kernel/pipe.o kernel/proc.o kernel/spinlock.o kernel/string.o kernel/swtch.o kernel/syscall.o kernel/sysfile.o kernel/sysproc.o kernel/timer.o kernel/trapasm.o kernel/trap.o kernel/uart.o kernel/vectors.o kernel/vm.o kernel/bootmain.o kernel/bootasm.o kernel/multiboot.o kernel/data.o kernel/bootother.o kernel/initcode.o kernel/bio.d kernel/console.d kernel/exec.d kernel/file.d kernel/fs.d kernel/ide.d kernel/ioapic.d kernel/kalloc.d kernel/kbd.d kernel/lapic.d kernel/main.d kernel/mp.d kernel/picirq.d kernel/pipe.d kernel/proc.d kernel/spinlock.d kernel/string.d kernel/swtch.d kernel/syscall.d kernel/sysfile.d kernel/sysproc.d kernel/timer.d kernel/trapasm.d kernel/trap.d kernel/uart.d kernel/vectors.d kernel/vm.d kernel/bootmain.d kernel/bootasm.d kernel/multiboot.d kernel/data.d kernel/bootother.d kernel/initcode.d kernel/vectors.S kernel/bootblock kernel/bootblock.out kernel/bootother.out kernel/initcode.out kernel/kernel bootother initcode xv6.img user/bin user/cat user/echo user/forktest user/grep user/init user/kill user/ln user/ls user/mkdir user/rm user/hello user/sh user/stressfs user/tester user/usertests user/mps user/spin user/wc user/zombie user/cat.o user/echo.o user/forktest.o user/grep.o user/init.o user/kill.o user/ln.o user/ls.o user/mkdir.o user/rm.o user/hello.o user/sh.o user/stressfs.o user/tester.o user/usertests.o user/mps.o user/spin.o user/wc.o user/zombie.o user/ulib.o user/usys.o user/printf.o user/umalloc.o user/cat.d user/echo.d user/forktest.d user/grep.d user/init.d user/kill.d user/ln.d user/ls.d user/mkdir.d user/rm.d user/hello.d user/sh.d user/stressfs.d user/tester.d user/usertests.d user/mps.d user/spin.d user/wc.d user/zombie.d user/ulib.d user/usys.d user/printf.d user/umalloc.d tools/mkfs tools/mkfs.o tools/mkfs.d fs fs.img .gdbinit .bochsrc dist
 Trying to build project using make
 make
@@ -239,15 +237,15 @@ ld  -m    elf_i386 -nostdlib --omagic \
 dd if=/dev/zero of=xv6.img count=10000
 10000+0 records in
 10000+0 records out
-5120000 bytes (5.1 MB) copied, 0.0236428 s, 217 MB/s
+5120000 bytes (5.1 MB) copied, 0.0715995 s, 71.5 MB/s
 dd if=kernel/bootblock of=xv6.img conv=notrunc
 1+0 records in
 1+0 records out
-512 bytes (512 B) copied, 2.6698e-05 s, 19.2 MB/s
+512 bytes (512 B) copied, 2.0534e-05 s, 24.9 MB/s
 dd if=kernel/kernel of=xv6.img seek=1 conv=notrunc
 259+1 records in
 259+1 records out
-133037 bytes (133 kB) copied, 0.000445511 s, 299 MB/s
+133009 bytes (133 kB) copied, 0.000434308 s, 306 MB/s
 gcc -c  -iquote include -Wall -Werror -ggdb  -o tools/mkfs.o tools/mkfs.c
 gcc  tools/mkfs.o -o tools/mkfs
 mkdir -p fs
@@ -316,26 +314,26 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/zombie fs/zombie
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-README
-tester
-hello
-ln
 spin
-mps
-usertests
-cat
+README
 mkdir
-ls
-sh
-echo
-stressfs
-kill
 init
-wc
+stressfs
 zombie
+cat
+mps
+kill
 rm
-grep
+ln
 forktest
+tester
+grep
+echo
+hello
+usertests
+wc
+sh
+ls
 balloc: first 487 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/stressfs user/bin/grep user/bin/tester user/bin/mps user/bin/hello user/bin/kill user/bin/cat user/bin/mkdir user/bin/rm user/bin/echo user/bin/ls user/bin/ln user/bin/spin user/bin/usertests user/bin/sh user/bin/wc user/bin/init user/bin/zombie
@@ -361,26 +359,26 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-README
-tester
-hello
-ln
 spin
-mps
-usertests
-cat
+README
 mkdir
-ls
-sh
-echo
-stressfs
-kill
 init
-wc
+stressfs
 zombie
+cat
+mps
+kill
 rm
-grep
+ln
 forktest
+tester
+grep
+echo
+hello
+usertests
+wc
+sh
+ls
 balloc: first 488 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
@@ -393,7 +391,7 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-TEST PASSED
+TEST PASSED$ 
 
 test settickets PASSED
  (compile and run a user program with a settickets call)
@@ -415,26 +413,26 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-README
-tester
-hello
-ln
 spin
-mps
-usertests
-cat
+README
 mkdir
-ls
-sh
-echo
-stressfs
-kill
 init
-wc
+stressfs
 zombie
+cat
+mps
+kill
 rm
-grep
+ln
 forktest
+tester
+grep
+echo
+hello
+usertests
+wc
+sh
+ls
 balloc: first 488 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
@@ -448,7 +446,7 @@ init: starting sh
 $ tester
 tester
 pid: 1 hticks: 1
- lticks: 14
+ lticks: 16
 pid: 2 hticks: 1
  lticks: 15
 pid: 3 hticks: 1
@@ -475,26 +473,26 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-README
-tester
-hello
-ln
 spin
-mps
-usertests
-cat
+README
 mkdir
-ls
-sh
-echo
-stressfs
-kill
 init
-wc
+stressfs
 zombie
+cat
+mps
+kill
 rm
-grep
+ln
 forktest
+tester
+grep
+echo
+hello
+usertests
+wc
+sh
+ls
 balloc: first 489 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
@@ -508,8 +506,8 @@ init: starting sh
 $ tester
 tester
 pid: 1 hticks: 1 lticks:14
-pid: 2 hticks: 1 lticks:15
-pid: 3 hticks: 1 lticks:7
+pid: 2 hticks: 1 lticks:16
+pid: 3 hticks: 1 lticks:18
 TEST PASSED
 
 test getpinfo2 PASSED
@@ -532,26 +530,26 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-README
-tester
-hello
-ln
 spin
-mps
-usertests
-cat
+README
 mkdir
-ls
-sh
-echo
-stressfs
-kill
 init
-wc
+stressfs
 zombie
+cat
+mps
+kill
 rm
-grep
+ln
 forktest
+tester
+grep
+echo
+hello
+usertests
+wc
+sh
+ls
 balloc: first 491 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
@@ -564,9 +562,10 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-lticks child 1: 324
-lticks child 2: 682
+lticks child 1: 322
+lticks child 2: 684
 TEST PASSED
+
 
 test ticks PASSED
  (check that processes are scheduled at correct ratio)
