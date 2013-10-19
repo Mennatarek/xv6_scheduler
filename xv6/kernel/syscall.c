@@ -20,13 +20,6 @@ fetchint(struct proc *p, uint addr, int *ip)
   if(addr >= p->sz || addr+4 > p->sz)
     return -1;
   
-  //////////////////p3.1///////////////
-  /* if(addr>=0 && addr<PGSIZE){ */
-  /*   cprintf("fetchint: addr %d\n",addr); */
-  /*   //    return -1; */
-  /* } */
-  ////////////////////////////////////
-  
   *ip = *(int*)(addr);
   return 0;
 }
@@ -50,7 +43,13 @@ fetchstr(struct proc *p, uint addr, char **pp)
   ////////////////////////////////////
   
   *pp = (char*)addr;
-  ep = (char*)p->sz;
+  
+  //////////////////p3.1///////////////
+  ep=(char *) USERTOP;
+  ////////////////////////////////////
+
+  /* ep = (char*)p->sz; */
+
   for(s = *pp; s < ep; s++)
     if(*s == 0)
       return s - *pp;
@@ -77,6 +76,14 @@ argptr(int n, char **pp, int size)
   
   if((uint)i >= proc->sz || (uint)i+size > proc->sz)
     return -1;
+  
+  //////////////////p3.1///////////////
+  if((uint)i>=0 && (uint)i<PGSIZE){
+    cprintf("in argptr. try to acess the first page. addr: %d\n",(uint)i);
+    return -1;
+  }
+  ////////////////////////////////////
+  
   *pp = (char*)i;
   return 0;
 }

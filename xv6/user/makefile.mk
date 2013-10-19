@@ -13,6 +13,7 @@ USER_PROGS := \
 	rm\
 	hello\
 	sh\
+	stackTest\
 	stressfs\
 	tester\
 	usertests\

@@ -158,6 +158,7 @@ fork(void)
   pid = np->pid;
   np->state = RUNNABLE;
   safestrcpy(np->name, proc->name, sizeof(proc->name));
+  cprintf("about to run pid:%d\n",pid);
   return pid;
 }
 

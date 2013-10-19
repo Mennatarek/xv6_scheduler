@@ -64,12 +64,24 @@ exec(char *path, char **argv)
   ip = 0;
 
   // Allocate a one-page stack at the next page boundary
-  sz = PGROUNDUP(sz);
-  if((sz = allocuvm(pgdir, sz, sz + PGSIZE)) == 0)
-    goto bad;
+  /* sz = PGROUNDUP(sz); */
+  /* if((sz = allocuvm(pgdir, sz, sz + PGSIZE)) == 0) */
+  /*   goto bad; */
+  /* sp = sz; */
 
+  /////////////////////////p3.2/////////////////////////
+  // allocate the last page in user space for stack
+  int stack_top; //top of stack. (end of the virtual address,since stack grows backward)
+  if((stack_top = allocuvm(pgdir, USERTOP-PGSIZE, USERTOP)) == 0)
+    goto bad;
+  ///////////////////////////////////////////////////
+  
+  cprintf("USERTOP: %x\n",USERTOP);
+  cprintf("stack_top: %x\n",stack_top);
   // Push argument strings, prepare rest of stack in ustack.
-  sp = sz;
+  sp = stack_top;
+
+  
   for(argc = 0; argv[argc]; argc++) {
     if(argc >= MAXARG)
       goto bad;
