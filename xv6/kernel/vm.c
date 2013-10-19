@@ -52,6 +52,7 @@ seginit(void)
 static pte_t *
 walkpgdir(pde_t *pgdir, const void *va, int create)
 {
+  //pde_t type itself is just a uint
   pde_t *pde;
   pte_t *pgtab;
 
@@ -120,9 +121,9 @@ mappages(pde_t *pgdir, void *la, uint size, uint pa, int perm)
 // (both in physical memory and in the kernel's virtual address
 // space).
 static struct kmap {
-  void *p;
-  void *e;
-  int perm;
+  void *p; //linear address (both virtual address and physical addr)
+  void *e; // end of linear address
+  int perm; // permission
 } kmap[] = {
   {(void*)USERTOP,    (void*)0x100000, PTE_W},  // I/O space
   {(void*)0x100000,   data,            0    },  // kernel text, rodata
@@ -141,6 +142,7 @@ setupkvm(void)
     return 0;
   memset(pgdir, 0, PGSIZE);
   k = kmap;
+  //for each element in kmap
   for(k = kmap; k < &kmap[NELEM(kmap)]; k++)
     if(mappages(pgdir, k->p, k->e - k->p, (uint)k->p, k->perm) < 0)
       return 0;
@@ -193,6 +195,7 @@ inituvm(pde_t *pgdir, char *init, uint sz)
   
   if(sz >= PGSIZE)
     panic("inituvm: more than a page");
+  
   mem = kalloc();
   memset(mem, 0, PGSIZE);
   mappages(pgdir, 0, PGSIZE, PADDR(mem), PTE_W|PTE_U);
@@ -223,6 +226,7 @@ loaduvm(pde_t *pgdir, char *addr, struct inode *ip, uint offset, uint sz)
   return 0;
 }
 
+
 // Allocate page tables and physical memory to grow process from oldsz to
 // newsz, which need not be page aligned.  Returns new size or 0 on error.
 int
@@ -237,6 +241,7 @@ allocuvm(pde_t *pgdir, uint oldsz, uint newsz)
     return oldsz;
 
   a = PGROUNDUP(oldsz);
+  
   for(; a < newsz; a += PGSIZE){
     mem = kalloc();
     if(mem == 0){
@@ -245,6 +250,7 @@ allocuvm(pde_t *pgdir, uint oldsz, uint newsz)
       return 0;
     }
     memset(mem, 0, PGSIZE);
+    // add such page info into page directory
     mappages(pgdir, (char*)a, PGSIZE, PADDR(mem), PTE_W|PTE_U);
   }
   return newsz;
@@ -306,7 +312,15 @@ copyuvm(pde_t *pgdir, uint sz)
 
   if((d = setupkvm()) == 0)
     return 0;
-  for(i = 0; i < sz; i += PGSIZE){
+  /////////////////////p3.1/////////////////
+  // when copy parent address space
+  // ignore the first invalid pte for ptr
+  // make the first page invalid
+  /////////////////////////////////////////
+  i=PGSIZE;
+  
+  //  for(i=0; i < sz; i += PGSIZE){
+  for(; i < sz; i += PGSIZE){
     if((pte = walkpgdir(pgdir, (void*)i, 0)) == 0)
       panic("copyuvm: pte should exist");
     if(!(*pte & PTE_P))

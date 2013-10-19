@@ -27,6 +27,7 @@ struct elfhdr {
 struct proghdr {
   uint type;
   uint offset;
+  //the start of virtual address
   uint va;
   uint pa;
   uint filesz;

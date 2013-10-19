@@ -28,11 +28,19 @@ exec(char *path, char **argv)
   if(elf.magic != ELF_MAGIC)
     goto bad;
 
+  //try to setup the kernel part of a page table
   if((pgdir = setupkvm()) == 0)
     goto bad;
+  
+  //  cprintf("page directory addr when first assigned: %x\n",pgdir);
 
-  // Load program into memory.
-  sz = 0;
+  //////////////////////////////////////p3.1//////////////
+  //call method in vm.c to make an invalid page entry
+  //for address 0 with the length of 1 page size
+  //start the valid virtual address from 1 page size
+  sz=PGSIZE;
+  /////////////////////////////////////////////////////////
+  
   for(i=0, off=elf.phoff; i<elf.phnum; i++, off+=sizeof(ph)){
     if(readi(ip, (char*)&ph, off, sizeof(ph)) != sizeof(ph))
       goto bad;
@@ -40,10 +48,17 @@ exec(char *path, char **argv)
       continue;
     if(ph.memsz < ph.filesz)
       goto bad;
+
+    //ph.va is 0x1000 when user makefile has changed
+    //    cprintf("ph.va: %d\n",ph.va);
+    
     if((sz = allocuvm(pgdir, sz, ph.va + ph.memsz)) == 0)
       goto bad;
+
+    //load the bytes from file into memory
     if(loaduvm(pgdir, (char*)ph.va, ip, ph.offset, ph.filesz) < 0)
       goto bad;
+
   }
   iunlockput(ip);
   ip = 0;
@@ -73,7 +88,7 @@ exec(char *path, char **argv)
   sp -= (3+argc+1) * 4;
   if(copyout(pgdir, sp, ustack, (3+argc+1)*4) < 0)
     goto bad;
-
+  
   // Save program name for debugging.
   for(last=s=path; *s; s++)
     if(*s == '/')
@@ -84,6 +99,9 @@ exec(char *path, char **argv)
   oldpgdir = proc->pgdir;
   proc->pgdir = pgdir;
   proc->sz = sz;
+
+  //when first called, start init process in the user program
+  //  cprintf("in kernel: elf.entry: %d\n",elf.entry);
   proc->tf->eip = elf.entry;  // main
   proc->tf->esp = sp;
   switchuvm(proc);
