@@ -17,8 +17,20 @@
 int
 fetchint(struct proc *p, uint addr, int *ip)
 {
-  if(addr >= p->sz || addr+4 > p->sz)
-    return -1;
+  ////////////////p3.2///////////////////
+  // now the stack is at the end
+  // should over the p->sz
+  /////////////////////////////////////
+
+  if(addr >= p->sz || addr+4 > p->sz){
+    /////////////////p3.2//////////////    
+    //fine if in stack. throw error if not in stack
+    if (addr < USERTOP-PGSIZE || addr+4 < USERTOP-PGSIZE)
+      return -1;
+  }
+
+  /* if(addr >= p->sz || addr+4 > p->sz) */
+  /*   return -1; */
   
   *ip = *(int*)(addr);
   return 0;
@@ -33,9 +45,15 @@ fetchstr(struct proc *p, uint addr, char **pp)
   char *s, *ep;
 
   if(addr >= p->sz)
-    return -1;
+    /////////////////p3.2//////////////    
+    if (addr < USERTOP-PGSIZE)
+      return -1;
   
   //////////////////p3.1///////////////
+  //// encounter problem//////////////
+  //// initCode.S place argument /////
+  //// in the first page ////////////
+  ///////////////////////////////////
   /* if(addr>=0 && addr<PGSIZE){ */
   /*   cprintf("fetchstr: addr %d\n",addr); */
   /*   //    return -1; */
@@ -44,8 +62,11 @@ fetchstr(struct proc *p, uint addr, char **pp)
   
   *pp = (char*)addr;
   
-  //////////////////p3.1///////////////
-  ep=(char *) USERTOP;
+  //////////////////p3.2///////////////
+  // end of searching
+  // right now assuming the stack is only
+  // 1 page large at the end of usertop
+  ep=(char *)USERTOP;
   ////////////////////////////////////
 
   /* ep = (char*)p->sz; */
@@ -75,7 +96,9 @@ argptr(int n, char **pp, int size)
     return -1;
   
   if((uint)i >= proc->sz || (uint)i+size > proc->sz)
-    return -1;
+    /////////////////p3.2//////////////
+    if ((uint)i < USERTOP-PGSIZE || (uint)i+size < USERTOP-PGSIZE)
+      return -1;
   
   //////////////////p3.1///////////////
   if((uint)i>=0 && (uint)i<PGSIZE){

@@ -312,13 +312,15 @@ copyuvm(pde_t *pgdir, uint sz)
 
   if((d = setupkvm()) == 0)
     return 0;
+  
   /////////////////////p3.1/////////////////
   // when copy parent address space
   // ignore the first invalid pte for ptr
   // make the first page invalid
   /////////////////////////////////////////
   i=PGSIZE;
-  
+
+  ////////////////////p3.2///////////////
   //  for(i=0; i < sz; i += PGSIZE){
   for(; i < sz; i += PGSIZE){
     if((pte = walkpgdir(pgdir, (void*)i, 0)) == 0)
@@ -333,6 +335,7 @@ copyuvm(pde_t *pgdir, uint sz)
       goto bad;
   }
 
+  //  cprintf("enter in copyuvm\n");
   ////////////////////p3.2/////////////////
   //copy one-page stack at the end of va
   ////////////////////////////////////////

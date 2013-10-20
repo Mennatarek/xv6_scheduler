@@ -64,7 +64,9 @@ exec(char *path, char **argv)
   ip = 0;
 
   // Allocate a one-page stack at the next page boundary
-  /* sz = PGROUNDUP(sz); */
+  /////////////////p3.2/////////////////
+  //still need to round up, since proc->sz get sz
+  sz = PGROUNDUP(sz);
   /* if((sz = allocuvm(pgdir, sz, sz + PGSIZE)) == 0) */
   /*   goto bad; */
   /* sp = sz; */
@@ -76,12 +78,9 @@ exec(char *path, char **argv)
     goto bad;
   ///////////////////////////////////////////////////
   
-  cprintf("USERTOP: %x\n",USERTOP);
-  cprintf("stack_top: %x\n",stack_top);
   // Push argument strings, prepare rest of stack in ustack.
   sp = stack_top;
 
-  
   for(argc = 0; argv[argc]; argc++) {
     if(argc >= MAXARG)
       goto bad;
