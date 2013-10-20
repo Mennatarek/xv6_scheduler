@@ -64,27 +64,33 @@ exec(char *path, char **argv)
   ip = 0;
 
   // Allocate a one-page stack at the next page boundary
+  //  cprintf("in exec.c. calling allocuvm for stack\n");
   sz = PGROUNDUP(sz);
   if((sz = allocuvm(pgdir, sz, sz + PGSIZE)) == 0)
     goto bad;
 
   // Push argument strings, prepare rest of stack in ustack.
+  //copy the command line argument argv content to stack
   sp = sz;
   for(argc = 0; argv[argc]; argc++) {
     if(argc >= MAXARG)
       goto bad;
     sp -= strlen(argv[argc]) + 1;
     sp &= ~3;
+    //    cprintf("in exec.c. set up stack. sp: %x, argv: %x\n",sp,argv);
+    //copy argv[argc] to the user virtual addr starting from sp
     if(copyout(pgdir, sp, argv[argc], strlen(argv[argc]) + 1) < 0)
       goto bad;
     ustack[3+argc] = sp;
   }
   ustack[3+argc] = 0;
 
+  //set up user stack, argc value, argv pointer ( still in kernel )
   ustack[0] = 0xffffffff;  // fake return PC
   ustack[1] = argc;
   ustack[2] = sp - (argc+1)*4;  // argv pointer
 
+  //copy the full user stack to user process
   sp -= (3+argc+1) * 4;
   if(copyout(pgdir, sp, ustack, (3+argc+1)*4) < 0)
     goto bad;
