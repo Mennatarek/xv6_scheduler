@@ -41,6 +41,11 @@ sys_getpid(void)
   return proc->pid;
 }
 
+// grow user memory space
+//growproc is in proc.c
+// seems to return the old memory space size
+// the paramter passed can be positive or negative
+// when negative -- shrink user memory space
 int
 sys_sbrk(void)
 {
@@ -49,6 +54,20 @@ sys_sbrk(void)
 
   if(argint(0, &n) < 0)
     return -1;
+  
+  ////////////////////p3.2///////////////////////
+  // add check: prevent heap overwritting on stack
+  ///////////////////////////////////////////////
+  // stack_sz will always keep as the multiples of PGSIZE  
+  int stack=proc->stack_sz;
+  int page_n = PGROUNDUP(n);
+  int heap = PGROUNDUP(proc->sz);
+  if (heap + page_n > USERTOP - stack){
+    panic("from sys_sbrk: heap is going to overwriting stack!");
+    return -1;
+  }
+  ///////////////////////////////////////////////////////
+    
   addr = proc->sz;
   if(growproc(n) < 0)
     return -1;

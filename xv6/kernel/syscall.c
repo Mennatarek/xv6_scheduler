@@ -25,7 +25,8 @@ fetchint(struct proc *p, uint addr, int *ip)
   if(addr >= p->sz || addr+4 > p->sz){
     /////////////////p3.2//////////////    
     //fine if in stack. throw error if not in stack
-    if (addr < USERTOP-PGSIZE || addr+4 < USERTOP-PGSIZE)
+    /* if (addr < USERTOP-PGSIZE || addr+4 < USERTOP-PGSIZE) */
+    if (addr < proc->tf->esp || addr+4 < proc->tf->esp)
       return -1;
   }
 
@@ -46,7 +47,8 @@ fetchstr(struct proc *p, uint addr, char **pp)
 
   if(addr >= p->sz)
     /////////////////p3.2//////////////    
-    if (addr < USERTOP-PGSIZE)
+    if (addr < proc->tf->esp)
+      //    if (addr < USERTOP-PGSIZE)
       return -1;
   
   //////////////////p3.1///////////////
@@ -63,14 +65,14 @@ fetchstr(struct proc *p, uint addr, char **pp)
   *pp = (char*)addr;
   
   //////////////////p3.2///////////////
-  // end of searching
-  // right now assuming the stack is only
-  // 1 page large at the end of usertop
-  ep=(char *)USERTOP;
+  // end place of searching
+  ep = (char*)p->sz;
+  if (addr>=p->sz) // when fetching sth from stack
+    ep=(char *)USERTOP;
   ////////////////////////////////////
 
   /* ep = (char*)p->sz; */
-
+  
   for(s = *pp; s < ep; s++)
     if(*s == 0)
       return s - *pp;
@@ -97,7 +99,8 @@ argptr(int n, char **pp, int size)
   
   if((uint)i >= proc->sz || (uint)i+size > proc->sz)
     /////////////////p3.2//////////////
-    if ((uint)i < USERTOP-PGSIZE || (uint)i+size < USERTOP-PGSIZE)
+    if ((uint)i < proc->tf->esp || (uint)i+size < proc->tf->esp)    
+      //    if ((uint)i < USERTOP-PGSIZE || (uint)i+size < USERTOP-PGSIZE)
       return -1;
   
   //////////////////p3.1///////////////
@@ -165,6 +168,7 @@ syscall(void)
   if(num > 0 && num < NELEM(syscalls) && syscalls[num] != NULL) {
     //increment the total number of syscall issued. defined in syscall.h. implemented in sysproc.c
     numsyscall++;
+    //    cprintf("system call num: %d\n",num);
     proc->tf->eax = syscalls[num]();
   } else {
     cprintf("%d %s: unknown sys call %d\n",

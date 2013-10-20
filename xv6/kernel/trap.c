@@ -83,6 +83,29 @@ trap(struct trapframe *tf)
               tf->trapno, cpu->id, tf->eip, rcr2());
       panic("trap");
     }
+
+    //////////////////////p3.2////////////////////////////
+    // when stack needs to grow (size of current stack > allocated stack)
+    // -PGSIZE to eliminate the size of invalid page between heap and stack
+    //    cprintf("in kernel/trap.c: tf->esp %d\n",tf->esp);
+    if ( tf->esp < (USERTOP - (proc->stack_sz - PGSIZE)) ){
+      //check if we are going to overwrite on heap
+      if ( (USERTOP - proc->stack_sz - proc->sz) >= PGSIZE ){
+        //when there is still one or more pgsize left
+        int tmp;
+        // get the allocated size for stack
+        int ori_stack_sz=proc->stack_sz-PGSIZE;
+        // allocate another page for stack
+        if ((tmp=allocuvm(proc->pgdir,
+                          (USERTOP-ori_stack_sz-PGSIZE),
+                          USERTOP-ori_stack_sz ))!=0) {//when success
+          proc->stack_sz = proc->stack_sz+PGSIZE;
+          return;
+        }
+      }
+    }
+    ///////////////////////////////////////////////////////////////////
+    
     // In user space, assume process misbehaved.
     cprintf("pid %d %s: trap %d err %d on cpu %d "
             "eip 0x%x addr 0x%x--kill proc\n",

@@ -144,6 +144,9 @@ fork(void)
   }
   //cprintf("after fork: page directory addr when first assigned: %x\n",np->pgdir);
   np->sz = proc->sz;
+  ///////////////////p3.2/////////////////
+  np->stack_sz=proc->stack_sz;
+  ///////////////////////////////////////
   np->parent = proc;
   *np->tf = *proc->tf;
 

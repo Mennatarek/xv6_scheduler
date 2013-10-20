@@ -18,6 +18,7 @@ USER_PROGS := \
 	tester\
 	usertests\
 	nullPointer\
+	largeStackTest\
 	wc\
 	zombie
 

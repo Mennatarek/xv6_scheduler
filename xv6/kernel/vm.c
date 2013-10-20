@@ -337,18 +337,41 @@ copyuvm(pde_t *pgdir, uint sz)
 
   //  cprintf("enter in copyuvm\n");
   ////////////////////p3.2/////////////////
-  //copy one-page stack at the end of va
+  //copy stack at the end of va (the first page of stack is invalid)
+  // to separate heap and stack
   ////////////////////////////////////////
-  if((pte = walkpgdir(pgdir, (void*)USERTOP-PGSIZE, 0)) == 0)
-    panic("copyuvm: pte should exist");
-  if(!(*pte & PTE_P))
-    panic("copyuvm: page not present");
-  pa = PTE_ADDR(*pte);
-  if((mem = kalloc()) == 0)
-    goto bad;
-  memmove(mem, (char*)pa, PGSIZE);
-  if(mappages(d, (void*)USERTOP-PGSIZE, PGSIZE, PADDR(mem), PTE_W|PTE_U) < 0)
-    goto bad;
+  i=PGSIZE;
+  int stack_sz=proc->stack_sz;
+  ////////////////////p3.2///////////////
+  //need to check if the proc here work or not
+  //should be working
+  for(; i < stack_sz; i += PGSIZE){
+    int stack_va= (USERTOP - stack_sz + i);
+    if((pte = walkpgdir(pgdir, (void*)stack_va, 0)) == 0)
+      panic("copyuvm: pte should exist");
+    if(!(*pte & PTE_P))
+      panic("copyuvm: page not present");
+    pa = PTE_ADDR(*pte);
+    if((mem = kalloc()) == 0)
+      goto bad;
+    memmove(mem, (char*)pa, PGSIZE);
+    if(mappages(d, (void*)stack_va, PGSIZE, PADDR(mem), PTE_W|PTE_U) < 0)
+      goto bad;
+  }
+
+  ////////////////////p3.2/////////////////
+  //copy one-page stack at the end of va 
+  ////////////////////////////////////////
+  /* if((pte = walkpgdir(pgdir, (void*)USERTOP-PGSIZE, 0)) == 0) */
+  /*   panic("copyuvm: pte should exist"); */
+  /* if(!(*pte & PTE_P)) */
+  /*   panic("copyuvm: page not present"); */
+  /* pa = PTE_ADDR(*pte); */
+  /* if((mem = kalloc()) == 0) */
+  /*   goto bad; */
+  /* memmove(mem, (char*)pa, PGSIZE); */
+  /* if(mappages(d, (void*)USERTOP-PGSIZE, PGSIZE, PADDR(mem), PTE_W|PTE_U) < 0) */
+  /*   goto bad; */
   ///////////////////////////////////////////////
   
   return d;

@@ -77,7 +77,8 @@ exec(char *path, char **argv)
   if((stack_top = allocuvm(pgdir, USERTOP-PGSIZE, USERTOP)) == 0)
     goto bad;
   ///////////////////////////////////////////////////
-  
+
+  //cprintf("stack end addr: %d\n",USERTOP-PGSIZE);
   // Push argument strings, prepare rest of stack in ustack.
   sp = stack_top;
 
@@ -110,11 +111,18 @@ exec(char *path, char **argv)
   oldpgdir = proc->pgdir;
   proc->pgdir = pgdir;
   proc->sz = sz;
-
+  ////////////////p3.2//////////////////////
+  proc->stack_sz=PGSIZE+PGSIZE; // note only 1 PG is allocated right now.
+  // add another PGSIZE to make sure there is always 1 invalid page
+  // between heap and stack
+  //////////////////////////////////////////
+  
   //when first called, start init process in the user program
   //  cprintf("in kernel: elf.entry: %d\n",elf.entry);
   proc->tf->eip = elf.entry;  // main
   proc->tf->esp = sp;
+
+
   switchuvm(proc);
   freevm(oldpgdir);
 
