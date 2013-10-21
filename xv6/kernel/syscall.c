@@ -26,13 +26,20 @@ fetchint(struct proc *p, uint addr, int *ip)
     /////////////////p3.2//////////////    
     //fine if in stack. throw error if not in stack
     /* if (addr < USERTOP-PGSIZE || addr+4 < USERTOP-PGSIZE) */
-    if ( addr < (USERTOP - (p->stack_sz-PGSIZE)) || addr+4 < (USERTOP - (p->stack_sz-PGSIZE)) )
+    if ( addr < (USERTOP - (p->stack_sz-PGSIZE)) || addr >= USERTOP || addr+4 > USERTOP )
     /* if (addr < proc->tf->esp || addr+4 < proc->tf->esp) */
       return -1;
   }
 
-  /* if(addr >= p->sz || addr+4 > p->sz) */
-  /*   return -1; */
+  //////////////////p3.1///////////////
+  //// initCode.S place argument /////
+  //// in the first page ////////////
+  //// need to exclude such case when checking//
+  ///////////////////////////////////
+  if (1 != p->pid && (addr<PGSIZE)){
+    cprintf("in fetchstr. try to acess the first page. addr: %d\n",addr);    
+    return -1;
+  }
   
   *ip = *(int*)(addr);
   return 0;
@@ -48,20 +55,19 @@ fetchstr(struct proc *p, uint addr, char **pp)
 
   if(addr >= p->sz)
     /////////////////p3.2//////////////    
-    if (addr < (USERTOP - (p->stack_sz - PGSIZE)) )
+    if (addr < (USERTOP - (p->stack_sz - PGSIZE)) || addr>=USERTOP )
       //    if (addr < USERTOP-PGSIZE)
       return -1;
   
   //////////////////p3.1///////////////
-  //// encounter problem//////////////
   //// initCode.S place argument /////
   //// in the first page ////////////
+  //// need to exclude such case when checking//
   ///////////////////////////////////
-  /* if(addr>=0 && addr<PGSIZE){ */
-  /*   cprintf("fetchstr: addr %d\n",addr); */
-  /*   //    return -1; */
-  /* } */
-  ////////////////////////////////////
+  if (1 != p->pid && (addr<PGSIZE)){
+    cprintf("in fetchstr. try to acess the first page. addr: %d\n",addr);
+    return -1;
+  }
   
   *pp = (char*)addr;
   
@@ -101,7 +107,9 @@ argptr(int n, char **pp, int size)
   if((uint)i >= proc->sz || (uint)i+size > proc->sz){
     /////////////////p3.2//////////////
     // for testing purpose don't use esp to check
-    if ((uint)i < (USERTOP - (proc->stack_sz-PGSIZE)) || (uint)i+size < (USERTOP - (proc->stack_sz-PGSIZE)) )
+    // stack pointer is not reliable since compiler may use
+    // the memory above it for local variables in some cases
+    if ((uint)i < (USERTOP - (proc->stack_sz-PGSIZE)) || (uint) i >= USERTOP ||  (uint) i+size > USERTOP )
       //    if ((uint)i < USERTOP-PGSIZE || (uint)i+size < USERTOP-PGSIZE)
       return -1;
   }

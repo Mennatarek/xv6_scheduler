@@ -17,6 +17,7 @@ USER_PROGS := \
 	stackTest\
 	stack3\
 	bounds3\
+	bounds4\
 	stressfs\
 	tester\
 	usertests\
