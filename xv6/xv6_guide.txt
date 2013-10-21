@@ -1,0 +1,157 @@
+1. add system call:
+
+For the xv6 project, I changed usys.S, user.h, syscall.c, syscall.h, sysproc.c and sysfunc.h files.
+
+For user programs, I added assembly code for "getsyscallinfo"(usys.S) to trap into kernel and do getsyscall in kernel. I also add the C function declaration for added assembly code in user.h
+
+For kernel, the declaration of "getsyscallinfo" system call handler is added to sysfunc.h. I also added the declaration of counter of system call here and "externed" it.
+An extra number for this particular trap hanlder is added to syscall.h.
+The system call array table is changed in syscall.c to give guide lines on where to jump into when trap entered syscall.c
+The implementation and definition of getsyscallinfo trap handler and the counter is added to sysproc.c file.
+
+note: for the system call that needs a parameter to pass in, use the argint() function defined in kernel syscall.c; In kernel files, all syscall should have paramter (void) in its declaration and implementation (sysproc.c). USE argint() to fetch the argument
+
+2. for p2.2
+   follow 1. to set up the systemcall int settickets(void) in sysproc.c. 
+   add "tickets" and "priority" to  struct proc in proc.h
+   download pstat.h into kernel
+
+   WRONG trial:
+   setup system call getpinfo: add argpstat and fetchpstat function in syscall.c to get the user program argument. Add the declaration of argpstat and fetchpstat in "defs.h"
+   correct way:
+   use argptr() to get the ptr
+   
+   use extern ptable in syscall.c. Redefine struct ptable_t in syscall.c.
+   
+   in progress: writing a user program that calls those two system call
+   problem: how to intiallly assign 1 ticket to every process? ---> we don't necessary need to!! we can solve that in the process of lottery
+   question: how does argptr() in syscall.c work???
+   
+   how to initialize process in high prioirty:
+       set the high priority attribute in struct proc: 0;
+
+   question: does the tickets of a process changes when it is moved from high-queue to low queue
+   typically in an OS: should we include the stdlib of c language?
+
+   add ticket initilization in allocproc function in proc.c
+       
+
+question: in vm.c:
+
+// The mappings from logical to linear are one to one (i.e.,
+// segmentation doesn't do anything).
+// There is one page table per process, plus one that's used
+// when a CPU is not running any process (kpgdir).
+// A user process uses the same page table as the kernel; the
+// page protection bits prevent it from using anything other
+// than its memory.
+// 
+// setupkvm() and exec() set up every page table like this:
+//   0..640K          : user memory (text, data, stack, heap)
+//   640K..1M         : mapped direct (for IO space)
+//   1M..end          : mapped direct (for the kernel's text and data)
+//   end..PHYSTOP     : mapped direct (kernel heap and user pages)
+//   0xfe000000..0    : mapped direct (devices such as ioapic)
+//
+// The kernel allocates memory for its heap and for user memory
+// between kernend and the end of physical memory (PHYSTOP).
+// The virtual address space of each user program includes the kernel
+// (which is inaccessible in user mode).  The user program addresses
+// range from 0 till 640KB (USERTOP), which where the I/O hole starts
+// (both in physical memory and in the kernel's virtual address
+// space).
+
+
+// The virtual address space of each user program includes the kernel
+// (which is inaccessible in user mode).  The user program addresses
+
+question:does that mean kernel exists in each user program's address spaces?
+
+3.
+kalloc in kalloc.c:
+      // Allocate one 4096-byte page of physical memory.                                                                                                         │
+      // Returns a pointer that the kernel can use.                                                                                                              │
+      // Returns 0 if the memory cannot be allocated.
+
+memset in string.c:
+just set the memory space to the second argument passed in.
+
+what is kmap doing?
+kmap may be the space that kernel is using for each process
+
+NELEM is defined as :
+#define NELEM(x) (sizeof(x)/sizeof((x)[0]))
+
+vm.c: walkpgdir
+will
+// Return the address of the PTE in page table pgdir
+// that corresponds to linear address va.  If create!=0,
+// create any required page table pages.
+
+nothing has been filled into that particular pte yet
+
+PTE permission is defined in mmu.h ??:
+PTE_p, etc
+
+edited:
+exec.c, vm.c, defs.h, proc.c
+
+readi is in fs.c:
+it just read in some inode
+
+flow:
+first initvum() in vm.c is called: the virtual space for the first process is set up to start from 0
+then sys_exec() is called
+then exec() is called trying to load the first user program (init)
+(should be trying to load user/init.c, but the elf entry is 0... since changed makefile should be 0x1000)
+
+deallocuvm() is called inside of exec.c
+and then returned to sys_exec in sysfile.c
+and then fork is called
+and then fork tries to start init process
+and then deallocuvm is again called. kfree panics
+
+changed myAlloc:
+need a correct way mark the page table entry as invalid
+
+3.1 working solution:
+changed the exec.c: sz
+changed vm.c: copyuvm: i
+changed user makefile
+add nullPointer.c
+
+3.2 analysis:
+1. for initcode.S, it calls sys_exec to start up user/init, at this time, the user stack is at the first page (start from the end of this page). The initcode.S is using the top of first page for the parameter "init"
+
+2. copyout: vm.c:
+it just copies *p (of len) to the desired virtual address in pdgir.
+copyout(pde_t *pgdir, uint va, void *p, uint len)
+
+3.2 :
+put stack to the end of address space. changed:
+exec.c: move stack to the end
+vm.c: copyuvm: copy the last page in virtual address
+syscall.c: when fetching argument for the kernel, loose the condition to include the last page
+
+system call: sys_sbrk: will grow the user memory space
+char* sbrk(int);
+
+try to grow the stack dynamically:
+1. when the user make a stack that is larger than originally assigned, hardware will generate an interrupt, we'll be jumped into trap.c
+   originally trap.c handles all these hardware fault by directly killing the process and print an error message. Need to add changes to trap.c
+
+2. add another field in the proc to keep trap of currently allocated top address of stack
+proc.h
+exec.c
+in trap.c: add growing stack backward code (check stack overwritting on heap)
+in sysproc.c: add checking before growing to prevent heap overwritting on stack
+changed the corresponding below to make it work for this multiple pages stack instead of simply one page:
+exec.c: move stack to the end
+vm.c: copyuvm: copy the last page in virtual address
+syscall.c: when fetching argument for the kernel, loose the condition to include the last page
+
+to do list:
+1. still need to test, when user passed an invalid poitner to kernel. And also heap running over stack, stack running over heap
+2. in trap.c: need to grow several pages according to the stack ptr in the proc. Right now is just allocating 1 page every time(using multiple traps)
+3. need to add more protection check for things like allocuvm (may need to free sth when failed)
+
