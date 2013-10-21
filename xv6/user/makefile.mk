@@ -15,6 +15,8 @@ USER_PROGS := \
 	collision\
 	sh\
 	stackTest\
+	stack3\
+	bounds3\
 	stressfs\
 	tester\
 	usertests\

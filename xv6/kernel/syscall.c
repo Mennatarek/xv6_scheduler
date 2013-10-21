@@ -26,7 +26,8 @@ fetchint(struct proc *p, uint addr, int *ip)
     /////////////////p3.2//////////////    
     //fine if in stack. throw error if not in stack
     /* if (addr < USERTOP-PGSIZE || addr+4 < USERTOP-PGSIZE) */
-    if (addr < proc->tf->esp || addr+4 < proc->tf->esp)
+    if ( addr < (USERTOP - (p->stack_sz-PGSIZE)) || addr+4 < (USERTOP - (p->stack_sz-PGSIZE)) )
+    /* if (addr < proc->tf->esp || addr+4 < proc->tf->esp) */
       return -1;
   }
 
@@ -47,7 +48,7 @@ fetchstr(struct proc *p, uint addr, char **pp)
 
   if(addr >= p->sz)
     /////////////////p3.2//////////////    
-    if (addr < proc->tf->esp)
+    if (addr < (USERTOP - (p->stack_sz - PGSIZE)) )
       //    if (addr < USERTOP-PGSIZE)
       return -1;
   
@@ -97,11 +98,13 @@ argptr(int n, char **pp, int size)
   if(argint(n, &i) < 0)
     return -1;
   
-  if((uint)i >= proc->sz || (uint)i+size > proc->sz)
+  if((uint)i >= proc->sz || (uint)i+size > proc->sz){
     /////////////////p3.2//////////////
-    if ((uint)i < proc->tf->esp || (uint)i+size < proc->tf->esp)    
+    // for testing purpose don't use esp to check
+    if ((uint)i < (USERTOP - (proc->stack_sz-PGSIZE)) || (uint)i+size < (USERTOP - (proc->stack_sz-PGSIZE)) )
       //    if ((uint)i < USERTOP-PGSIZE || (uint)i+size < USERTOP-PGSIZE)
       return -1;
+  }
   
   //////////////////p3.1///////////////
   if((uint)i>=0 && (uint)i<PGSIZE){
