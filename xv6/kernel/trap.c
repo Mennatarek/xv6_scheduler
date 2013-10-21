@@ -88,19 +88,21 @@ trap(struct trapframe *tf)
     // when stack needs to grow (size of current stack > allocated stack)
     // -PGSIZE to eliminate the size of invalid page between heap and stack
     //    cprintf("in kernel/trap.c: tf->esp %d\n",tf->esp);
-    if ( tf->esp < (USERTOP - (proc->stack_sz - PGSIZE)) ){
+    if ( (T_PGFLT == tf->trapno) &&  (tf->esp < (USERTOP - (proc->stack_sz - PGSIZE))) ){
       //check if we are going to overwrite on heap
       if ( (USERTOP - proc->stack_sz - proc->sz) >= PGSIZE ){
         //when there is still one or more pgsize left
-        int tmp;
         // get the allocated size for stack
         int ori_stack_sz=proc->stack_sz-PGSIZE;
+        // get the actual size intended to grow
+        int grow_sz=PGROUNDUP((USERTOP - tf->esp)- ori_stack_sz );
+        int tmp;
         // allocate another page for stack
         if ((tmp=allocuvm(proc->pgdir,
-                          (USERTOP-ori_stack_sz-PGSIZE),
+                          (USERTOP-ori_stack_sz-grow_sz),
                           USERTOP-ori_stack_sz ))!=0) {//when success
-          proc->stack_sz = proc->stack_sz+PGSIZE;
-          return;
+          proc->stack_sz = proc->stack_sz+grow_sz;
+        return;
         }
       }
     }
