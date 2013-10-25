@@ -88,12 +88,9 @@ trap(struct trapframe *tf)
     // when stack needs to grow (size of current stack > allocated stack)
     // -PGSIZE to eliminate the size of invalid page between heap and stack
     //    cprintf("in kernel/trap.c: tf->esp %d\n",tf->esp);
-    int stack_sz=proc->stack_sz;
-    cprintf("stack_sz:%d\n",stack_sz);
-    //    cprintf("stack pointer:%d\n",tf->esp);
     //get the virtual addr that causes the trap
     int invalidAddr=rcr2();
-    cprintf("invalidAddr:%d\n",invalidAddr);
+    //    cprintf("invalidAddr:%d\n",invalidAddr);
     // have some doubts when tf->esp == (USERTOP - ....)
     // may be the situation when the user is allocating some stuff, but the stack pointer
     // hasn't changed
@@ -114,7 +111,7 @@ trap(struct trapframe *tf)
                           (USERTOP-ori_stack_sz-grow_sz),
                           USERTOP-ori_stack_sz ))!=0) {//when success
           proc->stack_sz = proc->stack_sz+grow_sz;
-          cprintf("valid stack page top:%d\n",USERTOP - (proc->stack_sz - PGSIZE));
+          //cprintf("valid stack page top:%d\n",USERTOP - (proc->stack_sz - PGSIZE));
         return;
         }
       }
