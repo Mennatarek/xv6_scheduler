@@ -11,7 +11,7 @@ exec(char *path, char **argv)
 {
   char *s, *last;
   int i, off;
-  uint argc, sz, sp, ustack[3+MAXARG+1];
+  uint argc, sz, sp, ustack[3+MAXARG+1]; // user stack is 3 + MAXARG + 1
   struct elfhdr elf;
   struct inode *ip;
   struct proghdr ph;
@@ -55,22 +55,31 @@ exec(char *path, char **argv)
 
   // Push argument strings, prepare rest of stack in ustack.
   sp = sz;
+
+  // argv is just the command line argument
+  // on the user stack:
+  // at the end : command line argument
   for(argc = 0; argv[argc]; argc++) {
     if(argc >= MAXARG)
       goto bad;
+    //"+1" probably is due to the "\0" at the end
     sp -= strlen(argv[argc]) + 1;
+    // 4-byte aligned
     sp &= ~3;
+    //copyout will copy the argv[argc] to the va specified by sp
     if(copyout(pgdir, sp, argv[argc], strlen(argv[argc]) + 1) < 0)
       goto bad;
+    //ustack is recording the address of the argument
     ustack[3+argc] = sp;
   }
-  ustack[3+argc] = 0;
+  ustack[3+argc] = 0; //set last(bottom) element of valid stack to be 0
 
   ustack[0] = 0xffffffff;  // fake return PC
-  ustack[1] = argc;
+  ustack[1] = argc; // number of arguments
   ustack[2] = sp - (argc+1)*4;  // argv pointer
 
   sp -= (3+argc+1) * 4;
+  //copy ustack to the addr space use it as user stack for this process
   if(copyout(pgdir, sp, ustack, (3+argc+1)*4) < 0)
     goto bad;
 

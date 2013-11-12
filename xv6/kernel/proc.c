@@ -52,7 +52,9 @@ found:
     p->state = UNUSED;
     return 0;
   }
-  sp = p->kstack + KSTACKSIZE;
+  
+  // the end of that page, KSTACKSIZE is 4096 ( size of one page)  
+  sp = p->kstack + KSTACKSIZE; 
   
   // Leave room for trap frame.
   sp -= sizeof *p->tf;
@@ -130,11 +132,12 @@ fork(void)
   int i, pid;
   struct proc *np;
 
-  // Allocate process.
+  // Allocate and create process in process table
+  // allocproc will create a kernel stack and initilize it for the thread
   if((np = allocproc()) == 0)
     return -1;
 
-  // Copy process state from p.
+  // Copy process state from p. copyuvm will return 0 is there is no physical space for allocation
   if((np->pgdir = copyuvm(proc->pgdir, proc->sz)) == 0){
     kfree(np->kstack);
     np->kstack = 0;
@@ -143,18 +146,21 @@ fork(void)
   }
   np->sz = proc->sz;
   np->parent = proc;
-  *np->tf = *proc->tf;
+  *np->tf = *proc->tf; // the tf space is allocaed in allocproc();
 
   // Clear %eax so that fork returns 0 in the child.
   np->tf->eax = 0;
 
+  // copy the opened file to the new process
   for(i = 0; i < NOFILE; i++)
     if(proc->ofile[i])
       np->ofile[i] = filedup(proc->ofile[i]);
+  //copy current directory 
   np->cwd = idup(proc->cwd);
  
   pid = np->pid;
-  np->state = RUNNABLE;
+  np->state = RUNNABLE; // when first created, it is EMBRYO state
+  //copy file name
   safestrcpy(np->name, proc->name, sizeof(proc->name));
   return pid;
 }
