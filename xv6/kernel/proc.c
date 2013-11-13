@@ -182,7 +182,12 @@ clone(void)
     return -1;
   if (argptr(2, (void*)&stack, sizeof(stack)) < 0)
     return -1;
-  
+
+  //check whether the stack ptr passed in is valie
+  if((uint)stack % PGSIZE != 0)
+    return -1;
+  if ((uint)stack + PGSIZE > proc->sz)
+    return -1;
   /* cprintf("size of fcn:%x, size of *fcn:%x\n",sizeof(fcn),sizeof(*fcn)); */
   /* cprintf("fcn:%x, arg:%x, stack:%x\n",fcn,arg,stack); */
   
@@ -302,10 +307,12 @@ join(void)
     // Scan through table looking for zombie children.
     havekids = 0;
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-      if(p->parent != proc)
+      if(p->parent != proc ||  0==p->isThread) // check it is indeed a thread, not a process
         continue;
       havekids = 1;
-      if(p->state == ZOMBIE && *childStack==p->stack ){
+
+      if(p->state == ZOMBIE ){ 
+        cprintf("in join: find child thread: pid: %d\n",p->pid);        
         // Found one.
         pid = p->pid;
         kfree(p->kstack);
@@ -317,6 +324,8 @@ join(void)
         p->name[0] = 0;
         p->killed = 0;
         release(&ptable.lock);
+        //copy the location of child stack to childStack
+        *childStack=p->stack;
         return pid;
       }
     }
@@ -344,7 +353,7 @@ wait(void)
     // Scan through table looking for zombie children.
     havekids = 0;
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-      if(p->parent != proc)
+      if(p->parent != proc || 1==p->isThread) //p4: handle only process not thread
         continue;
       havekids = 1;
       if(p->state == ZOMBIE){

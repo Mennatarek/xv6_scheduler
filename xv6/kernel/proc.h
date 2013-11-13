@@ -76,7 +76,7 @@ struct proc {
   char name[16];               // Process name (debugging)
   uint isThread; //p4. label whether it is a thread
   void* stack;//p4. top addr of the page user stack is in for this thread, if this is a thread. invalid, if it's a process
-}
+};
 
 // Process memory is laid out contiguously, low addresses first:
 //   text

@@ -7,7 +7,9 @@ build xv6 using make
 **********************************************************************
 Trying to clean project using make clean
 make clean
-rm -rf kernel/bio.o kernel/console.o kernel/exec.o kernel/file.o kernel/fs.o kernel/ide.o kernel/ioapic.o kernel/kalloc.o kernel/kbd.o kernel/lapic.o kernel/main.o kernel/mp.o kernel/picirq.o kernel/pipe.o kernel/proc.o kernel/spinlock.o kernel/string.o kernel/swtch.o kernel/syscall.o kernel/sysfile.o kernel/sysproc.o kernel/timer.o kernel/trapasm.o kernel/trap.o kernel/uart.o kernel/vectors.o kernel/vm.o kernel/bootmain.o kernel/bootasm.o kernel/multiboot.o kernel/data.o kernel/bootother.o kernel/initcode.o kernel/bio.d kernel/console.d kernel/exec.d kernel/file.d kernel/fs.d kernel/ide.d kernel/ioapic.d kernel/kalloc.d kernel/kbd.d kernel/lapic.d kernel/main.d kernel/mp.d kernel/picirq.d kernel/pipe.d kernel/proc.d kernel/spinlock.d kernel/string.d kernel/swtch.d kernel/syscall.d kernel/sysfile.d kernel/sysproc.d kernel/timer.d kernel/trapasm.d kernel/trap.d kernel/uart.d kernel/vectors.d kernel/vm.d kernel/bootmain.d kernel/bootasm.d kernel/multiboot.d kernel/data.d kernel/bootother.d kernel/initcode.d kernel/vectors.S kernel/bootblock kernel/bootblock.out kernel/bootother.out kernel/initcode.out kernel/kernel bootother initcode xv6.img user/bin user/cat user/echo user/forktest user/grep user/init user/kill user/ln user/ls user/mkdir user/rm user/hello user/sh user/stressfs user/tester user/usertests user/wc user/zombie user/cat.o user/echo.o user/forktest.o user/grep.o user/init.o user/kill.o user/ln.o user/ls.o user/mkdir.o user/rm.o user/hello.o user/sh.o user/stressfs.o user/tester.o user/usertests.o user/wc.o user/zombie.o user/ulib.o user/usys.o user/printf.o user/umalloc.o user/cat.d user/echo.d user/forktest.d user/grep.d user/init.d user/kill.d user/ln.d user/ls.d user/mkdir.d user/rm.d user/hello.d user/sh.d user/stressfs.d user/tester.d user/usertests.d user/wc.d user/zombie.d user/ulib.d user/usys.d user/printf.d user/umalloc.d tools/mkfs tools/mkfs.o tools/mkfs.d fs fs.img .gdbinit .bochsrc dist
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG kernel/proc.c -MF kernel/proc.d -MT kernel/proc.d -MT kernel/proc.o
+rm -rf kernel/bio.o kernel/console.o kernel/exec.o kernel/file.o kernel/fs.o kernel/ide.o kernel/ioapic.o kernel/kalloc.o kernel/kbd.o kernel/lapic.o kernel/main.o kernel/mp.o kernel/picirq.o kernel/pipe.o kernel/proc.o kernel/spinlock.o kernel/string.o kernel/swtch.o kernel/syscall.o kernel/sysfile.o kernel/sysproc.o kernel/timer.o kernel/trapasm.o kernel/trap.o kernel/uart.o kernel/vectors.o kernel/vm.o kernel/bootmain.o kernel/bootasm.o kernel/multiboot.o kernel/data.o kernel/bootother.o kernel/initcode.o kernel/bio.d kernel/console.d kernel/exec.d kernel/file.d kernel/fs.d kernel/ide.d kernel/ioapic.d kernel/kalloc.d kernel/kbd.d kernel/lapic.d kernel/main.d kernel/mp.d kernel/picirq.d kernel/pipe.d kernel/proc.d kernel/spinlock.d kernel/string.d kernel/swtch.d kernel/syscall.d kernel/sysfile.d kernel/sysproc.d kernel/timer.d kernel/trapasm.d kernel/trap.d kernel/uart.d kernel/vectors.d kernel/vm.d kernel/bootmain.d kernel/bootasm.d kernel/multiboot.d kernel/data.d kernel/bootother.d kernel/initcode.d kernel/vectors.S kernel/bootblock kernel/bootblock.out kernel/bootother.out kernel/initcode.out kernel/kernel bootother initcode xv6.img user/bin user/cat user/echo user/forktest user/grep user/init user/kill user/ln user/ls user/mkdir user/rm user/hello user/sh user/stressfs user/tester user/usertests user/cloneTest user/wc user/zombie user/cat.o user/echo.o user/forktest.o user/grep.o user/init.o user/kill.o user/ln.o user/ls.o user/mkdir.o user/rm.o user/hello.o user/sh.o user/stressfs.o user/tester.o user/usertests.o user/cloneTest.o user/wc.o user/zombie.o user/ulib.o user/usys.o user/printf.o user/umalloc.o user/cat.d user/echo.d user/forktest.d user/grep.d user/init.d user/kill.d user/ln.d user/ls.d user/mkdir.d user/rm.d user/hello.d user/sh.d user/stressfs.d user/tester.d user/usertests.d user/cloneTest.d user/wc.d user/zombie.d user/ulib.d user/usys.d user/printf.d user/umalloc.d tools/mkfs tools/mkfs.o tools/mkfs.d fs fs.img .gdbinit .bochsrc dist
 Trying to build project using make
 make
 Makefile:149: kernel/bio.d: No such file or directory
@@ -58,6 +60,7 @@ Makefile:149: user/sh.d: No such file or directory
 Makefile:149: user/stressfs.d: No such file or directory
 Makefile:149: user/tester.d: No such file or directory
 Makefile:149: user/usertests.d: No such file or directory
+Makefile:149: user/cloneTest.d: No such file or directory
 Makefile:149: user/wc.d: No such file or directory
 Makefile:149: user/zombie.d: No such file or directory
 Makefile:149: user/ulib.d: No such file or directory
@@ -79,6 +82,8 @@ gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-
 		-M -MG user/zombie.c -MF user/zombie.d -MT user/zombie.d -MT user/zombie.o
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
 		-M -MG user/wc.c -MF user/wc.d -MT user/wc.d -MT user/wc.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/cloneTest.c -MF user/cloneTest.d -MT user/cloneTest.d -MT user/cloneTest.o
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
 		-M -MG user/usertests.c -MF user/usertests.d -MT user/usertests.d -MT user/usertests.o
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
@@ -231,15 +236,15 @@ ld  -m    elf_i386 -nostdlib --omagic \
 dd if=/dev/zero of=xv6.img count=10000
 10000+0 records in
 10000+0 records out
-5120000 bytes (5.1 MB) copied, 0.0222752 s, 230 MB/s
+5120000 bytes (5.1 MB) copied, 0.0224255 s, 228 MB/s
 dd if=kernel/bootblock of=xv6.img conv=notrunc
 1+0 records in
 1+0 records out
-512 bytes (512 B) copied, 2.0393e-05 s, 25.1 MB/s
+512 bytes (512 B) copied, 2.8165e-05 s, 18.2 MB/s
 dd if=kernel/kernel of=xv6.img seek=1 conv=notrunc
-253+1 records in
-253+1 records out
-129730 bytes (130 kB) copied, 0.000396573 s, 327 MB/s
+255+1 records in
+255+1 records out
+130868 bytes (131 kB) copied, 0.000396763 s, 330 MB/s
 gcc -c  -iquote include -Wall -Werror -ggdb  -o tools/mkfs.o tools/mkfs.c
 gcc  tools/mkfs.o -o tools/mkfs
 mkdir -p fs
@@ -294,6 +299,9 @@ cp user/bin/tester fs/tester
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/usertests.o user/usertests.c
 ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/usertests user/usertests.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
 cp user/bin/usertests fs/usertests
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/cloneTest.o user/cloneTest.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/cloneTest user/cloneTest.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/cloneTest fs/cloneTest
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/wc.o user/wc.c
 ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/wc user/wc.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
 cp user/bin/wc fs/wc
@@ -302,27 +310,28 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/zombie fs/zombie
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-hello
-sh
-init
-tester
-stressfs
-echo
-grep
+cloneTest
 wc
-ls
-forktest
-usertests
-ln
-mkdir
-zombie
-kill
-README
-rm
+stressfs
 cat
-balloc: first 441 blocks have been allocated
+rm
+README
+hello
+ln
+ls
+zombie
+grep
+kill
+usertests
+mkdir
+sh
+tester
+init
+echo
+forktest
+balloc: first 465 blocks have been allocated
 balloc: write bitmap block at sector 28
-rm user/bin/stressfs user/bin/grep user/bin/tester user/bin/hello user/bin/kill user/bin/cat user/bin/mkdir user/bin/init user/bin/rm user/bin/echo user/bin/ls user/bin/ln user/bin/usertests user/bin/sh user/bin/wc user/bin/zombie
+rm user/bin/stressfs user/bin/grep user/bin/tester user/bin/hello user/bin/kill user/bin/cat user/bin/mkdir user/bin/init user/bin/rm user/bin/echo user/bin/ls user/bin/ln user/bin/usertests user/bin/sh user/bin/wc user/bin/cloneTest user/bin/zombie
 
 
 test build PASSED
@@ -331,11 +340,11 @@ test build PASSED
 
 **********************************************************************
 
-Test basic
-call getsyscallinfo() from a user program
+Test clone
+clone and verify that address space is shared
 
 **********************************************************************
-Running xv6 user progam /u/c/s/cs537-2/ta/tests/1b/basic.c
+Running xv6 user progam /u/c/s/cs537-2/ta/tests/4b/tests/clone.c
 Trying to build project using make
 make
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
@@ -345,105 +354,54 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-hello
-sh
-init
-tester
-stressfs
-echo
-grep
+cloneTest
 wc
-ls
-forktest
-usertests
-ln
-mkdir
-zombie
-kill
-README
-rm
+stressfs
 cat
-balloc: first 441 blocks have been allocated
+rm
+README
+hello
+ln
+ls
+zombie
+grep
+kill
+usertests
+mkdir
+sh
+tester
+init
+echo
+forktest
+balloc: first 467 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
-make qemu-nox CPUS=1
+make qemu-nox 
 Ctrl+a h for help
-/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 1
+/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 2
 Could not open option rom 'sgabios.bin': No such file or directory
 xv6...
+lapicinit: 1 0xfee00000
+cpu1: starting
 cpu0: starting
 init: starting sh
 $ tester
 tester
-TEST PASSED$ 
-
-test basic PASSED
- (call getsyscallinfo() from a user program)
-
-
-**********************************************************************
-
-Test getsyscallinfo
-repeated calls of getsyscallinfo()
-
-**********************************************************************
-Running xv6 user progam /u/c/s/cs537-2/ta/tests/1b/getsyscallinfo.c
-Trying to build project using make
-make
-gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
-		-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
-gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
-ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
-cp user/bin/tester fs/tester
-./tools/mkfs fs.img fs
-used 29 (bit 1 ninode 26) free 29 total 1024
-hello
-sh
-init
-tester
-stressfs
-echo
-grep
-wc
-ls
-forktest
-usertests
-ln
-mkdir
-zombie
-kill
-README
-rm
-cat
-balloc: first 442 blocks have been allocated
-balloc: write bitmap block at sector 28
-rm user/bin/tester
-make qemu-nox CPUS=1
-Ctrl+a h for help
-/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 1
-Could not open option rom 'sgabios.bin': No such file or directory
-xv6...
-cpu0: starting
-init: starting sh
-$ tester
-tester
-calling (getsyscallinfo), should count 1 syscalls
-1) counted 1 syscalls
-2) counted 1 syscalls
-3) counted 1 syscalls
+page addr of stack: 8000
 TEST PASSED
 
-test getsyscallinfo PASSED
- (repeated calls of getsyscallinfo())
+
+test clone PASSED
+ (clone and verify that address space is shared)
 
 
 **********************************************************************
 
-Test many
-count many other syscalls
+Test clone2
+clone and play with the argument
 
 **********************************************************************
-Running xv6 user progam /u/c/s/cs537-2/ta/tests/1b/many.c
+Running xv6 user progam /u/c/s/cs537-2/ta/tests/4b/tests/clone2.c
 Trying to build project using make
 make
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
@@ -453,126 +411,531 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-hello
-sh
-init
-tester
-stressfs
-echo
-grep
+cloneTest
 wc
-ls
-forktest
-usertests
-ln
-mkdir
-zombie
-kill
-README
-rm
+stressfs
 cat
-balloc: first 453 blocks have been allocated
+rm
+README
+hello
+ln
+ls
+zombie
+grep
+kill
+usertests
+mkdir
+sh
+tester
+init
+echo
+forktest
+balloc: first 467 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
-make qemu-nox CPUS=1
+make qemu-nox 
 Ctrl+a h for help
-/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 1
+/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 2
 Could not open option rom 'sgabios.bin': No such file or directory
 xv6...
+lapicinit: 1 0xfee00000
+cpu1: starting
 cpu0: starting
 init: starting sh
 $ tester
 tester
-calling (fork, exit, wait), should count 4 syscalls
-1) counted 4 syscalls
-2) counted 4 syscalls
-3) counted 4 syscalls
-calling (pipe), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (write), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (read), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (close), should count 3 syscalls
-1) counted 3 syscalls
-2) counted 3 syscalls
-3) counted 3 syscalls
-calling (fork, kill), should count 3 syscalls
-1) counted 3 syscalls
-2) counted 3 syscalls
-3) counted 3 syscalls
-calling (getpid), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (sleep), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (uptime), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (open, dup), should count 3 syscalls
-1) counted 3 syscalls
-2) counted 3 syscalls
-3) counted 3 syscalls
-calling (fstat), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (mkdir), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (chdir), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (link), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (unlink), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (exec), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (mknod), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (sbrk), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
+page addr of stack: 8000
 TEST PASSED
 
-test many PASSED
- (count many other syscalls)
+
+test clone2 PASSED
+ (clone and play with the argument)
+
 
 **********************************************************************
-Summary:
-test build PASSED
- (build xv6 using make)
 
-test basic PASSED
- (call getsyscallinfo() from a user program)
+Test clone3
+clone copies file descriptors, but doesn't share
 
-test getsyscallinfo PASSED
- (repeated calls of getsyscallinfo())
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-2/ta/tests/4b/tests/clone3.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+cloneTest
+wc
+stressfs
+cat
+rm
+README
+hello
+ln
+ls
+zombie
+grep
+kill
+usertests
+mkdir
+sh
+tester
+init
+echo
+forktest
+balloc: first 468 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox 
+Ctrl+a h for help
+/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 2
+Could not open option rom 'sgabios.bin': No such file or directory
+xv6...
+lapicinit: 1 0xfee00000
+cpu1: starting
+cpu0: starting
+init: starting sh
+$ tester
+tester
+page addr of stack: 8000
+TEST PASSED
 
-test many PASSED
- (count many other syscalls)
 
-Passed 4 of 4 tests.
-Overall 4 of 4
+test clone3 PASSED
+ (clone copies file descriptors, but doesn't share)
+
+
+**********************************************************************
+
+Test badclone
+clone with bad stack argument
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-2/ta/tests/4b/tests/badclone.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+cloneTest
+wc
+stressfs
+cat
+rm
+README
+hello
+ln
+ls
+zombie
+grep
+kill
+usertests
+mkdir
+sh
+tester
+init
+echo
+forktest
+balloc: first 466 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox 
+Ctrl+a h for help
+/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 2
+Could not open option rom 'sgabios.bin': No such file or directory
+xv6...
+lapicinit: 1 0xfee00000
+cpu1: starting
+cpu0: starting
+init: starting sh
+$ tester
+tester
+TEST PASSED
+
+
+test badclone PASSED
+ (clone with bad stack argument)
+
+
+**********************************************************************
+
+Test badclone2
+clone with bad stack argument (2)
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-2/ta/tests/4b/tests/badclone2.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+cloneTest
+wc
+stressfs
+cat
+rm
+README
+hello
+ln
+ls
+zombie
+grep
+kill
+usertests
+mkdir
+sh
+tester
+init
+echo
+forktest
+balloc: first 467 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox 
+Ctrl+a h for help
+/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 2
+Could not open option rom 'sgabios.bin': No such file or directory
+xv6...
+lapicinit: 1 0xfee00000
+cpu1: starting
+cpu0: starting
+init: starting sh
+$ tester
+tester
+TEST PASSED
+
+
+test badclone2 PASSED
+ (clone with bad stack argument (2))
+
+
+**********************************************************************
+
+Test stack
+set up stack correctly (and without extra items)
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-2/ta/tests/4b/tests/stack.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+cloneTest
+wc
+stressfs
+cat
+rm
+README
+hello
+ln
+ls
+zombie
+grep
+kill
+usertests
+mkdir
+sh
+tester
+init
+echo
+forktest
+balloc: first 467 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox 
+Ctrl+a h for help
+/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 2
+Could not open option rom 'sgabios.bin': No such file or directory
+xv6...
+lapicinit: 1 0xfee00000
+cpu1: starting
+cpu0: starting
+init: starting sh
+$ tester
+tester
+page addr of stack: 8000
+TEST PASSED
+
+
+test stack PASSED
+ (set up stack correctly (and without extra items))
+
+
+**********************************************************************
+
+Test join
+clone and join syscalls
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-2/ta/tests/4b/tests/join.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+cloneTest
+wc
+stressfs
+cat
+rm
+README
+hello
+ln
+ls
+zombie
+grep
+kill
+usertests
+mkdir
+sh
+tester
+init
+echo
+forktest
+balloc: first 468 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox 
+Ctrl+a h for help
+/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 2
+Could not open option rom 'sgabios.bin': No such file or directory
+xv6...
+lapicinit: 1 0xfee00000
+cpu1: starting
+cpu0: starting
+init: starting sh
+$ tester
+tester
+page addr of stack: 8000
+in join: childStack value: 0
+in join: find child thread: pid: 4
+8000
+8000
+TEST PASSED
+
+
+test join PASSED
+ (clone and join syscalls)
+
+
+**********************************************************************
+
+Test join2
+join argument checking
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-2/ta/tests/4b/tests/join2.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+cloneTest
+wc
+stressfs
+cat
+rm
+README
+hello
+ln
+ls
+zombie
+grep
+kill
+usertests
+mkdir
+sh
+tester
+init
+echo
+forktest
+balloc: first 468 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox 
+Ctrl+a h for help
+/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 2
+Could not open option rom 'sgabios.bin': No such file or directory
+xv6...
+lapicinit: 1 0xfee00000
+cpu1: starting
+cpu0: starting
+init: starting sh
+$ tester
+tester
+page addr of stack: 8000
+in join: childStack value: 0
+in join: find child thread: pid: 4
+TEST PASSED
+
+
+test join2 PASSED
+ (join argument checking)
+
+
+**********************************************************************
+
+Test join3
+join should not handle child processes (forked)
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-2/ta/tests/4b/tests/join3.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+cloneTest
+wc
+stressfs
+cat
+rm
+README
+hello
+ln
+ls
+zombie
+grep
+kill
+usertests
+mkdir
+sh
+tester
+init
+echo
+forktest
+balloc: first 466 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox 
+Ctrl+a h for help
+/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 2
+Could not open option rom 'sgabios.bin': No such file or directory
+xv6...
+lapicinit: 1 0xfee00000
+cpu1: starting
+cpu0: starting
+init: starting sh
+$ tester
+tester
+in join: childStack value: 0
+TEST PASSED
+user/tester
+
+test join3 PASSED
+ (join should not handle child processes (forked))
+
+
+**********************************************************************
+
+Test join4
+join, not wait, should handle threads
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-2/ta/tests/4b/tests/join4.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+cloneTest
+wc
+stressfs
+cat
+rm
+README
+hello
+ln
+ls
+zombie
+grep
+kill
+usertests
+mkdir
+sh
+tester
+init
+echo
+forktest
+balloc: first 468 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox 
+Ctrl+a h for help
+/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 2
+Could not open option rom 'sgabios.bin': No such file or directory
+xv6...
+lapicinit: 1 0xfee00000
+cpu1: starting
+cpu0: starting
+init: starting sh
+$ tester
+tester
+page addr of stack: 8000
+in join: childStack value: 0
+in join: find child thread: pid: 4
+TEST PASSED
+
+
+test join4 PASSED
+ (join, not wait, should handle threads)
+
+
+**********************************************************************
+
+Test thread
+thread user library functions
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-2/ta/tests/4b/tests/thread.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+cc1: warnings being treated as errors
+user/tester.c: In function ‘main’:
+user/tester.c:29: error: implicit declaration of function ‘thread_create’
+user/tester.c:32: error: implicit declaration of function ‘thread_join’
+make: *** [user/tester.o] Error 1
+
+
+test thread FAILED
+ (thread user library functions)
+ make failed (error 2)
+
+Skipped 8 tests.
+To keep testing after failing a test, use flag '-c' or '--continue'
