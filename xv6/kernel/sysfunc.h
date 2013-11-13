@@ -26,6 +26,9 @@ int sys_uptime(void);
 
 //add system call handler for getsysinfo (p1.2)
 int sys_getsyscallinfo(void);
+//add system call for p4
+int sys_clone(void);
+int sys_join(void);
 //global variable used to count num of syscall issued. defined in sysproc.c
 extern int numsyscall;
 

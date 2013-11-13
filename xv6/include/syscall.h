@@ -26,5 +26,7 @@
 
 //add getsysinfo function for getting num of syscall issued. (p1.2)
 #define SYS_getsyscallinfo 22
+#define SYS_clone 23
+#define SYS_join 24
 
 #endif // _SYSCALL_H_

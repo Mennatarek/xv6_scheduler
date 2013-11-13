@@ -104,7 +104,10 @@ static int (*syscalls[])(void) = {
 [SYS_write]   sys_write,
 [SYS_uptime]  sys_uptime,
 //add getsyscall info function for p1.2. implementation is in 
-[SYS_getsyscallinfo] sys_getsyscallinfo
+[SYS_getsyscallinfo] sys_getsyscallinfo,
+//add clone for p4
+[SYS_clone] sys_clone,
+[SYS_join] sys_join
 };
 
 // Called on a syscall trap. Checks that the syscall number (passed via eax)

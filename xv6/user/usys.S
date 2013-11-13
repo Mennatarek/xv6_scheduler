@@ -32,3 +32,5 @@ SYSCALL(uptime)
 
 //added syscall for getting number of system call issued. (p1.2)
 SYSCALL(getsyscallinfo)
+SYSCALL(clone)
+SYSCALL(join)        

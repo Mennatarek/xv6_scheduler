@@ -28,7 +28,9 @@ int uptime(void);
 
 //added system call for p1.2. Used to get number of system call issued
 int getsyscallinfo(void);
-
+//=============== add system call for p4. clone declaration
+int clone(void(*fcn)(void*), void *arg, void*stack);
+int join(void **stack);
 
 
 // user library functions (ulib.c)

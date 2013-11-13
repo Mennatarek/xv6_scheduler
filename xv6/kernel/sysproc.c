@@ -12,6 +12,21 @@ sys_fork(void)
   return fork();
 }
 
+//added for p4
+int
+sys_clone(void)
+{
+  return clone();
+}
+
+//added for p4
+int
+sys_join(void)
+{
+  return join();
+}
+
+
 int
 sys_exit(void)
 {

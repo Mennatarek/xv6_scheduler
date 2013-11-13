@@ -42,7 +42,7 @@ allocproc(void)
   release(&ptable.lock);
   return 0;
 
-found:
+ found:
   p->state = EMBRYO;
   p->pid = nextpid++;
   release(&ptable.lock);
@@ -165,6 +165,82 @@ fork(void)
   return pid;
 }
 
+
+// Create a new thread.
+int
+clone(void)
+{
+  //get back the argument for clone
+  //void(*fcn)(void*), void *arg, void*stack
+  //first argument
+  void(*fcn)(void*);
+  void *arg; // how do we know the size of such an argument?
+  void *stack;
+  if(argptr(0, (void*)&fcn,sizeof(fcn)) < 0 )
+    return -1;
+  if( argptr(1,(void*)&arg,sizeof(arg)) < 0)
+    return -1;
+  if (argptr(2, (void*)&stack, sizeof(stack)) < 0)
+    return -1;
+  
+  /* cprintf("size of fcn:%x, size of *fcn:%x\n",sizeof(fcn),sizeof(*fcn)); */
+  /* cprintf("fcn:%x, arg:%x, stack:%x\n",fcn,arg,stack); */
+  
+  int i,pid;
+  struct proc *np;
+
+  // Allocate and create process in process table
+  // allocproc will create a kernel stack and initilize it for the thread
+  if((np = allocproc()) == 0)
+    return -1;
+
+  // Copy process state from p. copyuvm will return 0 if there is no physical memory space for allocation
+  /* if((np->pgdir = copyuvm(proc->pgdir, proc->sz)) == 0){ */
+  /*   kfree(np->kstack); */
+  /*   np->kstack = 0; */
+  /*   np->state = UNUSED; */
+  /*   return -1; */
+  /* } */
+  np->pgdir=proc->pgdir; //share same address space
+
+  //===========================setup new stack==============================
+  // assume the pointer passed in is the physcial top of stack and it is page-aligned
+  // use user's given stack as stack
+  // Push argument strings, prepare rest of stack in ustack.
+  void* stackTop=stack+PGSIZE;//the logical top of the stack is the bottom of physical stack
+  *(uint*)(stackTop-8)=0xffffffff;  // fake return PC
+  *(uint*)(stackTop-4)=(uint)arg; //argument 1
+  //===========================finish new stack==============
+  
+  np->sz = proc->sz;
+  np->parent = proc;
+  *np->tf = *proc->tf; // the tf space is allocaed in allocproc();
+  np->isThread=1; //mark itself as a thread
+  np->stack=stack; //record the page addr of user stack for this thread
+  cprintf("page addr of stack: %x\n",np->stack);
+  //=======================use new stack in chile
+  np->tf->esp=(uint)(stackTop-8);  //use new stack
+  np->tf->eip=(uint)fcn;//next instruction is the fucntion
+  
+  // Clear %eax so that fork returns 0 in the child.
+  np->tf->eax = 0;
+
+  // copy the opened file to the new process
+  for(i = 0; i < NOFILE; i++)
+    if(proc->ofile[i])
+      np->ofile[i] = filedup(proc->ofile[i]);
+  //copy current directory
+  np->cwd = idup(proc->cwd);
+ 
+  pid = np->pid;
+  np->state = RUNNABLE; // when first created, it is EMBRYO state
+  //copy file name
+  safestrcpy(np->name, proc->name, sizeof(proc->name));
+  return pid;
+}
+
+
+
 // Exit the current process.  Does not return.
 // An exited process remains in the zombie state
 // until its parent calls wait() to find out it exited.
@@ -208,6 +284,53 @@ exit(void)
   panic("zombie exit");
 }
 
+
+//This call waits for a child thread that shares the address space with the calling process. It re//turns the PID of waited-for child or -1 if none. The location of the child's user stack is copie//d into the argument stack 
+int
+join(void)
+{
+  struct proc *p;
+  int havekids, pid;
+
+  void** childStack;
+  if(argptr(0, (void*)&childStack,sizeof(childStack)) < 0 ) // need more thought
+    return -1;
+  cprintf("in join: childStack value: %x\n",*childStack);
+  
+  acquire(&ptable.lock);
+  for(;;){
+    // Scan through table looking for zombie children.
+    havekids = 0;
+    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+      if(p->parent != proc)
+        continue;
+      havekids = 1;
+      if(p->state == ZOMBIE && *childStack==p->stack ){
+        // Found one.
+        pid = p->pid;
+        kfree(p->kstack);
+        p->kstack = 0;
+        //        freevm(p->pgdir);   //don't free the whole vm space
+        p->state = UNUSED;
+        p->pid = 0;
+        p->parent = 0;
+        p->name[0] = 0;
+        p->killed = 0;
+        release(&ptable.lock);
+        return pid;
+      }
+    }
+    // No point waiting if we don't have any children.
+    if(!havekids || proc->killed){
+      release(&ptable.lock);
+      return -1;
+    }
+    // Wait for children to exit.  (See wakeup1 call in proc_exit.)
+    sleep(proc, &ptable.lock);  //DOC: wait-sleep
+  }
+}
+
+
 // Wait for a child process to exit and return its pid.
 // Return -1 if this process has no children.
 int
@@ -229,7 +352,9 @@ wait(void)
         pid = p->pid;
         kfree(p->kstack);
         p->kstack = 0;
-        freevm(p->pgdir);
+        if (1 != p->isThread){ //only free vm space if it is not a thread
+          freevm(p->pgdir);          
+        }
         p->state = UNUSED;
         p->pid = 0;
         p->parent = 0;
@@ -420,12 +545,12 @@ void
 procdump(void)
 {
   static char *states[] = {
-  [UNUSED]    "unused",
-  [EMBRYO]    "embryo",
-  [SLEEPING]  "sleep ",
-  [RUNNABLE]  "runble",
-  [RUNNING]   "run   ",
-  [ZOMBIE]    "zombie"
+    [UNUSED]    "unused",
+    [EMBRYO]    "embryo",
+    [SLEEPING]  "sleep ",
+    [RUNNABLE]  "runble",
+    [RUNNING]   "run   ",
+    [ZOMBIE]    "zombie"
   };
   int i;
   struct proc *p;
