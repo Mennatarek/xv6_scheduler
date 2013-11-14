@@ -169,7 +169,7 @@ fork(void)
   return pid;
 }
 
-
+//=====================================================p4============================
 // Create a new thread.
 int
 clone(void)
@@ -249,51 +249,6 @@ clone(void)
 }
 
 
-
-// Exit the current process.  Does not return.
-// An exited process remains in the zombie state
-// until its parent calls wait() to find out it exited.
-void
-exit(void)
-{
-  struct proc *p;
-  int fd;
-
-  if(proc == initproc)
-    panic("init exiting");
-
-  // Close all open files.
-  for(fd = 0; fd < NOFILE; fd++){
-    if(proc->ofile[fd]){
-      fileclose(proc->ofile[fd]);
-      proc->ofile[fd] = 0;
-    }
-  }
-
-  iput(proc->cwd);
-  proc->cwd = 0;
-
-  acquire(&ptable.lock);
-
-  // Parent might be sleeping in wait().
-  wakeup1(proc->parent);
-
-  // Pass abandoned children to init.
-  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
-    if(p->parent == proc){
-      p->parent = initproc;
-      if(p->state == ZOMBIE)
-        wakeup1(initproc);
-    }
-  }
-
-  // Jump into the scheduler, never to return.
-  proc->state = ZOMBIE;
-  sched();
-  panic("zombie exit");
-}
-
-
 //This call waits for a child thread that shares the address space with the calling process. It re//turns the PID of waited-for child or -1 if none. The location of the child's user stack is copie//d into the argument stack 
 int
 join(void)
@@ -345,6 +300,75 @@ join(void)
   }
 }
 
+//put current thread to sleep
+int threadSleep(void){
+  acquire(&ptable.lock);  
+  // put the thread to sleep forever
+  sleep(proc, &ptable.lock);  //DOC: wait-sleep
+  return 0;
+}
+
+//wake up a particular thread, the first argument is pid
+int threadWake(void){
+  int pid;
+  struct proc *p;
+  
+  if(argint(0, &pid) < 0)
+    return -1;
+  
+  acquire(&ptable.lock);
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+    if(p->state == SLEEPING && p->pid == pid)
+      p->state = RUNNABLE;
+  release(&ptable.lock);
+  return 0;
+}
+
+// Exit the current process.  Does not return.
+// An exited process remains in the zombie state
+// until its parent calls wait() to find out it exited.
+void
+exit(void)
+{
+  struct proc *p;
+  int fd;
+
+  if(proc == initproc)
+    panic("init exiting");
+
+  // Close all open files.
+  for(fd = 0; fd < NOFILE; fd++){
+    if(proc->ofile[fd]){
+      fileclose(proc->ofile[fd]);
+      proc->ofile[fd] = 0;
+    }
+  }
+
+  iput(proc->cwd);
+  proc->cwd = 0;
+
+  acquire(&ptable.lock);
+
+  // Parent might be sleeping in wait().
+  wakeup1(proc->parent);
+
+  // Pass abandoned children to init.
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    if(p->parent == proc){
+      p->parent = initproc;
+      if(p->state == ZOMBIE)
+        wakeup1(initproc);
+    }
+  }
+
+  // Jump into the scheduler, never to return.
+  proc->state = ZOMBIE;
+  sched();
+  panic("zombie exit");
+}
+
+
+
 
 // Wait for a child process to exit and return its pid.
 // Return -1 if this process has no children.
@@ -375,6 +399,7 @@ wait(void)
         p->parent = 0;
         p->name[0] = 0;
         p->killed = 0;
+        p->isThread=0; //p4        
         release(&ptable.lock);
         return pid;
       }

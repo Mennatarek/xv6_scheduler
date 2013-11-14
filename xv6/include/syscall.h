@@ -28,5 +28,7 @@
 #define SYS_getsyscallinfo 22
 #define SYS_clone 23
 #define SYS_join 24
+#define SYS_threadSleep 25
+#define SYS_threadWake 26
 
 #endif // _SYSCALL_H_

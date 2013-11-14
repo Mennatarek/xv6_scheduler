@@ -18,7 +18,9 @@ USER_PROGS := \
 	usertests\
 	cloneTest\
 	wc\
-	zombie
+	zombie\
+	join3\
+	cond
 
 USER_PROGS := $(addprefix user/, $(USER_PROGS))
 

@@ -31,6 +31,8 @@ int getsyscallinfo(void);
 //=============== add system call for p4. clone declaration
 int clone(void(*fcn)(void*), void *arg, void*stack);
 int join(void **stack);
+int threadSleep(void);
+int threadWake(int);
 
 
 // user library functions (ulib.c)
@@ -61,12 +63,14 @@ void lock_init(lock_t* );
 
 //conditional variable
 typedef struct cond_type{
-  lock_t mlock;
+  lock_t* mlock;
   int condition;
-  
+  int waitingList[100]; // how large should I allocate? is 100 enough? best should be a list
+  int idx;  
 } cond_t;
-void cv_wait(cond_t *, lock_t *)
-vodi cv_signal(cond_t *)
+
+void cv_wait(cond_t *, lock_t *);
+void cv_signal(cond_t *);
 
 #endif // _USER_H_
 

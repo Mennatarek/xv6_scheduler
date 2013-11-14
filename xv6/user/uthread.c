@@ -48,4 +48,38 @@ void lock_release(lock_t * mlock){
 }
 
 //all about conditional variables
+void cv_wait(cond_t * mcond, lock_t * outsidelock){
+  //ousidelock is acquired right now
+  //sleep on mcond
+  //release mlock
+  //the whole operation is atomic
+  printf(1,"in cv_wait, try to grab cv lock: \n");
+  printf(1,"in cv_wait, initial cv lock value: %d\n", mcond->mlock->locked);  
+  lock_acquire(mcond->mlock);
+  printf(1,"in cv_wait, got cv lock: %d\n");  
+  //add self to list
+  int curpid=getpid();
+  mcond->waitingList[mcond->idx] = curpid;
+  (mcond->idx)++;
+  printf(1,"add pid to waiting: %d, next available idx: %d\n",curpid,mcond->idx);
+  lock_release(outsidelock);  
+  lock_release(mcond->mlock);
+  printf(1,"in cv_wait, release outside and cv lock: %d\n");    
+  //bug, what if scheduler interrupt here???
+  //put cur thread to sleep
+  /* threadSleep(); */
+  sleep(100);
+  lock_acquire(outsidelock);  
+}
+
+void cv_signal(cond_t * mcond){
+  //release mlock
+  //the whole operation is atomic
+  lock_acquire(mcond->mlock);
+  (mcond->idx)--;  
+  int curpid=mcond->waitingList[mcond->idx];
+  printf(1,"going to wake up pid: %d, at idx: %d\n",curpid, mcond->idx);  
+  threadWake(curpid);
+  lock_release(mcond->mlock);
+}
 

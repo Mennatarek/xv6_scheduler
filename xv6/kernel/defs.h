@@ -101,6 +101,9 @@ int             fork(void);
 //added system call for p4
 int             clone(void);
 int             join(void);
+//added system call for p4
+int             threadSleep(void);
+int             threadWake(void);
 
 int             growproc(int);
 int             kill(int);

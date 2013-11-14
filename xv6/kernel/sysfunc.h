@@ -29,6 +29,9 @@ int sys_getsyscallinfo(void);
 //add system call for p4
 int sys_clone(void);
 int sys_join(void);
+int sys_threadSleep(void);
+int sys_threadWake(void);
+
 //global variable used to count num of syscall issued. defined in sysproc.c
 extern int numsyscall;
 
