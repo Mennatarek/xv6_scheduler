@@ -46,6 +46,12 @@ void* memset(void*, int, uint);
 void* malloc(uint);
 void free(void*);
 int atoi(const char*);
+//p4 thread library
+int thread_create(void (*start_routine)(void*), void *arg);
+int thread_join();
+/* int lock_acquire(lock_t *); */
+/* int lock_release(lock_t *); */
+/* int lock_init(lock_t *); */
 
 #endif // _USER_H_
 

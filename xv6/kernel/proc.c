@@ -160,6 +160,10 @@ fork(void)
  
   pid = np->pid;
   np->state = RUNNABLE; // when first created, it is EMBRYO state
+
+  //p4
+  np->isThread=0; //mark it as not thread
+  
   //copy file name
   safestrcpy(np->name, proc->name, sizeof(proc->name));
   return pid;
@@ -300,7 +304,7 @@ join(void)
   void** childStack;
   if(argptr(0, (void*)&childStack,sizeof(childStack)) < 0 ) // need more thought
     return -1;
-  cprintf("in join: childStack value: %x\n",*childStack);
+  //  cprintf("in join: childStack value: %x\n",*childStack);
   
   acquire(&ptable.lock);
   for(;;){
@@ -323,6 +327,8 @@ join(void)
         p->parent = 0;
         p->name[0] = 0;
         p->killed = 0;
+        
+        p->isThread=0; //p4
         release(&ptable.lock);
         //copy the location of child stack to childStack
         *childStack=p->stack;
