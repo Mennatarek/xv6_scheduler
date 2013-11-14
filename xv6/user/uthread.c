@@ -2,7 +2,7 @@
 //#include "stat.h"
 //#include "fcntl.h"
 #include "user.h"
-//#include "x86.h"
+#include "x86.h"
 
 //my own thread library: optimization:figure out where the separate file should go if separated
 //create a new thread
@@ -26,4 +26,26 @@ int thread_join(){
   free(join_stack);
   return join_pid;
 }
+
+//all about lock
+void lock_init(lock_t * mlock){
+  mlock->locked=0;
+  return;
+}
+
+void lock_acquire(lock_t * mlock){
+  // The xchg is atomic.
+  // It also serializes, so that reads after acquire are not
+  // reordered before it. 
+  while(xchg(&mlock->locked, 1) != 0) //if held
+    ;
+  return;
+}
+
+void lock_release(lock_t * mlock){
+  xchg(&mlock->locked, 0);
+  return;
+}
+
+//all about conditional variables
 

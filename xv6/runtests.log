@@ -7,8 +7,6 @@ build xv6 using make
 **********************************************************************
 Trying to clean project using make clean
 make clean
-gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
-		-M -MG kernel/proc.c -MF kernel/proc.d -MT kernel/proc.d -MT kernel/proc.o
 rm -rf kernel/bio.o kernel/console.o kernel/exec.o kernel/file.o kernel/fs.o kernel/ide.o kernel/ioapic.o kernel/kalloc.o kernel/kbd.o kernel/lapic.o kernel/main.o kernel/mp.o kernel/picirq.o kernel/pipe.o kernel/proc.o kernel/spinlock.o kernel/string.o kernel/swtch.o kernel/syscall.o kernel/sysfile.o kernel/sysproc.o kernel/timer.o kernel/trapasm.o kernel/trap.o kernel/uart.o kernel/vectors.o kernel/vm.o kernel/bootmain.o kernel/bootasm.o kernel/multiboot.o kernel/data.o kernel/bootother.o kernel/initcode.o kernel/bio.d kernel/console.d kernel/exec.d kernel/file.d kernel/fs.d kernel/ide.d kernel/ioapic.d kernel/kalloc.d kernel/kbd.d kernel/lapic.d kernel/main.d kernel/mp.d kernel/picirq.d kernel/pipe.d kernel/proc.d kernel/spinlock.d kernel/string.d kernel/swtch.d kernel/syscall.d kernel/sysfile.d kernel/sysproc.d kernel/timer.d kernel/trapasm.d kernel/trap.d kernel/uart.d kernel/vectors.d kernel/vm.d kernel/bootmain.d kernel/bootasm.d kernel/multiboot.d kernel/data.d kernel/bootother.d kernel/initcode.d kernel/vectors.S kernel/bootblock kernel/bootblock.out kernel/bootother.out kernel/initcode.out kernel/kernel bootother initcode xv6.img user/bin user/cat user/echo user/forktest user/grep user/init user/kill user/ln user/ls user/mkdir user/rm user/hello user/sh user/stressfs user/tester user/usertests user/cloneTest user/wc user/zombie user/cat.o user/echo.o user/forktest.o user/grep.o user/init.o user/kill.o user/ln.o user/ls.o user/mkdir.o user/rm.o user/hello.o user/sh.o user/stressfs.o user/tester.o user/usertests.o user/cloneTest.o user/wc.o user/zombie.o user/ulib.o user/usys.o user/printf.o user/umalloc.o user/uthread.o user/cat.d user/echo.d user/forktest.d user/grep.d user/init.d user/kill.d user/ln.d user/ls.d user/mkdir.d user/rm.d user/hello.d user/sh.d user/stressfs.d user/tester.d user/usertests.d user/cloneTest.d user/wc.d user/zombie.d user/ulib.d user/usys.d user/printf.d user/umalloc.d user/uthread.d tools/mkfs tools/mkfs.o tools/mkfs.d fs fs.img .gdbinit .bochsrc dist
 Trying to build project using make
 make
@@ -239,15 +237,15 @@ ld  -m    elf_i386 -nostdlib --omagic \
 dd if=/dev/zero of=xv6.img count=10000
 10000+0 records in
 10000+0 records out
-5120000 bytes (5.1 MB) copied, 0.0234675 s, 218 MB/s
+5120000 bytes (5.1 MB) copied, 0.0218443 s, 234 MB/s
 dd if=kernel/bootblock of=xv6.img conv=notrunc
 1+0 records in
 1+0 records out
-512 bytes (512 B) copied, 1.8908e-05 s, 27.1 MB/s
+512 bytes (512 B) copied, 1.926e-05 s, 26.6 MB/s
 dd if=kernel/kernel of=xv6.img seek=1 conv=notrunc
 255+1 records in
 255+1 records out
-130868 bytes (131 kB) copied, 0.000392727 s, 333 MB/s
+130868 bytes (131 kB) copied, 0.000389362 s, 336 MB/s
 gcc -c  -iquote include -Wall -Werror -ggdb  -o tools/mkfs.o tools/mkfs.c
 gcc  tools/mkfs.o -o tools/mkfs
 mkdir -p fs
@@ -333,7 +331,7 @@ tester
 init
 echo
 forktest
-balloc: first 500 blocks have been allocated
+balloc: first 531 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/stressfs user/bin/grep user/bin/tester user/bin/hello user/bin/kill user/bin/cat user/bin/mkdir user/bin/init user/bin/rm user/bin/echo user/bin/ls user/bin/ln user/bin/usertests user/bin/sh user/bin/wc user/bin/cloneTest user/bin/zombie
 
@@ -377,7 +375,7 @@ tester
 init
 echo
 forktest
-balloc: first 502 blocks have been allocated
+balloc: first 533 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -393,7 +391,7 @@ $ tester
 tester
 page addr of stack: 8000
 TEST PASSED
-$
+
 
 test clone PASSED
  (clone and verify that address space is shared)
@@ -434,7 +432,7 @@ tester
 init
 echo
 forktest
-balloc: first 502 blocks have been allocated
+balloc: first 533 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -491,7 +489,7 @@ tester
 init
 echo
 forktest
-balloc: first 503 blocks have been allocated
+balloc: first 534 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -548,7 +546,7 @@ tester
 init
 echo
 forktest
-balloc: first 501 blocks have been allocated
+balloc: first 532 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -604,7 +602,7 @@ tester
 init
 echo
 forktest
-balloc: first 502 blocks have been allocated
+balloc: first 533 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -660,7 +658,7 @@ tester
 init
 echo
 forktest
-balloc: first 502 blocks have been allocated
+balloc: first 533 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -717,7 +715,7 @@ tester
 init
 echo
 forktest
-balloc: first 503 blocks have been allocated
+balloc: first 534 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -777,7 +775,7 @@ tester
 init
 echo
 forktest
-balloc: first 503 blocks have been allocated
+balloc: first 534 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -835,7 +833,7 @@ tester
 init
 echo
 forktest
-balloc: first 501 blocks have been allocated
+balloc: first 532 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -849,8 +847,8 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-useTEST PASSED
-r/tester.
+TEST PASSED
+user/tester.c: 27 a
 
 test join3 PASSED
  (join should not handle child processes (forked))
@@ -891,7 +889,7 @@ tester
 init
 echo
 forktest
-balloc: first 503 blocks have been allocated
+balloc: first 534 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -949,7 +947,7 @@ tester
 init
 echo
 forktest
-balloc: first 502 blocks have been allocated
+balloc: first 533 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -1007,7 +1005,7 @@ tester
 init
 echo
 forktest
-balloc: first 503 blocks have been allocated
+balloc: first 533 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -5063,7 +5061,7 @@ tester
 init
 echo
 forktest
-balloc: first 504 blocks have been allocated
+balloc: first 535 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -5111,12 +5109,12 @@ in join: find child thread: pid: 4
 in join: find child thread: pid: 5
 in join: find child thread: pid: 6
 in join: find child thread: pid: 7
-in join: find child thread: pid: 8
 in join: find child thread: pid: 9
 in join: find child thread: pid: 10
 in join: find child thread: pid: 11
 in join: find child thread: pid: 12
 in join: find child thread: pid: 13
+in join: find child thread: pid: 14
 in join: find child thread: pid: 15
 in join: find child thread: pid: 16
 in join: find child thread: pid: 17
@@ -5136,7 +5134,7 @@ in join: find child thread: pid: 30
 in join: find child thread: pid: 31
 in join: find child thread: pid: 32
 in join: find child thread: pid: 33
-in join: find child thread: pid: 14
+in join: find child thread: pid: 8
 TEST PASSED
 
 
@@ -5156,23 +5154,138 @@ make
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
 		-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
-user/tester.c:12: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘lock’
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o user/uthread.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+cloneTest
+wc
+stressfs
+cat
+rm
+README
+hello
+ln
+ls
+zombie
+grep
+kill
+usertests
+mkdir
+sh
+tester
+init
+echo
+forktest
+balloc: first 534 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox 
+Ctrl+a h for help
+/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 2
+Could not open option rom 'sgabios.bin': No such file or directory
+xv6...
+lapicinit: 1 0xfee00000
+cpu1: starting
+cpu0: starting
+init: starting sh
+$ tester
+tester
+page addr of stack: 8000
+page addr of stack: 6000
+page addr of stack: 4000
+page addr of stack: 10000
+page addr of stack: e000
+page addr of stack: c000
+page addr of stack: 18000
+page addr of stack: 16000
+page addr of stack: 14000
+page addr of stack: 20000
+page addr of stack: 1e000
+page addr of stack: 1c000
+page addr of stack: 28000
+page addr of stack: 26000
+page addr of stack: 24000
+page addr of stack: 30000
+page addr of stack: 2e000
+page addr of stack: 2c000
+page addr of stack: 38000
+page addr of stack: 36000
+page addr of stack: 34000
+page addr of stack: 40000
+page addr of stack: 3e000
+page addr of stack: 3c000
+page addr of stack: 48000
+page addr of stack: 46000
+page addr of stack: 44000
+page addr of stack: 50000
+page addr of stack: 4e000
+page addr of stack: 4c000
+in join: find child thread: pid: 5
+in join: find child thread: pid: 8
+in join: find child thread: pid: 12
+in join: find child thread: pid: 13
+in join: find child thread: pid: 14
+in join: find child thread: pid: 15
+in join: find child thread: pid: 17
+in join: find child thread: pid: 18
+in join: find child thread: pid: 19
+in join: find child thread: pid: 20
+in join: find child thread: pid: 21
+in join: find child thread: pid: 22
+in join: find child thread: pid: 23
+in join: find child thread: pid: 24
+in join: find child thread: pid: 25
+in join: find child thread: pid: 26
+in join: find child thread: pid: 27
+in join: find child thread: pid: 28
+in join: find child thread: pid: 29
+in join: find child thread: pid: 30
+in join: find child thread: pid: 31
+in join: find child thread: pid: 32
+in join: find child thread: pid: 33
+in join: find child thread: pid: 4
+in join: find child thread: pid: 6
+in join: find child thread: pid: 7
+in join: find child thread: pid: 9
+in join: find child thread: pid: 10
+in join: find child thread: pid: 16
+in join: find child thread: pid: 11
+TEST PASSED
+
+
+test locks PASSED
+ (test lock correctness)
+
+
+**********************************************************************
+
+Test cond
+test cv_wait and cv_signal, cannot leave cv_wait without lock
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-2/ta/tests/4b/tests/cond.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+user/tester.c:13: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘cond’
 cc1: warnings being treated as errors
 user/tester.c: In function ‘main’:
-user/tester.c:32: error: implicit declaration of function ‘lock_init’
-user/tester.c:32: error: ‘lock’ undeclared (first use in this function)
-user/tester.c:32: error: (Each undeclared identifier is reported only once
-user/tester.c:32: error: for each function it appears in.)
+user/tester.c:39: error: implicit declaration of function ‘cv_signal’
+user/tester.c:39: error: ‘cond’ undeclared (first use in this function)
+user/tester.c:39: error: (Each undeclared identifier is reported only once
+user/tester.c:39: error: for each function it appears in.)
 user/tester.c: In function ‘worker’:
-user/tester.c:55: error: implicit declaration of function ‘lock_acquire’
-user/tester.c:55: error: ‘lock’ undeclared (first use in this function)
-user/tester.c:59: error: implicit declaration of function ‘lock_release’
+user/tester.c:55: error: implicit declaration of function ‘cv_wait’
+user/tester.c:55: error: ‘cond’ undeclared (first use in this function)
 make: *** [user/tester.o] Error 1
 
 
-test locks FAILED
- (test lock correctness)
+test cond FAILED
+ (test cv_wait and cv_signal, cannot leave cv_wait without lock)
  make failed (error 2)
 
-Skipped 5 tests.
+Skipped 4 tests.
 To keep testing after failing a test, use flag '-c' or '--continue'

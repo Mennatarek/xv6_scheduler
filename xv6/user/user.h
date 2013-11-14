@@ -49,9 +49,24 @@ int atoi(const char*);
 //p4 thread library
 int thread_create(void (*start_routine)(void*), void *arg);
 int thread_join();
-/* int lock_acquire(lock_t *); */
-/* int lock_release(lock_t *); */
-/* int lock_init(lock_t *); */
+
+//lock
+typedef struct lock_type{
+  uint locked; //whether this lock is held. 0 free, 1 held
+} lock_t;
+
+void lock_acquire(lock_t* );
+void lock_release(lock_t* );
+void lock_init(lock_t* );
+
+//conditional variable
+typedef struct cond_type{
+  lock_t mlock;
+  int condition;
+  
+} cond_t;
+void cv_wait(cond_t *, lock_t *)
+vodi cv_signal(cond_t *)
 
 #endif // _USER_H_
 
