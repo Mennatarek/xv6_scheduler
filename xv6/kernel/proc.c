@@ -218,7 +218,7 @@ clone(void)
   // Push argument strings, prepare rest of stack in ustack.
   void* stackTop=stack+PGSIZE;//the logical top of the stack is the bottom of physical stack
   *(uint*)(stackTop-8)=0xffffffff;  // fake return PC
-  *(uint*)(stackTop-4)=(uint)arg; //argument 1
+  *(uint*)(stackTop-4)=(uint)arg; //argument 1..  may need to chagne to 8
   //===========================finish new stack==============
   
   np->sz = proc->sz;

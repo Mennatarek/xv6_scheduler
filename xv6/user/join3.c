@@ -25,7 +25,7 @@ main(int argc, char *argv[])
 
    int fork_pid = fork();
    printf(1,"fork_pid: %d\n",fork_pid);
-   assert(fork_pid >= 0);
+   assert(fork_pid > 0);
 
    void *join_stack;
    int join_pid = join(&join_stack);
