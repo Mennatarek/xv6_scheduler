@@ -31,7 +31,7 @@ int getsyscallinfo(void);
 //=============== add system call for p4. clone declaration
 int clone(void(*fcn)(void*), void *arg, void*stack);
 int join(void **stack);
-int threadSleep(void);
+int threadSleep(lock_t* outsideLock);
 int threadWake(int);
 
 
@@ -52,10 +52,12 @@ int atoi(const char*);
 int thread_create(void (*start_routine)(void*), void *arg);
 int thread_join();
 
-//lock
-typedef struct lock_type{
-  uint locked; //whether this lock is held. 0 free, 1 held
-} lock_t;
+/* //lock */
+/* typedef uint lock_t; */
+
+/* typedef struct lock_type{ */
+/*   uint locked; //whether this lock is held. 0 free, 1 held */
+/* } lock_t; */
 
 void lock_acquire(lock_t* );
 void lock_release(lock_t* );
@@ -63,7 +65,7 @@ void lock_init(lock_t* );
 
 //conditional variable
 typedef struct cond_type{
-  lock_t* mlock;
+  //  lock_t* mlock;
   int condition;
   int waitingList[100]; // how large should I allocate? is 100 enough? best should be a list
   int idx;  

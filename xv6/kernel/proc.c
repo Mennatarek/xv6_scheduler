@@ -118,7 +118,16 @@ growproc(int n)
     if((sz = deallocuvm(proc->pgdir, sz, sz + n)) == 0)
       return -1;
   }
+  
   proc->sz = sz;
+  struct proc *p;
+  //////////////////p4//////////////////////
+  acquire(&ptable.lock);
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+    if(p->parent != proc ||  1==p->isThread) // check it is indeed a thread, not a process
+      p->sz=sz;
+  release(&ptable.lock);
+  ////////////////////////////////////////
   switchuvm(proc);
   return 0;
 }
@@ -226,7 +235,7 @@ clone(void)
   *np->tf = *proc->tf; // the tf space is allocaed in allocproc();
   np->isThread=1; //mark itself as a thread
   np->stack=stack; //record the page addr of user stack for this thread
-  cprintf("page addr of stack: %x\n",np->stack);
+  /* cprintf("page addr of stack: %x\n",np->stack); */
   //=======================use new stack in chile
   np->tf->esp=(uint)(stackTop-8);  //use new stack
   np->tf->eip=(uint)fcn;//next instruction is the fucntion
@@ -271,7 +280,7 @@ join(void)
       havekids = 1;
 
       if(p->state == ZOMBIE ){ 
-        cprintf("in join: find child thread: pid: %d\n",p->pid);        
+        /* cprintf("in join: find child thread: pid: %d\n",p->pid);         */
         // Found one.
         pid = p->pid;
         kfree(p->kstack);
@@ -302,9 +311,47 @@ join(void)
 
 //put current thread to sleep
 int threadSleep(void){
-  acquire(&ptable.lock);  
-  // put the thread to sleep forever
-  sleep(proc, &ptable.lock);  //DOC: wait-sleep
+  lock_t* outsideLock;
+  if(argptr(0,(void*)&outsideLock,sizeof(outsideLock)) < 0)
+    return -1;
+  
+  if(proc == 0)
+    panic("sleep");
+
+  /* if(lk == 0) */
+  /*   panic("sleep without lk"); */
+
+  // Must acquire ptable.lock in order to
+  // change p->state and then call sched.
+  // Once we hold ptable.lock, we can be
+  // guaranteed that we won't miss any wakeup
+  // (wakeup runs with ptable.lock locked),
+  // so it's okay to release lk.
+  /* if(lk != &ptable.lock){  //DOC: sleeplock0 */
+  /*   acquire(&ptable.lock);  //DOC: sleeplock1 */
+  /*   release(lk); */
+  /* } */
+  
+  acquire(&ptable.lock);  //DOC: sleeplock1
+  
+  // Go to sleep.
+  //  proc->chan = chan;
+  proc->state = SLEEPING;
+  xchg(outsideLock, 0); // release the outside lock
+  /* cprintf("outside lock addr: %x, value:%d \n",outsideLock,*outsideLock); */
+  sched();
+
+  // Tidy up.
+  proc->chan = 0;
+
+  release(&ptable.lock);
+
+  /* // Reacquire original lock. */
+  /* if(lk != &ptable.lock){  //DOC: sleeplock2 */
+  /*   release(&ptable.lock); */
+  /*   acquire(lk); */
+  /* } */
+  
   return 0;
 }
 
@@ -318,8 +365,10 @@ int threadWake(void){
   
   acquire(&ptable.lock);
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
-    if(p->state == SLEEPING && p->pid == pid)
+    if(p->state == SLEEPING && p->pid == pid){
       p->state = RUNNABLE;
+      break;
+    }
   release(&ptable.lock);
   return 0;
 }

@@ -20,7 +20,8 @@ USER_PROGS := \
 	wc\
 	zombie\
 	join3\
-	cond
+	cond\
+	race
 
 USER_PROGS := $(addprefix user/, $(USER_PROGS))
 

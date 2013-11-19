@@ -7,7 +7,9 @@ build xv6 using make
 **********************************************************************
 Trying to clean project using make clean
 make clean
-rm -rf kernel/bio.o kernel/console.o kernel/exec.o kernel/file.o kernel/fs.o kernel/ide.o kernel/ioapic.o kernel/kalloc.o kernel/kbd.o kernel/lapic.o kernel/main.o kernel/mp.o kernel/picirq.o kernel/pipe.o kernel/proc.o kernel/spinlock.o kernel/string.o kernel/swtch.o kernel/syscall.o kernel/sysfile.o kernel/sysproc.o kernel/timer.o kernel/trapasm.o kernel/trap.o kernel/uart.o kernel/vectors.o kernel/vm.o kernel/bootmain.o kernel/bootasm.o kernel/multiboot.o kernel/data.o kernel/bootother.o kernel/initcode.o kernel/bio.d kernel/console.d kernel/exec.d kernel/file.d kernel/fs.d kernel/ide.d kernel/ioapic.d kernel/kalloc.d kernel/kbd.d kernel/lapic.d kernel/main.d kernel/mp.d kernel/picirq.d kernel/pipe.d kernel/proc.d kernel/spinlock.d kernel/string.d kernel/swtch.d kernel/syscall.d kernel/sysfile.d kernel/sysproc.d kernel/timer.d kernel/trapasm.d kernel/trap.d kernel/uart.d kernel/vectors.d kernel/vm.d kernel/bootmain.d kernel/bootasm.d kernel/multiboot.d kernel/data.d kernel/bootother.d kernel/initcode.d kernel/vectors.S kernel/bootblock kernel/bootblock.out kernel/bootother.out kernel/initcode.out kernel/kernel bootother initcode xv6.img user/bin user/cat user/echo user/forktest user/grep user/init user/kill user/ln user/ls user/mkdir user/rm user/hello user/sh user/stressfs user/tester user/usertests user/cloneTest user/wc user/zombie user/join3 user/cond user/cat.o user/echo.o user/forktest.o user/grep.o user/init.o user/kill.o user/ln.o user/ls.o user/mkdir.o user/rm.o user/hello.o user/sh.o user/stressfs.o user/tester.o user/usertests.o user/cloneTest.o user/wc.o user/zombie.o user/join3.o user/cond.o user/ulib.o user/usys.o user/printf.o user/umalloc.o user/uthread.o user/cat.d user/echo.d user/forktest.d user/grep.d user/init.d user/kill.d user/ln.d user/ls.d user/mkdir.d user/rm.d user/hello.d user/sh.d user/stressfs.d user/tester.d user/usertests.d user/cloneTest.d user/wc.d user/zombie.d user/join3.d user/cond.d user/ulib.d user/usys.d user/printf.d user/umalloc.d user/uthread.d tools/mkfs tools/mkfs.o tools/mkfs.d fs fs.img .gdbinit .bochsrc dist
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/uthread.c -MF user/uthread.d -MT user/uthread.d -MT user/uthread.o
+rm -rf kernel/bio.o kernel/console.o kernel/exec.o kernel/file.o kernel/fs.o kernel/ide.o kernel/ioapic.o kernel/kalloc.o kernel/kbd.o kernel/lapic.o kernel/main.o kernel/mp.o kernel/picirq.o kernel/pipe.o kernel/proc.o kernel/spinlock.o kernel/string.o kernel/swtch.o kernel/syscall.o kernel/sysfile.o kernel/sysproc.o kernel/timer.o kernel/trapasm.o kernel/trap.o kernel/uart.o kernel/vectors.o kernel/vm.o kernel/bootmain.o kernel/bootasm.o kernel/multiboot.o kernel/data.o kernel/bootother.o kernel/initcode.o kernel/bio.d kernel/console.d kernel/exec.d kernel/file.d kernel/fs.d kernel/ide.d kernel/ioapic.d kernel/kalloc.d kernel/kbd.d kernel/lapic.d kernel/main.d kernel/mp.d kernel/picirq.d kernel/pipe.d kernel/proc.d kernel/spinlock.d kernel/string.d kernel/swtch.d kernel/syscall.d kernel/sysfile.d kernel/sysproc.d kernel/timer.d kernel/trapasm.d kernel/trap.d kernel/uart.d kernel/vectors.d kernel/vm.d kernel/bootmain.d kernel/bootasm.d kernel/multiboot.d kernel/data.d kernel/bootother.d kernel/initcode.d kernel/vectors.S kernel/bootblock kernel/bootblock.out kernel/bootother.out kernel/initcode.out kernel/kernel bootother initcode xv6.img user/bin user/cat user/echo user/forktest user/grep user/init user/kill user/ln user/ls user/mkdir user/rm user/hello user/sh user/stressfs user/tester user/usertests user/cloneTest user/wc user/zombie user/join3 user/cond user/race user/cat.o user/echo.o user/forktest.o user/grep.o user/init.o user/kill.o user/ln.o user/ls.o user/mkdir.o user/rm.o user/hello.o user/sh.o user/stressfs.o user/tester.o user/usertests.o user/cloneTest.o user/wc.o user/zombie.o user/join3.o user/cond.o user/race.o user/ulib.o user/usys.o user/printf.o user/umalloc.o user/uthread.o user/cat.d user/echo.d user/forktest.d user/grep.d user/init.d user/kill.d user/ln.d user/ls.d user/mkdir.d user/rm.d user/hello.d user/sh.d user/stressfs.d user/tester.d user/usertests.d user/cloneTest.d user/wc.d user/zombie.d user/join3.d user/cond.d user/race.d user/ulib.d user/usys.d user/printf.d user/umalloc.d user/uthread.d tools/mkfs tools/mkfs.o tools/mkfs.d fs fs.img .gdbinit .bochsrc dist
 Trying to build project using make
 make
 Makefile:149: kernel/bio.d: No such file or directory
@@ -63,6 +65,7 @@ Makefile:149: user/wc.d: No such file or directory
 Makefile:149: user/zombie.d: No such file or directory
 Makefile:149: user/join3.d: No such file or directory
 Makefile:149: user/cond.d: No such file or directory
+Makefile:149: user/race.d: No such file or directory
 Makefile:149: user/ulib.d: No such file or directory
 Makefile:149: user/usys.d: No such file or directory
 Makefile:149: user/printf.d: No such file or directory
@@ -81,6 +84,8 @@ gcc  -I include -nostdinc -ggdb  -fno-pic -fno-builtin -fno-strict-aliasing -fno
 		-M -MG user/usys.S -MF user/usys.d -MT user/usys.d -MT user/usys.o
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
 		-M -MG user/ulib.c -MF user/ulib.d -MT user/ulib.d -MT user/ulib.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/race.c -MF user/race.d -MT user/race.d -MT user/race.o
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
 		-M -MG user/cond.c -MF user/cond.d -MT user/cond.d -MT user/cond.o
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
@@ -243,15 +248,15 @@ ld  -m    elf_i386 -nostdlib --omagic \
 dd if=/dev/zero of=xv6.img count=10000
 10000+0 records in
 10000+0 records out
-5120000 bytes (5.1 MB) copied, 0.0229408 s, 223 MB/s
+5120000 bytes (5.1 MB) copied, 0.0221074 s, 232 MB/s
 dd if=kernel/bootblock of=xv6.img conv=notrunc
 1+0 records in
 1+0 records out
-512 bytes (512 B) copied, 1.9115e-05 s, 26.8 MB/s
+512 bytes (512 B) copied, 2.1614e-05 s, 23.7 MB/s
 dd if=kernel/kernel of=xv6.img seek=1 conv=notrunc
-256+1 records in
-256+1 records out
-131394 bytes (131 kB) copied, 0.000454284 s, 289 MB/s
+257+1 records in
+257+1 records out
+131610 bytes (132 kB) copied, 0.000402234 s, 327 MB/s
 gcc -c  -iquote include -Wall -Werror -ggdb  -o tools/mkfs.o tools/mkfs.c
 gcc  tools/mkfs.o -o tools/mkfs
 mkdir -p fs
@@ -322,32 +327,36 @@ cp user/bin/join3 fs/join3
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/cond.o user/cond.c
 ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/cond user/cond.o user/ulib.o user/usys.o user/printf.o user/umalloc.o user/uthread.o
 cp user/bin/cond fs/cond
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/race.o user/race.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/race user/race.o user/ulib.o user/usys.o user/printf.o user/umalloc.o user/uthread.o
+cp user/bin/race fs/race
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
-sh
-usertests
 mkdir
-wc
-grep
-cond
-rm
-cat
-forktest
-README
-join3
-init
-zombie
 kill
+zombie
+cond
+wc
+sh
 hello
-echo
-tester
-stressfs
 ln
+grep
+echo
+usertests
+cloneTest
+cat
 ls
-balloc: first 626 blocks have been allocated
+join3
+forktest
+race
+tester
+README
+init
+rm
+stressfs
+balloc: first 636 blocks have been allocated
 balloc: write bitmap block at sector 28
-rm user/bin/stressfs user/bin/grep user/bin/tester user/bin/hello user/bin/kill user/bin/cond user/bin/cat user/bin/mkdir user/bin/init user/bin/rm user/bin/join3 user/bin/echo user/bin/ls user/bin/ln user/bin/usertests user/bin/sh user/bin/wc user/bin/cloneTest user/bin/zombie
+rm user/bin/stressfs user/bin/grep user/bin/tester user/bin/hello user/bin/kill user/bin/cond user/bin/cat user/bin/mkdir user/bin/init user/bin/rm user/bin/race user/bin/join3 user/bin/echo user/bin/ls user/bin/ln user/bin/usertests user/bin/sh user/bin/wc user/bin/cloneTest user/bin/zombie
 
 
 test build PASSED
@@ -370,28 +379,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
-sh
-usertests
 mkdir
-wc
-grep
-cond
-rm
-cat
-forktest
-README
-join3
-init
-zombie
 kill
+zombie
+cond
+wc
+sh
 hello
-echo
-tester
-stressfs
 ln
+grep
+echo
+usertests
+cloneTest
+cat
 ls
-balloc: first 628 blocks have been allocated
+join3
+forktest
+race
+tester
+README
+init
+rm
+stressfs
+balloc: first 638 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -405,7 +415,6 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-page addr of stack: 8000
 TEST PASSED
 
 
@@ -429,28 +438,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
-sh
-usertests
 mkdir
-wc
-grep
-cond
-rm
-cat
-forktest
-README
-join3
-init
-zombie
 kill
+zombie
+cond
+wc
+sh
 hello
-echo
-tester
-stressfs
 ln
+grep
+echo
+usertests
+cloneTest
+cat
 ls
-balloc: first 628 blocks have been allocated
+join3
+forktest
+race
+tester
+README
+init
+rm
+stressfs
+balloc: first 639 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -464,7 +474,6 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-page addr of stack: 8000
 TEST PASSED
 
 
@@ -488,28 +497,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
-sh
-usertests
 mkdir
-wc
-grep
-cond
-rm
-cat
-forktest
-README
-join3
-init
-zombie
 kill
+zombie
+cond
+wc
+sh
 hello
-echo
-tester
-stressfs
 ln
+grep
+echo
+usertests
+cloneTest
+cat
 ls
-balloc: first 629 blocks have been allocated
+join3
+forktest
+race
+tester
+README
+init
+rm
+stressfs
+balloc: first 639 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -523,7 +533,6 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-page addr of stack: 8000
 TEST PASSED
 
 
@@ -547,28 +556,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
-sh
-usertests
 mkdir
-wc
-grep
-cond
-rm
-cat
-forktest
-README
-join3
-init
-zombie
 kill
+zombie
+cond
+wc
+sh
 hello
-echo
-tester
-stressfs
 ln
+grep
+echo
+usertests
+cloneTest
+cat
 ls
-balloc: first 629 blocks have been allocated
+join3
+forktest
+race
+tester
+README
+init
+rm
+stressfs
+balloc: first 639 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -605,28 +615,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
-sh
-usertests
 mkdir
-wc
-grep
-cond
-rm
-cat
-forktest
-README
-join3
-init
-zombie
 kill
+zombie
+cond
+wc
+sh
 hello
-echo
-tester
-stressfs
 ln
+grep
+echo
+usertests
+cloneTest
+cat
 ls
-balloc: first 628 blocks have been allocated
+join3
+forktest
+race
+tester
+README
+init
+rm
+stressfs
+balloc: first 638 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -640,7 +651,6 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-page addr of stack: 8000
 TEST PASSED
 
 
@@ -664,28 +674,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
-sh
-usertests
 mkdir
-wc
-grep
-cond
-rm
-cat
-forktest
-README
-join3
-init
-zombie
 kill
+zombie
+cond
+wc
+sh
 hello
-echo
-tester
-stressfs
 ln
+grep
+echo
+usertests
+cloneTest
+cat
 ls
-balloc: first 629 blocks have been allocated
+join3
+forktest
+race
+tester
+README
+init
+rm
+stressfs
+balloc: first 639 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -699,10 +710,8 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-page addr of stack: 9000
-in join: find child thread: pid: 4
-9000
-9000
+8000
+8000
 TEST PASSED
 
 
@@ -726,28 +735,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
-sh
-usertests
 mkdir
-wc
-grep
-cond
-rm
-cat
-forktest
-README
-join3
-init
-zombie
 kill
+zombie
+cond
+wc
+sh
 hello
-echo
-tester
-stressfs
 ln
+grep
+echo
+usertests
+cloneTest
+cat
 ls
-balloc: first 630 blocks have been allocated
+join3
+forktest
+race
+tester
+README
+init
+rm
+stressfs
+balloc: first 640 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -761,8 +771,6 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-page addr of stack: 9000
-in join: find child thread: pid: 4
 TEST PASSED
 
 
@@ -786,28 +794,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
-sh
-usertests
 mkdir
-wc
-grep
-cond
-rm
-cat
-forktest
-README
-join3
-init
-zombie
 kill
+zombie
+cond
+wc
+sh
 hello
-echo
-tester
-stressfs
 ln
+grep
+echo
+usertests
+cloneTest
+cat
 ls
-balloc: first 627 blocks have been allocated
+join3
+forktest
+race
+tester
+README
+init
+rm
+stressfs
+balloc: first 637 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -844,28 +853,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
-sh
-usertests
 mkdir
-wc
-grep
-cond
-rm
-cat
-forktest
-README
-join3
-init
-zombie
 kill
+zombie
+cond
+wc
+sh
 hello
-echo
-tester
-stressfs
 ln
+grep
+echo
+usertests
+cloneTest
+cat
 ls
-balloc: first 629 blocks have been allocated
+join3
+forktest
+race
+tester
+README
+init
+rm
+stressfs
+balloc: first 640 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -879,8 +889,6 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-page addr of stack: 9000
-in join: find child thread: pid: 4
 TEST PASSED
 
 
@@ -904,28 +912,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
-sh
-usertests
 mkdir
-wc
-grep
-cond
-rm
-cat
-forktest
-README
-join3
-init
-zombie
 kill
+zombie
+cond
+wc
+sh
 hello
-echo
-tester
-stressfs
 ln
+grep
+echo
+usertests
+cloneTest
+cat
 ls
-balloc: first 628 blocks have been allocated
+join3
+forktest
+race
+tester
+README
+init
+rm
+stressfs
+balloc: first 638 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -939,8 +948,6 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-page addr of stack: 8000
-in join: find child thread: pid: 4
 TEST PASSED
 
 
@@ -964,28 +971,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
-sh
-usertests
 mkdir
-wc
-grep
-cond
-rm
-cat
-forktest
-README
-join3
-init
-zombie
 kill
+zombie
+cond
+wc
+sh
 hello
-echo
-tester
-stressfs
 ln
+grep
+echo
+usertests
+cloneTest
+cat
 ls
-balloc: first 629 blocks have been allocated
+join3
+forktest
+race
+tester
+README
+init
+rm
+stressfs
+balloc: first 639 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -999,4006 +1007,6 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-page addr of stack: 8000
-in join: find child thread: pid: 4
-page addr of stack: 8000
-in join: find child thread: pid: 5
-page addr of stack: 8000
-in join: find child thread: pid: 6
-page addr of stack: 8000
-in join: find child thread: pid: 7
-page addr of stack: 8000
-in join: find child thread: pid: 8
-page addr of stack: 8000
-in join: find child thread: pid: 9
-page addr of stack: 8000
-in join: find child thread: pid: 10
-page addr of stack: 8000
-in join: find child thread: pid: 11
-page addr of stack: 8000
-in join: find child thread: pid: 12
-page addr of stack: 8000
-in join: find child thread: pid: 13
-page addr of stack: 8000
-in join: find child thread: pid: 14
-page addr of stack: 8000
-in join: find child thread: pid: 15
-page addr of stack: 8000
-in join: find child thread: pid: 16
-page addr of stack: 8000
-in join: find child thread: pid: 17
-page addr of stack: 8000
-in join: find child thread: pid: 18
-page addr of stack: 8000
-in join: find child thread: pid: 19
-page addr of stack: 8000
-in join: find child thread: pid: 20
-page addr of stack: 8000
-in join: find child thread: pid: 21
-page addr of stack: 8000
-in join: find child thread: pid: 22
-page addr of stack: 8000
-in join: find child thread: pid: 23
-page addr of stack: 8000
-in join: find child thread: pid: 24
-page addr of stack: 8000
-in join: find child thread: pid: 25
-page addr of stack: 8000
-in join: find child thread: pid: 26
-page addr of stack: 8000
-in join: find child thread: pid: 27
-page addr of stack: 8000
-in join: find child thread: pid: 28
-page addr of stack: 8000
-in join: find child thread: pid: 29
-page addr of stack: 8000
-in join: find child thread: pid: 30
-page addr of stack: 8000
-in join: find child thread: pid: 31
-page addr of stack: 8000
-in join: find child thread: pid: 32
-page addr of stack: 8000
-in join: find child thread: pid: 33
-page addr of stack: 8000
-in join: find child thread: pid: 34
-page addr of stack: 8000
-in join: find child thread: pid: 35
-page addr of stack: 8000
-in join: find child thread: pid: 36
-page addr of stack: 8000
-in join: find child thread: pid: 37
-page addr of stack: 8000
-in join: find child thread: pid: 38
-page addr of stack: 8000
-in join: find child thread: pid: 39
-page addr of stack: 8000
-in join: find child thread: pid: 40
-page addr of stack: 8000
-in join: find child thread: pid: 41
-page addr of stack: 8000
-in join: find child thread: pid: 42
-page addr of stack: 8000
-in join: find child thread: pid: 43
-page addr of stack: 8000
-in join: find child thread: pid: 44
-page addr of stack: 8000
-in join: find child thread: pid: 45
-page addr of stack: 8000
-in join: find child thread: pid: 46
-page addr of stack: 8000
-in join: find child thread: pid: 47
-page addr of stack: 8000
-in join: find child thread: pid: 48
-page addr of stack: 8000
-in join: find child thread: pid: 49
-page addr of stack: 8000
-in join: find child thread: pid: 50
-page addr of stack: 8000
-in join: find child thread: pid: 51
-page addr of stack: 8000
-in join: find child thread: pid: 52
-page addr of stack: 8000
-in join: find child thread: pid: 53
-page addr of stack: 8000
-in join: find child thread: pid: 54
-page addr of stack: 8000
-in join: find child thread: pid: 55
-page addr of stack: 8000
-in join: find child thread: pid: 56
-page addr of stack: 8000
-in join: find child thread: pid: 57
-page addr of stack: 8000
-in join: find child thread: pid: 58
-page addr of stack: 8000
-in join: find child thread: pid: 59
-page addr of stack: 8000
-in join: find child thread: pid: 60
-page addr of stack: 8000
-in join: find child thread: pid: 61
-page addr of stack: 8000
-in join: find child thread: pid: 62
-page addr of stack: 8000
-in join: find child thread: pid: 63
-page addr of stack: 8000
-in join: find child thread: pid: 64
-page addr of stack: 8000
-in join: find child thread: pid: 65
-page addr of stack: 8000
-in join: find child thread: pid: 66
-page addr of stack: 8000
-in join: find child thread: pid: 67
-page addr of stack: 8000
-in join: find child thread: pid: 68
-page addr of stack: 8000
-in join: find child thread: pid: 69
-page addr of stack: 8000
-in join: find child thread: pid: 70
-page addr of stack: 8000
-in join: find child thread: pid: 71
-page addr of stack: 8000
-in join: find child thread: pid: 72
-page addr of stack: 8000
-in join: find child thread: pid: 73
-page addr of stack: 8000
-in join: find child thread: pid: 74
-page addr of stack: 8000
-in join: find child thread: pid: 75
-page addr of stack: 8000
-in join: find child thread: pid: 76
-page addr of stack: 8000
-in join: find child thread: pid: 77
-page addr of stack: 8000
-in join: find child thread: pid: 78
-page addr of stack: 8000
-in join: find child thread: pid: 79
-page addr of stack: 8000
-in join: find child thread: pid: 80
-page addr of stack: 8000
-in join: find child thread: pid: 81
-page addr of stack: 8000
-in join: find child thread: pid: 82
-page addr of stack: 8000
-in join: find child thread: pid: 83
-page addr of stack: 8000
-in join: find child thread: pid: 84
-page addr of stack: 8000
-in join: find child thread: pid: 85
-page addr of stack: 8000
-in join: find child thread: pid: 86
-page addr of stack: 8000
-in join: find child thread: pid: 87
-page addr of stack: 8000
-in join: find child thread: pid: 88
-page addr of stack: 8000
-in join: find child thread: pid: 89
-page addr of stack: 8000
-in join: find child thread: pid: 90
-page addr of stack: 8000
-in join: find child thread: pid: 91
-page addr of stack: 8000
-in join: find child thread: pid: 92
-page addr of stack: 8000
-in join: find child thread: pid: 93
-page addr of stack: 8000
-in join: find child thread: pid: 94
-page addr of stack: 8000
-in join: find child thread: pid: 95
-page addr of stack: 8000
-in join: find child thread: pid: 96
-page addr of stack: 8000
-in join: find child thread: pid: 97
-page addr of stack: 8000
-in join: find child thread: pid: 98
-page addr of stack: 8000
-in join: find child thread: pid: 99
-page addr of stack: 8000
-in join: find child thread: pid: 100
-page addr of stack: 8000
-in join: find child thread: pid: 101
-page addr of stack: 8000
-in join: find child thread: pid: 102
-page addr of stack: 8000
-in join: find child thread: pid: 103
-page addr of stack: 8000
-in join: find child thread: pid: 104
-page addr of stack: 8000
-in join: find child thread: pid: 105
-page addr of stack: 8000
-in join: find child thread: pid: 106
-page addr of stack: 8000
-in join: find child thread: pid: 107
-page addr of stack: 8000
-in join: find child thread: pid: 108
-page addr of stack: 8000
-in join: find child thread: pid: 109
-page addr of stack: 8000
-in join: find child thread: pid: 110
-page addr of stack: 8000
-in join: find child thread: pid: 111
-page addr of stack: 8000
-in join: find child thread: pid: 112
-page addr of stack: 8000
-in join: find child thread: pid: 113
-page addr of stack: 8000
-in join: find child thread: pid: 114
-page addr of stack: 8000
-in join: find child thread: pid: 115
-page addr of stack: 8000
-in join: find child thread: pid: 116
-page addr of stack: 8000
-in join: find child thread: pid: 117
-page addr of stack: 8000
-in join: find child thread: pid: 118
-page addr of stack: 8000
-in join: find child thread: pid: 119
-page addr of stack: 8000
-in join: find child thread: pid: 120
-page addr of stack: 8000
-in join: find child thread: pid: 121
-page addr of stack: 8000
-in join: find child thread: pid: 122
-page addr of stack: 8000
-in join: find child thread: pid: 123
-page addr of stack: 8000
-in join: find child thread: pid: 124
-page addr of stack: 8000
-in join: find child thread: pid: 125
-page addr of stack: 8000
-in join: find child thread: pid: 126
-page addr of stack: 8000
-in join: find child thread: pid: 127
-page addr of stack: 8000
-in join: find child thread: pid: 128
-page addr of stack: 8000
-in join: find child thread: pid: 129
-page addr of stack: 8000
-in join: find child thread: pid: 130
-page addr of stack: 8000
-in join: find child thread: pid: 131
-page addr of stack: 8000
-in join: find child thread: pid: 132
-page addr of stack: 8000
-in join: find child thread: pid: 133
-page addr of stack: 8000
-in join: find child thread: pid: 134
-page addr of stack: 8000
-in join: find child thread: pid: 135
-page addr of stack: 8000
-in join: find child thread: pid: 136
-page addr of stack: 8000
-in join: find child thread: pid: 137
-page addr of stack: 8000
-in join: find child thread: pid: 138
-page addr of stack: 8000
-in join: find child thread: pid: 139
-page addr of stack: 8000
-in join: find child thread: pid: 140
-page addr of stack: 8000
-in join: find child thread: pid: 141
-page addr of stack: 8000
-in join: find child thread: pid: 142
-page addr of stack: 8000
-in join: find child thread: pid: 143
-page addr of stack: 8000
-in join: find child thread: pid: 144
-page addr of stack: 8000
-in join: find child thread: pid: 145
-page addr of stack: 8000
-in join: find child thread: pid: 146
-page addr of stack: 8000
-in join: find child thread: pid: 147
-page addr of stack: 8000
-in join: find child thread: pid: 148
-page addr of stack: 8000
-in join: find child thread: pid: 149
-page addr of stack: 8000
-in join: find child thread: pid: 150
-page addr of stack: 8000
-in join: find child thread: pid: 151
-page addr of stack: 8000
-in join: find child thread: pid: 152
-page addr of stack: 8000
-in join: find child thread: pid: 153
-page addr of stack: 8000
-in join: find child thread: pid: 154
-page addr of stack: 8000
-in join: find child thread: pid: 155
-page addr of stack: 8000
-in join: find child thread: pid: 156
-page addr of stack: 8000
-in join: find child thread: pid: 157
-page addr of stack: 8000
-in join: find child thread: pid: 158
-page addr of stack: 8000
-in join: find child thread: pid: 159
-page addr of stack: 8000
-in join: find child thread: pid: 160
-page addr of stack: 8000
-in join: find child thread: pid: 161
-page addr of stack: 8000
-in join: find child thread: pid: 162
-page addr of stack: 8000
-in join: find child thread: pid: 163
-page addr of stack: 8000
-in join: find child thread: pid: 164
-page addr of stack: 8000
-in join: find child thread: pid: 165
-page addr of stack: 8000
-in join: find child thread: pid: 166
-page addr of stack: 8000
-in join: find child thread: pid: 167
-page addr of stack: 8000
-in join: find child thread: pid: 168
-page addr of stack: 8000
-in join: find child thread: pid: 169
-page addr of stack: 8000
-in join: find child thread: pid: 170
-page addr of stack: 8000
-in join: find child thread: pid: 171
-page addr of stack: 8000
-in join: find child thread: pid: 172
-page addr of stack: 8000
-in join: find child thread: pid: 173
-page addr of stack: 8000
-in join: find child thread: pid: 174
-page addr of stack: 8000
-in join: find child thread: pid: 175
-page addr of stack: 8000
-in join: find child thread: pid: 176
-page addr of stack: 8000
-in join: find child thread: pid: 177
-page addr of stack: 8000
-in join: find child thread: pid: 178
-page addr of stack: 8000
-in join: find child thread: pid: 179
-page addr of stack: 8000
-in join: find child thread: pid: 180
-page addr of stack: 8000
-in join: find child thread: pid: 181
-page addr of stack: 8000
-in join: find child thread: pid: 182
-page addr of stack: 8000
-in join: find child thread: pid: 183
-page addr of stack: 8000
-in join: find child thread: pid: 184
-page addr of stack: 8000
-in join: find child thread: pid: 185
-page addr of stack: 8000
-in join: find child thread: pid: 186
-page addr of stack: 8000
-in join: find child thread: pid: 187
-page addr of stack: 8000
-in join: find child thread: pid: 188
-page addr of stack: 8000
-in join: find child thread: pid: 189
-page addr of stack: 8000
-in join: find child thread: pid: 190
-page addr of stack: 8000
-in join: find child thread: pid: 191
-page addr of stack: 8000
-in join: find child thread: pid: 192
-page addr of stack: 8000
-in join: find child thread: pid: 193
-page addr of stack: 8000
-in join: find child thread: pid: 194
-page addr of stack: 8000
-in join: find child thread: pid: 195
-page addr of stack: 8000
-in join: find child thread: pid: 196
-page addr of stack: 8000
-in join: find child thread: pid: 197
-page addr of stack: 8000
-in join: find child thread: pid: 198
-page addr of stack: 8000
-in join: find child thread: pid: 199
-page addr of stack: 8000
-in join: find child thread: pid: 200
-page addr of stack: 8000
-in join: find child thread: pid: 201
-page addr of stack: 8000
-in join: find child thread: pid: 202
-page addr of stack: 8000
-in join: find child thread: pid: 203
-page addr of stack: 8000
-in join: find child thread: pid: 204
-page addr of stack: 8000
-in join: find child thread: pid: 205
-page addr of stack: 8000
-in join: find child thread: pid: 206
-page addr of stack: 8000
-in join: find child thread: pid: 207
-page addr of stack: 8000
-in join: find child thread: pid: 208
-page addr of stack: 8000
-in join: find child thread: pid: 209
-page addr of stack: 8000
-in join: find child thread: pid: 210
-page addr of stack: 8000
-in join: find child thread: pid: 211
-page addr of stack: 8000
-in join: find child thread: pid: 212
-page addr of stack: 8000
-in join: find child thread: pid: 213
-page addr of stack: 8000
-in join: find child thread: pid: 214
-page addr of stack: 8000
-in join: find child thread: pid: 215
-page addr of stack: 8000
-in join: find child thread: pid: 216
-page addr of stack: 8000
-in join: find child thread: pid: 217
-page addr of stack: 8000
-in join: find child thread: pid: 218
-page addr of stack: 8000
-in join: find child thread: pid: 219
-page addr of stack: 8000
-in join: find child thread: pid: 220
-page addr of stack: 8000
-in join: find child thread: pid: 221
-page addr of stack: 8000
-in join: find child thread: pid: 222
-page addr of stack: 8000
-in join: find child thread: pid: 223
-page addr of stack: 8000
-in join: find child thread: pid: 224
-page addr of stack: 8000
-in join: find child thread: pid: 225
-page addr of stack: 8000
-in join: find child thread: pid: 226
-page addr of stack: 8000
-in join: find child thread: pid: 227
-page addr of stack: 8000
-in join: find child thread: pid: 228
-page addr of stack: 8000
-in join: find child thread: pid: 229
-page addr of stack: 8000
-in join: find child thread: pid: 230
-page addr of stack: 8000
-in join: find child thread: pid: 231
-page addr of stack: 8000
-in join: find child thread: pid: 232
-page addr of stack: 8000
-in join: find child thread: pid: 233
-page addr of stack: 8000
-in join: find child thread: pid: 234
-page addr of stack: 8000
-in join: find child thread: pid: 235
-page addr of stack: 8000
-in join: find child thread: pid: 236
-page addr of stack: 8000
-in join: find child thread: pid: 237
-page addr of stack: 8000
-in join: find child thread: pid: 238
-page addr of stack: 8000
-in join: find child thread: pid: 239
-page addr of stack: 8000
-in join: find child thread: pid: 240
-page addr of stack: 8000
-in join: find child thread: pid: 241
-page addr of stack: 8000
-in join: find child thread: pid: 242
-page addr of stack: 8000
-in join: find child thread: pid: 243
-page addr of stack: 8000
-in join: find child thread: pid: 244
-page addr of stack: 8000
-in join: find child thread: pid: 245
-page addr of stack: 8000
-in join: find child thread: pid: 246
-page addr of stack: 8000
-in join: find child thread: pid: 247
-page addr of stack: 8000
-in join: find child thread: pid: 248
-page addr of stack: 8000
-in join: find child thread: pid: 249
-page addr of stack: 8000
-in join: find child thread: pid: 250
-page addr of stack: 8000
-in join: find child thread: pid: 251
-page addr of stack: 8000
-in join: find child thread: pid: 252
-page addr of stack: 8000
-in join: find child thread: pid: 253
-page addr of stack: 8000
-in join: find child thread: pid: 254
-page addr of stack: 8000
-in join: find child thread: pid: 255
-page addr of stack: 8000
-in join: find child thread: pid: 256
-page addr of stack: 8000
-in join: find child thread: pid: 257
-page addr of stack: 8000
-in join: find child thread: pid: 258
-page addr of stack: 8000
-in join: find child thread: pid: 259
-page addr of stack: 8000
-in join: find child thread: pid: 260
-page addr of stack: 8000
-in join: find child thread: pid: 261
-page addr of stack: 8000
-in join: find child thread: pid: 262
-page addr of stack: 8000
-in join: find child thread: pid: 263
-page addr of stack: 8000
-in join: find child thread: pid: 264
-page addr of stack: 8000
-in join: find child thread: pid: 265
-page addr of stack: 8000
-in join: find child thread: pid: 266
-page addr of stack: 8000
-in join: find child thread: pid: 267
-page addr of stack: 8000
-in join: find child thread: pid: 268
-page addr of stack: 8000
-in join: find child thread: pid: 269
-page addr of stack: 8000
-in join: find child thread: pid: 270
-page addr of stack: 8000
-in join: find child thread: pid: 271
-page addr of stack: 8000
-in join: find child thread: pid: 272
-page addr of stack: 8000
-in join: find child thread: pid: 273
-page addr of stack: 8000
-in join: find child thread: pid: 274
-page addr of stack: 8000
-in join: find child thread: pid: 275
-page addr of stack: 8000
-in join: find child thread: pid: 276
-page addr of stack: 8000
-in join: find child thread: pid: 277
-page addr of stack: 8000
-in join: find child thread: pid: 278
-page addr of stack: 8000
-in join: find child thread: pid: 279
-page addr of stack: 8000
-in join: find child thread: pid: 280
-page addr of stack: 8000
-in join: find child thread: pid: 281
-page addr of stack: 8000
-in join: find child thread: pid: 282
-page addr of stack: 8000
-in join: find child thread: pid: 283
-page addr of stack: 8000
-in join: find child thread: pid: 284
-page addr of stack: 8000
-in join: find child thread: pid: 285
-page addr of stack: 8000
-in join: find child thread: pid: 286
-page addr of stack: 8000
-in join: find child thread: pid: 287
-page addr of stack: 8000
-in join: find child thread: pid: 288
-page addr of stack: 8000
-in join: find child thread: pid: 289
-page addr of stack: 8000
-in join: find child thread: pid: 290
-page addr of stack: 8000
-in join: find child thread: pid: 291
-page addr of stack: 8000
-in join: find child thread: pid: 292
-page addr of stack: 8000
-in join: find child thread: pid: 293
-page addr of stack: 8000
-in join: find child thread: pid: 294
-page addr of stack: 8000
-in join: find child thread: pid: 295
-page addr of stack: 8000
-in join: find child thread: pid: 296
-page addr of stack: 8000
-in join: find child thread: pid: 297
-page addr of stack: 8000
-in join: find child thread: pid: 298
-page addr of stack: 8000
-in join: find child thread: pid: 299
-page addr of stack: 8000
-in join: find child thread: pid: 300
-page addr of stack: 8000
-in join: find child thread: pid: 301
-page addr of stack: 8000
-in join: find child thread: pid: 302
-page addr of stack: 8000
-in join: find child thread: pid: 303
-page addr of stack: 8000
-in join: find child thread: pid: 304
-page addr of stack: 8000
-in join: find child thread: pid: 305
-page addr of stack: 8000
-in join: find child thread: pid: 306
-page addr of stack: 8000
-in join: find child thread: pid: 307
-page addr of stack: 8000
-in join: find child thread: pid: 308
-page addr of stack: 8000
-in join: find child thread: pid: 309
-page addr of stack: 8000
-in join: find child thread: pid: 310
-page addr of stack: 8000
-in join: find child thread: pid: 311
-page addr of stack: 8000
-in join: find child thread: pid: 312
-page addr of stack: 8000
-in join: find child thread: pid: 313
-page addr of stack: 8000
-in join: find child thread: pid: 314
-page addr of stack: 8000
-in join: find child thread: pid: 315
-page addr of stack: 8000
-in join: find child thread: pid: 316
-page addr of stack: 8000
-in join: find child thread: pid: 317
-page addr of stack: 8000
-in join: find child thread: pid: 318
-page addr of stack: 8000
-in join: find child thread: pid: 319
-page addr of stack: 8000
-in join: find child thread: pid: 320
-page addr of stack: 8000
-in join: find child thread: pid: 321
-page addr of stack: 8000
-in join: find child thread: pid: 322
-page addr of stack: 8000
-in join: find child thread: pid: 323
-page addr of stack: 8000
-in join: find child thread: pid: 324
-page addr of stack: 8000
-in join: find child thread: pid: 325
-page addr of stack: 8000
-in join: find child thread: pid: 326
-page addr of stack: 8000
-in join: find child thread: pid: 327
-page addr of stack: 8000
-in join: find child thread: pid: 328
-page addr of stack: 8000
-in join: find child thread: pid: 329
-page addr of stack: 8000
-in join: find child thread: pid: 330
-page addr of stack: 8000
-in join: find child thread: pid: 331
-page addr of stack: 8000
-in join: find child thread: pid: 332
-page addr of stack: 8000
-in join: find child thread: pid: 333
-page addr of stack: 8000
-in join: find child thread: pid: 334
-page addr of stack: 8000
-in join: find child thread: pid: 335
-page addr of stack: 8000
-in join: find child thread: pid: 336
-page addr of stack: 8000
-in join: find child thread: pid: 337
-page addr of stack: 8000
-in join: find child thread: pid: 338
-page addr of stack: 8000
-in join: find child thread: pid: 339
-page addr of stack: 8000
-in join: find child thread: pid: 340
-page addr of stack: 8000
-in join: find child thread: pid: 341
-page addr of stack: 8000
-in join: find child thread: pid: 342
-page addr of stack: 8000
-in join: find child thread: pid: 343
-page addr of stack: 8000
-in join: find child thread: pid: 344
-page addr of stack: 8000
-in join: find child thread: pid: 345
-page addr of stack: 8000
-in join: find child thread: pid: 346
-page addr of stack: 8000
-in join: find child thread: pid: 347
-page addr of stack: 8000
-in join: find child thread: pid: 348
-page addr of stack: 8000
-in join: find child thread: pid: 349
-page addr of stack: 8000
-in join: find child thread: pid: 350
-page addr of stack: 8000
-in join: find child thread: pid: 351
-page addr of stack: 8000
-in join: find child thread: pid: 352
-page addr of stack: 8000
-in join: find child thread: pid: 353
-page addr of stack: 8000
-in join: find child thread: pid: 354
-page addr of stack: 8000
-in join: find child thread: pid: 355
-page addr of stack: 8000
-in join: find child thread: pid: 356
-page addr of stack: 8000
-in join: find child thread: pid: 357
-page addr of stack: 8000
-in join: find child thread: pid: 358
-page addr of stack: 8000
-in join: find child thread: pid: 359
-page addr of stack: 8000
-in join: find child thread: pid: 360
-page addr of stack: 8000
-in join: find child thread: pid: 361
-page addr of stack: 8000
-in join: find child thread: pid: 362
-page addr of stack: 8000
-in join: find child thread: pid: 363
-page addr of stack: 8000
-in join: find child thread: pid: 364
-page addr of stack: 8000
-in join: find child thread: pid: 365
-page addr of stack: 8000
-in join: find child thread: pid: 366
-page addr of stack: 8000
-in join: find child thread: pid: 367
-page addr of stack: 8000
-in join: find child thread: pid: 368
-page addr of stack: 8000
-in join: find child thread: pid: 369
-page addr of stack: 8000
-in join: find child thread: pid: 370
-page addr of stack: 8000
-in join: find child thread: pid: 371
-page addr of stack: 8000
-in join: find child thread: pid: 372
-page addr of stack: 8000
-in join: find child thread: pid: 373
-page addr of stack: 8000
-in join: find child thread: pid: 374
-page addr of stack: 8000
-in join: find child thread: pid: 375
-page addr of stack: 8000
-in join: find child thread: pid: 376
-page addr of stack: 8000
-in join: find child thread: pid: 377
-page addr of stack: 8000
-in join: find child thread: pid: 378
-page addr of stack: 8000
-in join: find child thread: pid: 379
-page addr of stack: 8000
-in join: find child thread: pid: 380
-page addr of stack: 8000
-in join: find child thread: pid: 381
-page addr of stack: 8000
-in join: find child thread: pid: 382
-page addr of stack: 8000
-in join: find child thread: pid: 383
-page addr of stack: 8000
-in join: find child thread: pid: 384
-page addr of stack: 8000
-in join: find child thread: pid: 385
-page addr of stack: 8000
-in join: find child thread: pid: 386
-page addr of stack: 8000
-in join: find child thread: pid: 387
-page addr of stack: 8000
-in join: find child thread: pid: 388
-page addr of stack: 8000
-in join: find child thread: pid: 389
-page addr of stack: 8000
-in join: find child thread: pid: 390
-page addr of stack: 8000
-in join: find child thread: pid: 391
-page addr of stack: 8000
-in join: find child thread: pid: 392
-page addr of stack: 8000
-in join: find child thread: pid: 393
-page addr of stack: 8000
-in join: find child thread: pid: 394
-page addr of stack: 8000
-in join: find child thread: pid: 395
-page addr of stack: 8000
-in join: find child thread: pid: 396
-page addr of stack: 8000
-in join: find child thread: pid: 397
-page addr of stack: 8000
-in join: find child thread: pid: 398
-page addr of stack: 8000
-in join: find child thread: pid: 399
-page addr of stack: 8000
-in join: find child thread: pid: 400
-page addr of stack: 8000
-in join: find child thread: pid: 401
-page addr of stack: 8000
-in join: find child thread: pid: 402
-page addr of stack: 8000
-in join: find child thread: pid: 403
-page addr of stack: 8000
-in join: find child thread: pid: 404
-page addr of stack: 8000
-in join: find child thread: pid: 405
-page addr of stack: 8000
-in join: find child thread: pid: 406
-page addr of stack: 8000
-in join: find child thread: pid: 407
-page addr of stack: 8000
-in join: find child thread: pid: 408
-page addr of stack: 8000
-in join: find child thread: pid: 409
-page addr of stack: 8000
-in join: find child thread: pid: 410
-page addr of stack: 8000
-in join: find child thread: pid: 411
-page addr of stack: 8000
-in join: find child thread: pid: 412
-page addr of stack: 8000
-in join: find child thread: pid: 413
-page addr of stack: 8000
-in join: find child thread: pid: 414
-page addr of stack: 8000
-in join: find child thread: pid: 415
-page addr of stack: 8000
-in join: find child thread: pid: 416
-page addr of stack: 8000
-in join: find child thread: pid: 417
-page addr of stack: 8000
-in join: find child thread: pid: 418
-page addr of stack: 8000
-in join: find child thread: pid: 419
-page addr of stack: 8000
-in join: find child thread: pid: 420
-page addr of stack: 8000
-in join: find child thread: pid: 421
-page addr of stack: 8000
-in join: find child thread: pid: 422
-page addr of stack: 8000
-in join: find child thread: pid: 423
-page addr of stack: 8000
-in join: find child thread: pid: 424
-page addr of stack: 8000
-in join: find child thread: pid: 425
-page addr of stack: 8000
-in join: find child thread: pid: 426
-page addr of stack: 8000
-in join: find child thread: pid: 427
-page addr of stack: 8000
-in join: find child thread: pid: 428
-page addr of stack: 8000
-in join: find child thread: pid: 429
-page addr of stack: 8000
-in join: find child thread: pid: 430
-page addr of stack: 8000
-in join: find child thread: pid: 431
-page addr of stack: 8000
-in join: find child thread: pid: 432
-page addr of stack: 8000
-in join: find child thread: pid: 433
-page addr of stack: 8000
-in join: find child thread: pid: 434
-page addr of stack: 8000
-in join: find child thread: pid: 435
-page addr of stack: 8000
-in join: find child thread: pid: 436
-page addr of stack: 8000
-in join: find child thread: pid: 437
-page addr of stack: 8000
-in join: find child thread: pid: 438
-page addr of stack: 8000
-in join: find child thread: pid: 439
-page addr of stack: 8000
-in join: find child thread: pid: 440
-page addr of stack: 8000
-in join: find child thread: pid: 441
-page addr of stack: 8000
-in join: find child thread: pid: 442
-page addr of stack: 8000
-in join: find child thread: pid: 443
-page addr of stack: 8000
-in join: find child thread: pid: 444
-page addr of stack: 8000
-in join: find child thread: pid: 445
-page addr of stack: 8000
-in join: find child thread: pid: 446
-page addr of stack: 8000
-in join: find child thread: pid: 447
-page addr of stack: 8000
-in join: find child thread: pid: 448
-page addr of stack: 8000
-in join: find child thread: pid: 449
-page addr of stack: 8000
-in join: find child thread: pid: 450
-page addr of stack: 8000
-in join: find child thread: pid: 451
-page addr of stack: 8000
-in join: find child thread: pid: 452
-page addr of stack: 8000
-in join: find child thread: pid: 453
-page addr of stack: 8000
-in join: find child thread: pid: 454
-page addr of stack: 8000
-in join: find child thread: pid: 455
-page addr of stack: 8000
-in join: find child thread: pid: 456
-page addr of stack: 8000
-in join: find child thread: pid: 457
-page addr of stack: 8000
-in join: find child thread: pid: 458
-page addr of stack: 8000
-in join: find child thread: pid: 459
-page addr of stack: 8000
-in join: find child thread: pid: 460
-page addr of stack: 8000
-in join: find child thread: pid: 461
-page addr of stack: 8000
-in join: find child thread: pid: 462
-page addr of stack: 8000
-in join: find child thread: pid: 463
-page addr of stack: 8000
-in join: find child thread: pid: 464
-page addr of stack: 8000
-in join: find child thread: pid: 465
-page addr of stack: 8000
-in join: find child thread: pid: 466
-page addr of stack: 8000
-in join: find child thread: pid: 467
-page addr of stack: 8000
-in join: find child thread: pid: 468
-page addr of stack: 8000
-in join: find child thread: pid: 469
-page addr of stack: 8000
-in join: find child thread: pid: 470
-page addr of stack: 8000
-in join: find child thread: pid: 471
-page addr of stack: 8000
-in join: find child thread: pid: 472
-page addr of stack: 8000
-in join: find child thread: pid: 473
-page addr of stack: 8000
-in join: find child thread: pid: 474
-page addr of stack: 8000
-in join: find child thread: pid: 475
-page addr of stack: 8000
-in join: find child thread: pid: 476
-page addr of stack: 8000
-in join: find child thread: pid: 477
-page addr of stack: 8000
-in join: find child thread: pid: 478
-page addr of stack: 8000
-in join: find child thread: pid: 479
-page addr of stack: 8000
-in join: find child thread: pid: 480
-page addr of stack: 8000
-in join: find child thread: pid: 481
-page addr of stack: 8000
-in join: find child thread: pid: 482
-page addr of stack: 8000
-in join: find child thread: pid: 483
-page addr of stack: 8000
-in join: find child thread: pid: 484
-page addr of stack: 8000
-in join: find child thread: pid: 485
-page addr of stack: 8000
-in join: find child thread: pid: 486
-page addr of stack: 8000
-in join: find child thread: pid: 487
-page addr of stack: 8000
-in join: find child thread: pid: 488
-page addr of stack: 8000
-in join: find child thread: pid: 489
-page addr of stack: 8000
-in join: find child thread: pid: 490
-page addr of stack: 8000
-in join: find child thread: pid: 491
-page addr of stack: 8000
-in join: find child thread: pid: 492
-page addr of stack: 8000
-in join: find child thread: pid: 493
-page addr of stack: 8000
-in join: find child thread: pid: 494
-page addr of stack: 8000
-in join: find child thread: pid: 495
-page addr of stack: 8000
-in join: find child thread: pid: 496
-page addr of stack: 8000
-in join: find child thread: pid: 497
-page addr of stack: 8000
-in join: find child thread: pid: 498
-page addr of stack: 8000
-in join: find child thread: pid: 499
-page addr of stack: 8000
-in join: find child thread: pid: 500
-page addr of stack: 8000
-in join: find child thread: pid: 501
-page addr of stack: 8000
-in join: find child thread: pid: 502
-page addr of stack: 8000
-in join: find child thread: pid: 503
-page addr of stack: 8000
-in join: find child thread: pid: 504
-page addr of stack: 8000
-in join: find child thread: pid: 505
-page addr of stack: 8000
-in join: find child thread: pid: 506
-page addr of stack: 8000
-in join: find child thread: pid: 507
-page addr of stack: 8000
-in join: find child thread: pid: 508
-page addr of stack: 8000
-in join: find child thread: pid: 509
-page addr of stack: 8000
-in join: find child thread: pid: 510
-page addr of stack: 8000
-in join: find child thread: pid: 511
-page addr of stack: 8000
-in join: find child thread: pid: 512
-page addr of stack: 8000
-in join: find child thread: pid: 513
-page addr of stack: 8000
-in join: find child thread: pid: 514
-page addr of stack: 8000
-in join: find child thread: pid: 515
-page addr of stack: 8000
-in join: find child thread: pid: 516
-page addr of stack: 8000
-in join: find child thread: pid: 517
-page addr of stack: 8000
-in join: find child thread: pid: 518
-page addr of stack: 8000
-in join: find child thread: pid: 519
-page addr of stack: 8000
-in join: find child thread: pid: 520
-page addr of stack: 8000
-in join: find child thread: pid: 521
-page addr of stack: 8000
-in join: find child thread: pid: 522
-page addr of stack: 8000
-in join: find child thread: pid: 523
-page addr of stack: 8000
-in join: find child thread: pid: 524
-page addr of stack: 8000
-in join: find child thread: pid: 525
-page addr of stack: 8000
-in join: find child thread: pid: 526
-page addr of stack: 8000
-in join: find child thread: pid: 527
-page addr of stack: 8000
-in join: find child thread: pid: 528
-page addr of stack: 8000
-in join: find child thread: pid: 529
-page addr of stack: 8000
-in join: find child thread: pid: 530
-page addr of stack: 8000
-in join: find child thread: pid: 531
-page addr of stack: 8000
-in join: find child thread: pid: 532
-page addr of stack: 8000
-in join: find child thread: pid: 533
-page addr of stack: 8000
-in join: find child thread: pid: 534
-page addr of stack: 8000
-in join: find child thread: pid: 535
-page addr of stack: 8000
-in join: find child thread: pid: 536
-page addr of stack: 8000
-in join: find child thread: pid: 537
-page addr of stack: 8000
-in join: find child thread: pid: 538
-page addr of stack: 8000
-in join: find child thread: pid: 539
-page addr of stack: 8000
-in join: find child thread: pid: 540
-page addr of stack: 8000
-in join: find child thread: pid: 541
-page addr of stack: 8000
-in join: find child thread: pid: 542
-page addr of stack: 8000
-in join: find child thread: pid: 543
-page addr of stack: 8000
-in join: find child thread: pid: 544
-page addr of stack: 8000
-in join: find child thread: pid: 545
-page addr of stack: 8000
-in join: find child thread: pid: 546
-page addr of stack: 8000
-in join: find child thread: pid: 547
-page addr of stack: 8000
-in join: find child thread: pid: 548
-page addr of stack: 8000
-in join: find child thread: pid: 549
-page addr of stack: 8000
-in join: find child thread: pid: 550
-page addr of stack: 8000
-in join: find child thread: pid: 551
-page addr of stack: 8000
-in join: find child thread: pid: 552
-page addr of stack: 8000
-in join: find child thread: pid: 553
-page addr of stack: 8000
-in join: find child thread: pid: 554
-page addr of stack: 8000
-in join: find child thread: pid: 555
-page addr of stack: 8000
-in join: find child thread: pid: 556
-page addr of stack: 8000
-in join: find child thread: pid: 557
-page addr of stack: 8000
-in join: find child thread: pid: 558
-page addr of stack: 8000
-in join: find child thread: pid: 559
-page addr of stack: 8000
-in join: find child thread: pid: 560
-page addr of stack: 8000
-in join: find child thread: pid: 561
-page addr of stack: 8000
-in join: find child thread: pid: 562
-page addr of stack: 8000
-in join: find child thread: pid: 563
-page addr of stack: 8000
-in join: find child thread: pid: 564
-page addr of stack: 8000
-in join: find child thread: pid: 565
-page addr of stack: 8000
-in join: find child thread: pid: 566
-page addr of stack: 8000
-in join: find child thread: pid: 567
-page addr of stack: 8000
-in join: find child thread: pid: 568
-page addr of stack: 8000
-in join: find child thread: pid: 569
-page addr of stack: 8000
-in join: find child thread: pid: 570
-page addr of stack: 8000
-in join: find child thread: pid: 571
-page addr of stack: 8000
-in join: find child thread: pid: 572
-page addr of stack: 8000
-in join: find child thread: pid: 573
-page addr of stack: 8000
-in join: find child thread: pid: 574
-page addr of stack: 8000
-in join: find child thread: pid: 575
-page addr of stack: 8000
-in join: find child thread: pid: 576
-page addr of stack: 8000
-in join: find child thread: pid: 577
-page addr of stack: 8000
-in join: find child thread: pid: 578
-page addr of stack: 8000
-in join: find child thread: pid: 579
-page addr of stack: 8000
-in join: find child thread: pid: 580
-page addr of stack: 8000
-in join: find child thread: pid: 581
-page addr of stack: 8000
-in join: find child thread: pid: 582
-page addr of stack: 8000
-in join: find child thread: pid: 583
-page addr of stack: 8000
-in join: find child thread: pid: 584
-page addr of stack: 8000
-in join: find child thread: pid: 585
-page addr of stack: 8000
-in join: find child thread: pid: 586
-page addr of stack: 8000
-in join: find child thread: pid: 587
-page addr of stack: 8000
-in join: find child thread: pid: 588
-page addr of stack: 8000
-in join: find child thread: pid: 589
-page addr of stack: 8000
-in join: find child thread: pid: 590
-page addr of stack: 8000
-in join: find child thread: pid: 591
-page addr of stack: 8000
-in join: find child thread: pid: 592
-page addr of stack: 8000
-in join: find child thread: pid: 593
-page addr of stack: 8000
-in join: find child thread: pid: 594
-page addr of stack: 8000
-in join: find child thread: pid: 595
-page addr of stack: 8000
-in join: find child thread: pid: 596
-page addr of stack: 8000
-in join: find child thread: pid: 597
-page addr of stack: 8000
-in join: find child thread: pid: 598
-page addr of stack: 8000
-in join: find child thread: pid: 599
-page addr of stack: 8000
-in join: find child thread: pid: 600
-page addr of stack: 8000
-in join: find child thread: pid: 601
-page addr of stack: 8000
-in join: find child thread: pid: 602
-page addr of stack: 8000
-in join: find child thread: pid: 603
-page addr of stack: 8000
-in join: find child thread: pid: 604
-page addr of stack: 8000
-in join: find child thread: pid: 605
-page addr of stack: 8000
-in join: find child thread: pid: 606
-page addr of stack: 8000
-in join: find child thread: pid: 607
-page addr of stack: 8000
-in join: find child thread: pid: 608
-page addr of stack: 8000
-in join: find child thread: pid: 609
-page addr of stack: 8000
-in join: find child thread: pid: 610
-page addr of stack: 8000
-in join: find child thread: pid: 611
-page addr of stack: 8000
-in join: find child thread: pid: 612
-page addr of stack: 8000
-in join: find child thread: pid: 613
-page addr of stack: 8000
-in join: find child thread: pid: 614
-page addr of stack: 8000
-in join: find child thread: pid: 615
-page addr of stack: 8000
-in join: find child thread: pid: 616
-page addr of stack: 8000
-in join: find child thread: pid: 617
-page addr of stack: 8000
-in join: find child thread: pid: 618
-page addr of stack: 8000
-in join: find child thread: pid: 619
-page addr of stack: 8000
-in join: find child thread: pid: 620
-page addr of stack: 8000
-in join: find child thread: pid: 621
-page addr of stack: 8000
-in join: find child thread: pid: 622
-page addr of stack: 8000
-in join: find child thread: pid: 623
-page addr of stack: 8000
-in join: find child thread: pid: 624
-page addr of stack: 8000
-in join: find child thread: pid: 625
-page addr of stack: 8000
-in join: find child thread: pid: 626
-page addr of stack: 8000
-in join: find child thread: pid: 627
-page addr of stack: 8000
-in join: find child thread: pid: 628
-page addr of stack: 8000
-in join: find child thread: pid: 629
-page addr of stack: 8000
-in join: find child thread: pid: 630
-page addr of stack: 8000
-in join: find child thread: pid: 631
-page addr of stack: 8000
-in join: find child thread: pid: 632
-page addr of stack: 8000
-in join: find child thread: pid: 633
-page addr of stack: 8000
-in join: find child thread: pid: 634
-page addr of stack: 8000
-in join: find child thread: pid: 635
-page addr of stack: 8000
-in join: find child thread: pid: 636
-page addr of stack: 8000
-in join: find child thread: pid: 637
-page addr of stack: 8000
-in join: find child thread: pid: 638
-page addr of stack: 8000
-in join: find child thread: pid: 639
-page addr of stack: 8000
-in join: find child thread: pid: 640
-page addr of stack: 8000
-in join: find child thread: pid: 641
-page addr of stack: 8000
-in join: find child thread: pid: 642
-page addr of stack: 8000
-in join: find child thread: pid: 643
-page addr of stack: 8000
-in join: find child thread: pid: 644
-page addr of stack: 8000
-in join: find child thread: pid: 645
-page addr of stack: 8000
-in join: find child thread: pid: 646
-page addr of stack: 8000
-in join: find child thread: pid: 647
-page addr of stack: 8000
-in join: find child thread: pid: 648
-page addr of stack: 8000
-in join: find child thread: pid: 649
-page addr of stack: 8000
-in join: find child thread: pid: 650
-page addr of stack: 8000
-in join: find child thread: pid: 651
-page addr of stack: 8000
-in join: find child thread: pid: 652
-page addr of stack: 8000
-in join: find child thread: pid: 653
-page addr of stack: 8000
-in join: find child thread: pid: 654
-page addr of stack: 8000
-in join: find child thread: pid: 655
-page addr of stack: 8000
-in join: find child thread: pid: 656
-page addr of stack: 8000
-in join: find child thread: pid: 657
-page addr of stack: 8000
-in join: find child thread: pid: 658
-page addr of stack: 8000
-in join: find child thread: pid: 659
-page addr of stack: 8000
-in join: find child thread: pid: 660
-page addr of stack: 8000
-in join: find child thread: pid: 661
-page addr of stack: 8000
-in join: find child thread: pid: 662
-page addr of stack: 8000
-in join: find child thread: pid: 663
-page addr of stack: 8000
-in join: find child thread: pid: 664
-page addr of stack: 8000
-in join: find child thread: pid: 665
-page addr of stack: 8000
-in join: find child thread: pid: 666
-page addr of stack: 8000
-in join: find child thread: pid: 667
-page addr of stack: 8000
-in join: find child thread: pid: 668
-page addr of stack: 8000
-in join: find child thread: pid: 669
-page addr of stack: 8000
-in join: find child thread: pid: 670
-page addr of stack: 8000
-in join: find child thread: pid: 671
-page addr of stack: 8000
-in join: find child thread: pid: 672
-page addr of stack: 8000
-in join: find child thread: pid: 673
-page addr of stack: 8000
-in join: find child thread: pid: 674
-page addr of stack: 8000
-in join: find child thread: pid: 675
-page addr of stack: 8000
-in join: find child thread: pid: 676
-page addr of stack: 8000
-in join: find child thread: pid: 677
-page addr of stack: 8000
-in join: find child thread: pid: 678
-page addr of stack: 8000
-in join: find child thread: pid: 679
-page addr of stack: 8000
-in join: find child thread: pid: 680
-page addr of stack: 8000
-in join: find child thread: pid: 681
-page addr of stack: 8000
-in join: find child thread: pid: 682
-page addr of stack: 8000
-in join: find child thread: pid: 683
-page addr of stack: 8000
-in join: find child thread: pid: 684
-page addr of stack: 8000
-in join: find child thread: pid: 685
-page addr of stack: 8000
-in join: find child thread: pid: 686
-page addr of stack: 8000
-in join: find child thread: pid: 687
-page addr of stack: 8000
-in join: find child thread: pid: 688
-page addr of stack: 8000
-in join: find child thread: pid: 689
-page addr of stack: 8000
-in join: find child thread: pid: 690
-page addr of stack: 8000
-in join: find child thread: pid: 691
-page addr of stack: 8000
-in join: find child thread: pid: 692
-page addr of stack: 8000
-in join: find child thread: pid: 693
-page addr of stack: 8000
-in join: find child thread: pid: 694
-page addr of stack: 8000
-in join: find child thread: pid: 695
-page addr of stack: 8000
-in join: find child thread: pid: 696
-page addr of stack: 8000
-in join: find child thread: pid: 697
-page addr of stack: 8000
-in join: find child thread: pid: 698
-page addr of stack: 8000
-in join: find child thread: pid: 699
-page addr of stack: 8000
-in join: find child thread: pid: 700
-page addr of stack: 8000
-in join: find child thread: pid: 701
-page addr of stack: 8000
-in join: find child thread: pid: 702
-page addr of stack: 8000
-in join: find child thread: pid: 703
-page addr of stack: 8000
-in join: find child thread: pid: 704
-page addr of stack: 8000
-in join: find child thread: pid: 705
-page addr of stack: 8000
-in join: find child thread: pid: 706
-page addr of stack: 8000
-in join: find child thread: pid: 707
-page addr of stack: 8000
-in join: find child thread: pid: 708
-page addr of stack: 8000
-in join: find child thread: pid: 709
-page addr of stack: 8000
-in join: find child thread: pid: 710
-page addr of stack: 8000
-in join: find child thread: pid: 711
-page addr of stack: 8000
-in join: find child thread: pid: 712
-page addr of stack: 8000
-in join: find child thread: pid: 713
-page addr of stack: 8000
-in join: find child thread: pid: 714
-page addr of stack: 8000
-in join: find child thread: pid: 715
-page addr of stack: 8000
-in join: find child thread: pid: 716
-page addr of stack: 8000
-in join: find child thread: pid: 717
-page addr of stack: 8000
-in join: find child thread: pid: 718
-page addr of stack: 8000
-in join: find child thread: pid: 719
-page addr of stack: 8000
-in join: find child thread: pid: 720
-page addr of stack: 8000
-in join: find child thread: pid: 721
-page addr of stack: 8000
-in join: find child thread: pid: 722
-page addr of stack: 8000
-in join: find child thread: pid: 723
-page addr of stack: 8000
-in join: find child thread: pid: 724
-page addr of stack: 8000
-in join: find child thread: pid: 725
-page addr of stack: 8000
-in join: find child thread: pid: 726
-page addr of stack: 8000
-in join: find child thread: pid: 727
-page addr of stack: 8000
-in join: find child thread: pid: 728
-page addr of stack: 8000
-in join: find child thread: pid: 729
-page addr of stack: 8000
-in join: find child thread: pid: 730
-page addr of stack: 8000
-in join: find child thread: pid: 731
-page addr of stack: 8000
-in join: find child thread: pid: 732
-page addr of stack: 8000
-in join: find child thread: pid: 733
-page addr of stack: 8000
-in join: find child thread: pid: 734
-page addr of stack: 8000
-in join: find child thread: pid: 735
-page addr of stack: 8000
-in join: find child thread: pid: 736
-page addr of stack: 8000
-in join: find child thread: pid: 737
-page addr of stack: 8000
-in join: find child thread: pid: 738
-page addr of stack: 8000
-in join: find child thread: pid: 739
-page addr of stack: 8000
-in join: find child thread: pid: 740
-page addr of stack: 8000
-in join: find child thread: pid: 741
-page addr of stack: 8000
-in join: find child thread: pid: 742
-page addr of stack: 8000
-in join: find child thread: pid: 743
-page addr of stack: 8000
-in join: find child thread: pid: 744
-page addr of stack: 8000
-in join: find child thread: pid: 745
-page addr of stack: 8000
-in join: find child thread: pid: 746
-page addr of stack: 8000
-in join: find child thread: pid: 747
-page addr of stack: 8000
-in join: find child thread: pid: 748
-page addr of stack: 8000
-in join: find child thread: pid: 749
-page addr of stack: 8000
-in join: find child thread: pid: 750
-page addr of stack: 8000
-in join: find child thread: pid: 751
-page addr of stack: 8000
-in join: find child thread: pid: 752
-page addr of stack: 8000
-in join: find child thread: pid: 753
-page addr of stack: 8000
-in join: find child thread: pid: 754
-page addr of stack: 8000
-in join: find child thread: pid: 755
-page addr of stack: 8000
-in join: find child thread: pid: 756
-page addr of stack: 8000
-in join: find child thread: pid: 757
-page addr of stack: 8000
-in join: find child thread: pid: 758
-page addr of stack: 8000
-in join: find child thread: pid: 759
-page addr of stack: 8000
-in join: find child thread: pid: 760
-page addr of stack: 8000
-in join: find child thread: pid: 761
-page addr of stack: 8000
-in join: find child thread: pid: 762
-page addr of stack: 8000
-in join: find child thread: pid: 763
-page addr of stack: 8000
-in join: find child thread: pid: 764
-page addr of stack: 8000
-in join: find child thread: pid: 765
-page addr of stack: 8000
-in join: find child thread: pid: 766
-page addr of stack: 8000
-in join: find child thread: pid: 767
-page addr of stack: 8000
-in join: find child thread: pid: 768
-page addr of stack: 8000
-in join: find child thread: pid: 769
-page addr of stack: 8000
-in join: find child thread: pid: 770
-page addr of stack: 8000
-in join: find child thread: pid: 771
-page addr of stack: 8000
-in join: find child thread: pid: 772
-page addr of stack: 8000
-in join: find child thread: pid: 773
-page addr of stack: 8000
-in join: find child thread: pid: 774
-page addr of stack: 8000
-in join: find child thread: pid: 775
-page addr of stack: 8000
-in join: find child thread: pid: 776
-page addr of stack: 8000
-in join: find child thread: pid: 777
-page addr of stack: 8000
-in join: find child thread: pid: 778
-page addr of stack: 8000
-in join: find child thread: pid: 779
-page addr of stack: 8000
-in join: find child thread: pid: 780
-page addr of stack: 8000
-in join: find child thread: pid: 781
-page addr of stack: 8000
-in join: find child thread: pid: 782
-page addr of stack: 8000
-in join: find child thread: pid: 783
-page addr of stack: 8000
-in join: find child thread: pid: 784
-page addr of stack: 8000
-in join: find child thread: pid: 785
-page addr of stack: 8000
-in join: find child thread: pid: 786
-page addr of stack: 8000
-in join: find child thread: pid: 787
-page addr of stack: 8000
-in join: find child thread: pid: 788
-page addr of stack: 8000
-in join: find child thread: pid: 789
-page addr of stack: 8000
-in join: find child thread: pid: 790
-page addr of stack: 8000
-in join: find child thread: pid: 791
-page addr of stack: 8000
-in join: find child thread: pid: 792
-page addr of stack: 8000
-in join: find child thread: pid: 793
-page addr of stack: 8000
-in join: find child thread: pid: 794
-page addr of stack: 8000
-in join: find child thread: pid: 795
-page addr of stack: 8000
-in join: find child thread: pid: 796
-page addr of stack: 8000
-in join: find child thread: pid: 797
-page addr of stack: 8000
-in join: find child thread: pid: 798
-page addr of stack: 8000
-in join: find child thread: pid: 799
-page addr of stack: 8000
-in join: find child thread: pid: 800
-page addr of stack: 8000
-in join: find child thread: pid: 801
-page addr of stack: 8000
-in join: find child thread: pid: 802
-page addr of stack: 8000
-in join: find child thread: pid: 803
-page addr of stack: 8000
-in join: find child thread: pid: 804
-page addr of stack: 8000
-in join: find child thread: pid: 805
-page addr of stack: 8000
-in join: find child thread: pid: 806
-page addr of stack: 8000
-in join: find child thread: pid: 807
-page addr of stack: 8000
-in join: find child thread: pid: 808
-page addr of stack: 8000
-in join: find child thread: pid: 809
-page addr of stack: 8000
-in join: find child thread: pid: 810
-page addr of stack: 8000
-in join: find child thread: pid: 811
-page addr of stack: 8000
-in join: find child thread: pid: 812
-page addr of stack: 8000
-in join: find child thread: pid: 813
-page addr of stack: 8000
-in join: find child thread: pid: 814
-page addr of stack: 8000
-in join: find child thread: pid: 815
-page addr of stack: 8000
-in join: find child thread: pid: 816
-page addr of stack: 8000
-in join: find child thread: pid: 817
-page addr of stack: 8000
-in join: find child thread: pid: 818
-page addr of stack: 8000
-in join: find child thread: pid: 819
-page addr of stack: 8000
-in join: find child thread: pid: 820
-page addr of stack: 8000
-in join: find child thread: pid: 821
-page addr of stack: 8000
-in join: find child thread: pid: 822
-page addr of stack: 8000
-in join: find child thread: pid: 823
-page addr of stack: 8000
-in join: find child thread: pid: 824
-page addr of stack: 8000
-in join: find child thread: pid: 825
-page addr of stack: 8000
-in join: find child thread: pid: 826
-page addr of stack: 8000
-in join: find child thread: pid: 827
-page addr of stack: 8000
-in join: find child thread: pid: 828
-page addr of stack: 8000
-in join: find child thread: pid: 829
-page addr of stack: 8000
-in join: find child thread: pid: 830
-page addr of stack: 8000
-in join: find child thread: pid: 831
-page addr of stack: 8000
-in join: find child thread: pid: 832
-page addr of stack: 8000
-in join: find child thread: pid: 833
-page addr of stack: 8000
-in join: find child thread: pid: 834
-page addr of stack: 8000
-in join: find child thread: pid: 835
-page addr of stack: 8000
-in join: find child thread: pid: 836
-page addr of stack: 8000
-in join: find child thread: pid: 837
-page addr of stack: 8000
-in join: find child thread: pid: 838
-page addr of stack: 8000
-in join: find child thread: pid: 839
-page addr of stack: 8000
-in join: find child thread: pid: 840
-page addr of stack: 8000
-in join: find child thread: pid: 841
-page addr of stack: 8000
-in join: find child thread: pid: 842
-page addr of stack: 8000
-in join: find child thread: pid: 843
-page addr of stack: 8000
-in join: find child thread: pid: 844
-page addr of stack: 8000
-in join: find child thread: pid: 845
-page addr of stack: 8000
-in join: find child thread: pid: 846
-page addr of stack: 8000
-in join: find child thread: pid: 847
-page addr of stack: 8000
-in join: find child thread: pid: 848
-page addr of stack: 8000
-in join: find child thread: pid: 849
-page addr of stack: 8000
-in join: find child thread: pid: 850
-page addr of stack: 8000
-in join: find child thread: pid: 851
-page addr of stack: 8000
-in join: find child thread: pid: 852
-page addr of stack: 8000
-in join: find child thread: pid: 853
-page addr of stack: 8000
-in join: find child thread: pid: 854
-page addr of stack: 8000
-in join: find child thread: pid: 855
-page addr of stack: 8000
-in join: find child thread: pid: 856
-page addr of stack: 8000
-in join: find child thread: pid: 857
-page addr of stack: 8000
-in join: find child thread: pid: 858
-page addr of stack: 8000
-in join: find child thread: pid: 859
-page addr of stack: 8000
-in join: find child thread: pid: 860
-page addr of stack: 8000
-in join: find child thread: pid: 861
-page addr of stack: 8000
-in join: find child thread: pid: 862
-page addr of stack: 8000
-in join: find child thread: pid: 863
-page addr of stack: 8000
-in join: find child thread: pid: 864
-page addr of stack: 8000
-in join: find child thread: pid: 865
-page addr of stack: 8000
-in join: find child thread: pid: 866
-page addr of stack: 8000
-in join: find child thread: pid: 867
-page addr of stack: 8000
-in join: find child thread: pid: 868
-page addr of stack: 8000
-in join: find child thread: pid: 869
-page addr of stack: 8000
-in join: find child thread: pid: 870
-page addr of stack: 8000
-in join: find child thread: pid: 871
-page addr of stack: 8000
-in join: find child thread: pid: 872
-page addr of stack: 8000
-in join: find child thread: pid: 873
-page addr of stack: 8000
-in join: find child thread: pid: 874
-page addr of stack: 8000
-in join: find child thread: pid: 875
-page addr of stack: 8000
-in join: find child thread: pid: 876
-page addr of stack: 8000
-in join: find child thread: pid: 877
-page addr of stack: 8000
-in join: find child thread: pid: 878
-page addr of stack: 8000
-in join: find child thread: pid: 879
-page addr of stack: 8000
-in join: find child thread: pid: 880
-page addr of stack: 8000
-in join: find child thread: pid: 881
-page addr of stack: 8000
-in join: find child thread: pid: 882
-page addr of stack: 8000
-in join: find child thread: pid: 883
-page addr of stack: 8000
-in join: find child thread: pid: 884
-page addr of stack: 8000
-in join: find child thread: pid: 885
-page addr of stack: 8000
-in join: find child thread: pid: 886
-page addr of stack: 8000
-in join: find child thread: pid: 887
-page addr of stack: 8000
-in join: find child thread: pid: 888
-page addr of stack: 8000
-in join: find child thread: pid: 889
-page addr of stack: 8000
-in join: find child thread: pid: 890
-page addr of stack: 8000
-in join: find child thread: pid: 891
-page addr of stack: 8000
-in join: find child thread: pid: 892
-page addr of stack: 8000
-in join: find child thread: pid: 893
-page addr of stack: 8000
-in join: find child thread: pid: 894
-page addr of stack: 8000
-in join: find child thread: pid: 895
-page addr of stack: 8000
-in join: find child thread: pid: 896
-page addr of stack: 8000
-in join: find child thread: pid: 897
-page addr of stack: 8000
-in join: find child thread: pid: 898
-page addr of stack: 8000
-in join: find child thread: pid: 899
-page addr of stack: 8000
-in join: find child thread: pid: 900
-page addr of stack: 8000
-in join: find child thread: pid: 901
-page addr of stack: 8000
-in join: find child thread: pid: 902
-page addr of stack: 8000
-in join: find child thread: pid: 903
-page addr of stack: 8000
-in join: find child thread: pid: 904
-page addr of stack: 8000
-in join: find child thread: pid: 905
-page addr of stack: 8000
-in join: find child thread: pid: 906
-page addr of stack: 8000
-in join: find child thread: pid: 907
-page addr of stack: 8000
-in join: find child thread: pid: 908
-page addr of stack: 8000
-in join: find child thread: pid: 909
-page addr of stack: 8000
-in join: find child thread: pid: 910
-page addr of stack: 8000
-in join: find child thread: pid: 911
-page addr of stack: 8000
-in join: find child thread: pid: 912
-page addr of stack: 8000
-in join: find child thread: pid: 913
-page addr of stack: 8000
-in join: find child thread: pid: 914
-page addr of stack: 8000
-in join: find child thread: pid: 915
-page addr of stack: 8000
-in join: find child thread: pid: 916
-page addr of stack: 8000
-in join: find child thread: pid: 917
-page addr of stack: 8000
-in join: find child thread: pid: 918
-page addr of stack: 8000
-in join: find child thread: pid: 919
-page addr of stack: 8000
-in join: find child thread: pid: 920
-page addr of stack: 8000
-in join: find child thread: pid: 921
-page addr of stack: 8000
-in join: find child thread: pid: 922
-page addr of stack: 8000
-in join: find child thread: pid: 923
-page addr of stack: 8000
-in join: find child thread: pid: 924
-page addr of stack: 8000
-in join: find child thread: pid: 925
-page addr of stack: 8000
-in join: find child thread: pid: 926
-page addr of stack: 8000
-in join: find child thread: pid: 927
-page addr of stack: 8000
-in join: find child thread: pid: 928
-page addr of stack: 8000
-in join: find child thread: pid: 929
-page addr of stack: 8000
-in join: find child thread: pid: 930
-page addr of stack: 8000
-in join: find child thread: pid: 931
-page addr of stack: 8000
-in join: find child thread: pid: 932
-page addr of stack: 8000
-in join: find child thread: pid: 933
-page addr of stack: 8000
-in join: find child thread: pid: 934
-page addr of stack: 8000
-in join: find child thread: pid: 935
-page addr of stack: 8000
-in join: find child thread: pid: 936
-page addr of stack: 8000
-in join: find child thread: pid: 937
-page addr of stack: 8000
-in join: find child thread: pid: 938
-page addr of stack: 8000
-in join: find child thread: pid: 939
-page addr of stack: 8000
-in join: find child thread: pid: 940
-page addr of stack: 8000
-in join: find child thread: pid: 941
-page addr of stack: 8000
-in join: find child thread: pid: 942
-page addr of stack: 8000
-in join: find child thread: pid: 943
-page addr of stack: 8000
-in join: find child thread: pid: 944
-page addr of stack: 8000
-in join: find child thread: pid: 945
-page addr of stack: 8000
-in join: find child thread: pid: 946
-page addr of stack: 8000
-in join: find child thread: pid: 947
-page addr of stack: 8000
-in join: find child thread: pid: 948
-page addr of stack: 8000
-in join: find child thread: pid: 949
-page addr of stack: 8000
-in join: find child thread: pid: 950
-page addr of stack: 8000
-in join: find child thread: pid: 951
-page addr of stack: 8000
-in join: find child thread: pid: 952
-page addr of stack: 8000
-in join: find child thread: pid: 953
-page addr of stack: 8000
-in join: find child thread: pid: 954
-page addr of stack: 8000
-in join: find child thread: pid: 955
-page addr of stack: 8000
-in join: find child thread: pid: 956
-page addr of stack: 8000
-in join: find child thread: pid: 957
-page addr of stack: 8000
-in join: find child thread: pid: 958
-page addr of stack: 8000
-in join: find child thread: pid: 959
-page addr of stack: 8000
-in join: find child thread: pid: 960
-page addr of stack: 8000
-in join: find child thread: pid: 961
-page addr of stack: 8000
-in join: find child thread: pid: 962
-page addr of stack: 8000
-in join: find child thread: pid: 963
-page addr of stack: 8000
-in join: find child thread: pid: 964
-page addr of stack: 8000
-in join: find child thread: pid: 965
-page addr of stack: 8000
-in join: find child thread: pid: 966
-page addr of stack: 8000
-in join: find child thread: pid: 967
-page addr of stack: 8000
-in join: find child thread: pid: 968
-page addr of stack: 8000
-in join: find child thread: pid: 969
-page addr of stack: 8000
-in join: find child thread: pid: 970
-page addr of stack: 8000
-in join: find child thread: pid: 971
-page addr of stack: 8000
-in join: find child thread: pid: 972
-page addr of stack: 8000
-in join: find child thread: pid: 973
-page addr of stack: 8000
-in join: find child thread: pid: 974
-page addr of stack: 8000
-in join: find child thread: pid: 975
-page addr of stack: 8000
-in join: find child thread: pid: 976
-page addr of stack: 8000
-in join: find child thread: pid: 977
-page addr of stack: 8000
-in join: find child thread: pid: 978
-page addr of stack: 8000
-in join: find child thread: pid: 979
-page addr of stack: 8000
-in join: find child thread: pid: 980
-page addr of stack: 8000
-in join: find child thread: pid: 981
-page addr of stack: 8000
-in join: find child thread: pid: 982
-page addr of stack: 8000
-in join: find child thread: pid: 983
-page addr of stack: 8000
-in join: find child thread: pid: 984
-page addr of stack: 8000
-in join: find child thread: pid: 985
-page addr of stack: 8000
-in join: find child thread: pid: 986
-page addr of stack: 8000
-in join: find child thread: pid: 987
-page addr of stack: 8000
-in join: find child thread: pid: 988
-page addr of stack: 8000
-in join: find child thread: pid: 989
-page addr of stack: 8000
-in join: find child thread: pid: 990
-page addr of stack: 8000
-in join: find child thread: pid: 991
-page addr of stack: 8000
-in join: find child thread: pid: 992
-page addr of stack: 8000
-in join: find child thread: pid: 993
-page addr of stack: 8000
-in join: find child thread: pid: 994
-page addr of stack: 8000
-in join: find child thread: pid: 995
-page addr of stack: 8000
-in join: find child thread: pid: 996
-page addr of stack: 8000
-in join: find child thread: pid: 997
-page addr of stack: 8000
-in join: find child thread: pid: 998
-page addr of stack: 8000
-in join: find child thread: pid: 999
-page addr of stack: 8000
-in join: find child thread: pid: 1000
-page addr of stack: 8000
-in join: find child thread: pid: 1001
-page addr of stack: 8000
-in join: find child thread: pid: 1002
-page addr of stack: 8000
-in join: find child thread: pid: 1003
-page addr of stack: 8000
-in join: find child thread: pid: 1004
-page addr of stack: 8000
-in join: find child thread: pid: 1005
-page addr of stack: 8000
-in join: find child thread: pid: 1006
-page addr of stack: 8000
-in join: find child thread: pid: 1007
-page addr of stack: 8000
-in join: find child thread: pid: 1008
-page addr of stack: 8000
-in join: find child thread: pid: 1009
-page addr of stack: 8000
-in join: find child thread: pid: 1010
-page addr of stack: 8000
-in join: find child thread: pid: 1011
-page addr of stack: 8000
-in join: find child thread: pid: 1012
-page addr of stack: 8000
-in join: find child thread: pid: 1013
-page addr of stack: 8000
-in join: find child thread: pid: 1014
-page addr of stack: 8000
-in join: find child thread: pid: 1015
-page addr of stack: 8000
-in join: find child thread: pid: 1016
-page addr of stack: 8000
-in join: find child thread: pid: 1017
-page addr of stack: 8000
-in join: find child thread: pid: 1018
-page addr of stack: 8000
-in join: find child thread: pid: 1019
-page addr of stack: 8000
-in join: find child thread: pid: 1020
-page addr of stack: 8000
-in join: find child thread: pid: 1021
-page addr of stack: 8000
-in join: find child thread: pid: 1022
-page addr of stack: 8000
-in join: find child thread: pid: 1023
-page addr of stack: 8000
-in join: find child thread: pid: 1024
-page addr of stack: 8000
-in join: find child thread: pid: 1025
-page addr of stack: 8000
-in join: find child thread: pid: 1026
-page addr of stack: 8000
-in join: find child thread: pid: 1027
-page addr of stack: 8000
-in join: find child thread: pid: 1028
-page addr of stack: 8000
-in join: find child thread: pid: 1029
-page addr of stack: 8000
-in join: find child thread: pid: 1030
-page addr of stack: 8000
-in join: find child thread: pid: 1031
-page addr of stack: 8000
-in join: find child thread: pid: 1032
-page addr of stack: 8000
-in join: find child thread: pid: 1033
-page addr of stack: 8000
-in join: find child thread: pid: 1034
-page addr of stack: 8000
-in join: find child thread: pid: 1035
-page addr of stack: 8000
-in join: find child thread: pid: 1036
-page addr of stack: 8000
-in join: find child thread: pid: 1037
-page addr of stack: 8000
-in join: find child thread: pid: 1038
-page addr of stack: 8000
-in join: find child thread: pid: 1039
-page addr of stack: 8000
-in join: find child thread: pid: 1040
-page addr of stack: 8000
-in join: find child thread: pid: 1041
-page addr of stack: 8000
-in join: find child thread: pid: 1042
-page addr of stack: 8000
-in join: find child thread: pid: 1043
-page addr of stack: 8000
-in join: find child thread: pid: 1044
-page addr of stack: 8000
-in join: find child thread: pid: 1045
-page addr of stack: 8000
-in join: find child thread: pid: 1046
-page addr of stack: 8000
-in join: find child thread: pid: 1047
-page addr of stack: 8000
-in join: find child thread: pid: 1048
-page addr of stack: 8000
-in join: find child thread: pid: 1049
-page addr of stack: 8000
-in join: find child thread: pid: 1050
-page addr of stack: 8000
-in join: find child thread: pid: 1051
-page addr of stack: 8000
-in join: find child thread: pid: 1052
-page addr of stack: 8000
-in join: find child thread: pid: 1053
-page addr of stack: 8000
-in join: find child thread: pid: 1054
-page addr of stack: 8000
-in join: find child thread: pid: 1055
-page addr of stack: 8000
-in join: find child thread: pid: 1056
-page addr of stack: 8000
-in join: find child thread: pid: 1057
-page addr of stack: 8000
-in join: find child thread: pid: 1058
-page addr of stack: 8000
-in join: find child thread: pid: 1059
-page addr of stack: 8000
-in join: find child thread: pid: 1060
-page addr of stack: 8000
-in join: find child thread: pid: 1061
-page addr of stack: 8000
-in join: find child thread: pid: 1062
-page addr of stack: 8000
-in join: find child thread: pid: 1063
-page addr of stack: 8000
-in join: find child thread: pid: 1064
-page addr of stack: 8000
-in join: find child thread: pid: 1065
-page addr of stack: 8000
-in join: find child thread: pid: 1066
-page addr of stack: 8000
-in join: find child thread: pid: 1067
-page addr of stack: 8000
-in join: find child thread: pid: 1068
-page addr of stack: 8000
-in join: find child thread: pid: 1069
-page addr of stack: 8000
-in join: find child thread: pid: 1070
-page addr of stack: 8000
-in join: find child thread: pid: 1071
-page addr of stack: 8000
-in join: find child thread: pid: 1072
-page addr of stack: 8000
-in join: find child thread: pid: 1073
-page addr of stack: 8000
-in join: find child thread: pid: 1074
-page addr of stack: 8000
-in join: find child thread: pid: 1075
-page addr of stack: 8000
-in join: find child thread: pid: 1076
-page addr of stack: 8000
-in join: find child thread: pid: 1077
-page addr of stack: 8000
-in join: find child thread: pid: 1078
-page addr of stack: 8000
-in join: find child thread: pid: 1079
-page addr of stack: 8000
-in join: find child thread: pid: 1080
-page addr of stack: 8000
-in join: find child thread: pid: 1081
-page addr of stack: 8000
-in join: find child thread: pid: 1082
-page addr of stack: 8000
-in join: find child thread: pid: 1083
-page addr of stack: 8000
-in join: find child thread: pid: 1084
-page addr of stack: 8000
-in join: find child thread: pid: 1085
-page addr of stack: 8000
-in join: find child thread: pid: 1086
-page addr of stack: 8000
-in join: find child thread: pid: 1087
-page addr of stack: 8000
-in join: find child thread: pid: 1088
-page addr of stack: 8000
-in join: find child thread: pid: 1089
-page addr of stack: 8000
-in join: find child thread: pid: 1090
-page addr of stack: 8000
-in join: find child thread: pid: 1091
-page addr of stack: 8000
-in join: find child thread: pid: 1092
-page addr of stack: 8000
-in join: find child thread: pid: 1093
-page addr of stack: 8000
-in join: find child thread: pid: 1094
-page addr of stack: 8000
-in join: find child thread: pid: 1095
-page addr of stack: 8000
-in join: find child thread: pid: 1096
-page addr of stack: 8000
-in join: find child thread: pid: 1097
-page addr of stack: 8000
-in join: find child thread: pid: 1098
-page addr of stack: 8000
-in join: find child thread: pid: 1099
-page addr of stack: 8000
-in join: find child thread: pid: 1100
-page addr of stack: 8000
-in join: find child thread: pid: 1101
-page addr of stack: 8000
-in join: find child thread: pid: 1102
-page addr of stack: 8000
-in join: find child thread: pid: 1103
-page addr of stack: 8000
-in join: find child thread: pid: 1104
-page addr of stack: 8000
-in join: find child thread: pid: 1105
-page addr of stack: 8000
-in join: find child thread: pid: 1106
-page addr of stack: 8000
-in join: find child thread: pid: 1107
-page addr of stack: 8000
-in join: find child thread: pid: 1108
-page addr of stack: 8000
-in join: find child thread: pid: 1109
-page addr of stack: 8000
-in join: find child thread: pid: 1110
-page addr of stack: 8000
-in join: find child thread: pid: 1111
-page addr of stack: 8000
-in join: find child thread: pid: 1112
-page addr of stack: 8000
-in join: find child thread: pid: 1113
-page addr of stack: 8000
-in join: find child thread: pid: 1114
-page addr of stack: 8000
-in join: find child thread: pid: 1115
-page addr of stack: 8000
-in join: find child thread: pid: 1116
-page addr of stack: 8000
-in join: find child thread: pid: 1117
-page addr of stack: 8000
-in join: find child thread: pid: 1118
-page addr of stack: 8000
-in join: find child thread: pid: 1119
-page addr of stack: 8000
-in join: find child thread: pid: 1120
-page addr of stack: 8000
-in join: find child thread: pid: 1121
-page addr of stack: 8000
-in join: find child thread: pid: 1122
-page addr of stack: 8000
-in join: find child thread: pid: 1123
-page addr of stack: 8000
-in join: find child thread: pid: 1124
-page addr of stack: 8000
-in join: find child thread: pid: 1125
-page addr of stack: 8000
-in join: find child thread: pid: 1126
-page addr of stack: 8000
-in join: find child thread: pid: 1127
-page addr of stack: 8000
-in join: find child thread: pid: 1128
-page addr of stack: 8000
-in join: find child thread: pid: 1129
-page addr of stack: 8000
-in join: find child thread: pid: 1130
-page addr of stack: 8000
-in join: find child thread: pid: 1131
-page addr of stack: 8000
-in join: find child thread: pid: 1132
-page addr of stack: 8000
-in join: find child thread: pid: 1133
-page addr of stack: 8000
-in join: find child thread: pid: 1134
-page addr of stack: 8000
-in join: find child thread: pid: 1135
-page addr of stack: 8000
-in join: find child thread: pid: 1136
-page addr of stack: 8000
-in join: find child thread: pid: 1137
-page addr of stack: 8000
-in join: find child thread: pid: 1138
-page addr of stack: 8000
-in join: find child thread: pid: 1139
-page addr of stack: 8000
-in join: find child thread: pid: 1140
-page addr of stack: 8000
-in join: find child thread: pid: 1141
-page addr of stack: 8000
-in join: find child thread: pid: 1142
-page addr of stack: 8000
-in join: find child thread: pid: 1143
-page addr of stack: 8000
-in join: find child thread: pid: 1144
-page addr of stack: 8000
-in join: find child thread: pid: 1145
-page addr of stack: 8000
-in join: find child thread: pid: 1146
-page addr of stack: 8000
-in join: find child thread: pid: 1147
-page addr of stack: 8000
-in join: find child thread: pid: 1148
-page addr of stack: 8000
-in join: find child thread: pid: 1149
-page addr of stack: 8000
-in join: find child thread: pid: 1150
-page addr of stack: 8000
-in join: find child thread: pid: 1151
-page addr of stack: 8000
-in join: find child thread: pid: 1152
-page addr of stack: 8000
-in join: find child thread: pid: 1153
-page addr of stack: 8000
-in join: find child thread: pid: 1154
-page addr of stack: 8000
-in join: find child thread: pid: 1155
-page addr of stack: 8000
-in join: find child thread: pid: 1156
-page addr of stack: 8000
-in join: find child thread: pid: 1157
-page addr of stack: 8000
-in join: find child thread: pid: 1158
-page addr of stack: 8000
-in join: find child thread: pid: 1159
-page addr of stack: 8000
-in join: find child thread: pid: 1160
-page addr of stack: 8000
-in join: find child thread: pid: 1161
-page addr of stack: 8000
-in join: find child thread: pid: 1162
-page addr of stack: 8000
-in join: find child thread: pid: 1163
-page addr of stack: 8000
-in join: find child thread: pid: 1164
-page addr of stack: 8000
-in join: find child thread: pid: 1165
-page addr of stack: 8000
-in join: find child thread: pid: 1166
-page addr of stack: 8000
-in join: find child thread: pid: 1167
-page addr of stack: 8000
-in join: find child thread: pid: 1168
-page addr of stack: 8000
-in join: find child thread: pid: 1169
-page addr of stack: 8000
-in join: find child thread: pid: 1170
-page addr of stack: 8000
-in join: find child thread: pid: 1171
-page addr of stack: 8000
-in join: find child thread: pid: 1172
-page addr of stack: 8000
-in join: find child thread: pid: 1173
-page addr of stack: 8000
-in join: find child thread: pid: 1174
-page addr of stack: 8000
-in join: find child thread: pid: 1175
-page addr of stack: 8000
-in join: find child thread: pid: 1176
-page addr of stack: 8000
-in join: find child thread: pid: 1177
-page addr of stack: 8000
-in join: find child thread: pid: 1178
-page addr of stack: 8000
-in join: find child thread: pid: 1179
-page addr of stack: 8000
-in join: find child thread: pid: 1180
-page addr of stack: 8000
-in join: find child thread: pid: 1181
-page addr of stack: 8000
-in join: find child thread: pid: 1182
-page addr of stack: 8000
-in join: find child thread: pid: 1183
-page addr of stack: 8000
-in join: find child thread: pid: 1184
-page addr of stack: 8000
-in join: find child thread: pid: 1185
-page addr of stack: 8000
-in join: find child thread: pid: 1186
-page addr of stack: 8000
-in join: find child thread: pid: 1187
-page addr of stack: 8000
-in join: find child thread: pid: 1188
-page addr of stack: 8000
-in join: find child thread: pid: 1189
-page addr of stack: 8000
-in join: find child thread: pid: 1190
-page addr of stack: 8000
-in join: find child thread: pid: 1191
-page addr of stack: 8000
-in join: find child thread: pid: 1192
-page addr of stack: 8000
-in join: find child thread: pid: 1193
-page addr of stack: 8000
-in join: find child thread: pid: 1194
-page addr of stack: 8000
-in join: find child thread: pid: 1195
-page addr of stack: 8000
-in join: find child thread: pid: 1196
-page addr of stack: 8000
-in join: find child thread: pid: 1197
-page addr of stack: 8000
-in join: find child thread: pid: 1198
-page addr of stack: 8000
-in join: find child thread: pid: 1199
-page addr of stack: 8000
-in join: find child thread: pid: 1200
-page addr of stack: 8000
-in join: find child thread: pid: 1201
-page addr of stack: 8000
-in join: find child thread: pid: 1202
-page addr of stack: 8000
-in join: find child thread: pid: 1203
-page addr of stack: 8000
-in join: find child thread: pid: 1204
-page addr of stack: 8000
-in join: find child thread: pid: 1205
-page addr of stack: 8000
-in join: find child thread: pid: 1206
-page addr of stack: 8000
-in join: find child thread: pid: 1207
-page addr of stack: 8000
-in join: find child thread: pid: 1208
-page addr of stack: 8000
-in join: find child thread: pid: 1209
-page addr of stack: 8000
-in join: find child thread: pid: 1210
-page addr of stack: 8000
-in join: find child thread: pid: 1211
-page addr of stack: 8000
-in join: find child thread: pid: 1212
-page addr of stack: 8000
-in join: find child thread: pid: 1213
-page addr of stack: 8000
-in join: find child thread: pid: 1214
-page addr of stack: 8000
-in join: find child thread: pid: 1215
-page addr of stack: 8000
-in join: find child thread: pid: 1216
-page addr of stack: 8000
-in join: find child thread: pid: 1217
-page addr of stack: 8000
-in join: find child thread: pid: 1218
-page addr of stack: 8000
-in join: find child thread: pid: 1219
-page addr of stack: 8000
-in join: find child thread: pid: 1220
-page addr of stack: 8000
-in join: find child thread: pid: 1221
-page addr of stack: 8000
-in join: find child thread: pid: 1222
-page addr of stack: 8000
-in join: find child thread: pid: 1223
-page addr of stack: 8000
-in join: find child thread: pid: 1224
-page addr of stack: 8000
-in join: find child thread: pid: 1225
-page addr of stack: 8000
-in join: find child thread: pid: 1226
-page addr of stack: 8000
-in join: find child thread: pid: 1227
-page addr of stack: 8000
-in join: find child thread: pid: 1228
-page addr of stack: 8000
-in join: find child thread: pid: 1229
-page addr of stack: 8000
-in join: find child thread: pid: 1230
-page addr of stack: 8000
-in join: find child thread: pid: 1231
-page addr of stack: 8000
-in join: find child thread: pid: 1232
-page addr of stack: 8000
-in join: find child thread: pid: 1233
-page addr of stack: 8000
-in join: find child thread: pid: 1234
-page addr of stack: 8000
-in join: find child thread: pid: 1235
-page addr of stack: 8000
-in join: find child thread: pid: 1236
-page addr of stack: 8000
-in join: find child thread: pid: 1237
-page addr of stack: 8000
-in join: find child thread: pid: 1238
-page addr of stack: 8000
-in join: find child thread: pid: 1239
-page addr of stack: 8000
-in join: find child thread: pid: 1240
-page addr of stack: 8000
-in join: find child thread: pid: 1241
-page addr of stack: 8000
-in join: find child thread: pid: 1242
-page addr of stack: 8000
-in join: find child thread: pid: 1243
-page addr of stack: 8000
-in join: find child thread: pid: 1244
-page addr of stack: 8000
-in join: find child thread: pid: 1245
-page addr of stack: 8000
-in join: find child thread: pid: 1246
-page addr of stack: 8000
-in join: find child thread: pid: 1247
-page addr of stack: 8000
-in join: find child thread: pid: 1248
-page addr of stack: 8000
-in join: find child thread: pid: 1249
-page addr of stack: 8000
-in join: find child thread: pid: 1250
-page addr of stack: 8000
-in join: find child thread: pid: 1251
-page addr of stack: 8000
-in join: find child thread: pid: 1252
-page addr of stack: 8000
-in join: find child thread: pid: 1253
-page addr of stack: 8000
-in join: find child thread: pid: 1254
-page addr of stack: 8000
-in join: find child thread: pid: 1255
-page addr of stack: 8000
-in join: find child thread: pid: 1256
-page addr of stack: 8000
-in join: find child thread: pid: 1257
-page addr of stack: 8000
-in join: find child thread: pid: 1258
-page addr of stack: 8000
-in join: find child thread: pid: 1259
-page addr of stack: 8000
-in join: find child thread: pid: 1260
-page addr of stack: 8000
-in join: find child thread: pid: 1261
-page addr of stack: 8000
-in join: find child thread: pid: 1262
-page addr of stack: 8000
-in join: find child thread: pid: 1263
-page addr of stack: 8000
-in join: find child thread: pid: 1264
-page addr of stack: 8000
-in join: find child thread: pid: 1265
-page addr of stack: 8000
-in join: find child thread: pid: 1266
-page addr of stack: 8000
-in join: find child thread: pid: 1267
-page addr of stack: 8000
-in join: find child thread: pid: 1268
-page addr of stack: 8000
-in join: find child thread: pid: 1269
-page addr of stack: 8000
-in join: find child thread: pid: 1270
-page addr of stack: 8000
-in join: find child thread: pid: 1271
-page addr of stack: 8000
-in join: find child thread: pid: 1272
-page addr of stack: 8000
-in join: find child thread: pid: 1273
-page addr of stack: 8000
-in join: find child thread: pid: 1274
-page addr of stack: 8000
-in join: find child thread: pid: 1275
-page addr of stack: 8000
-in join: find child thread: pid: 1276
-page addr of stack: 8000
-in join: find child thread: pid: 1277
-page addr of stack: 8000
-in join: find child thread: pid: 1278
-page addr of stack: 8000
-in join: find child thread: pid: 1279
-page addr of stack: 8000
-in join: find child thread: pid: 1280
-page addr of stack: 8000
-in join: find child thread: pid: 1281
-page addr of stack: 8000
-in join: find child thread: pid: 1282
-page addr of stack: 8000
-in join: find child thread: pid: 1283
-page addr of stack: 8000
-in join: find child thread: pid: 1284
-page addr of stack: 8000
-in join: find child thread: pid: 1285
-page addr of stack: 8000
-in join: find child thread: pid: 1286
-page addr of stack: 8000
-in join: find child thread: pid: 1287
-page addr of stack: 8000
-in join: find child thread: pid: 1288
-page addr of stack: 8000
-in join: find child thread: pid: 1289
-page addr of stack: 8000
-in join: find child thread: pid: 1290
-page addr of stack: 8000
-in join: find child thread: pid: 1291
-page addr of stack: 8000
-in join: find child thread: pid: 1292
-page addr of stack: 8000
-in join: find child thread: pid: 1293
-page addr of stack: 8000
-in join: find child thread: pid: 1294
-page addr of stack: 8000
-in join: find child thread: pid: 1295
-page addr of stack: 8000
-in join: find child thread: pid: 1296
-page addr of stack: 8000
-in join: find child thread: pid: 1297
-page addr of stack: 8000
-in join: find child thread: pid: 1298
-page addr of stack: 8000
-in join: find child thread: pid: 1299
-page addr of stack: 8000
-in join: find child thread: pid: 1300
-page addr of stack: 8000
-in join: find child thread: pid: 1301
-page addr of stack: 8000
-in join: find child thread: pid: 1302
-page addr of stack: 8000
-in join: find child thread: pid: 1303
-page addr of stack: 8000
-in join: find child thread: pid: 1304
-page addr of stack: 8000
-in join: find child thread: pid: 1305
-page addr of stack: 8000
-in join: find child thread: pid: 1306
-page addr of stack: 8000
-in join: find child thread: pid: 1307
-page addr of stack: 8000
-in join: find child thread: pid: 1308
-page addr of stack: 8000
-in join: find child thread: pid: 1309
-page addr of stack: 8000
-in join: find child thread: pid: 1310
-page addr of stack: 8000
-in join: find child thread: pid: 1311
-page addr of stack: 8000
-in join: find child thread: pid: 1312
-page addr of stack: 8000
-in join: find child thread: pid: 1313
-page addr of stack: 8000
-in join: find child thread: pid: 1314
-page addr of stack: 8000
-in join: find child thread: pid: 1315
-page addr of stack: 8000
-in join: find child thread: pid: 1316
-page addr of stack: 8000
-in join: find child thread: pid: 1317
-page addr of stack: 8000
-in join: find child thread: pid: 1318
-page addr of stack: 8000
-in join: find child thread: pid: 1319
-page addr of stack: 8000
-in join: find child thread: pid: 1320
-page addr of stack: 8000
-in join: find child thread: pid: 1321
-page addr of stack: 8000
-in join: find child thread: pid: 1322
-page addr of stack: 8000
-in join: find child thread: pid: 1323
-page addr of stack: 8000
-in join: find child thread: pid: 1324
-page addr of stack: 8000
-in join: find child thread: pid: 1325
-page addr of stack: 8000
-in join: find child thread: pid: 1326
-page addr of stack: 8000
-in join: find child thread: pid: 1327
-page addr of stack: 8000
-in join: find child thread: pid: 1328
-page addr of stack: 8000
-in join: find child thread: pid: 1329
-page addr of stack: 8000
-in join: find child thread: pid: 1330
-page addr of stack: 8000
-in join: find child thread: pid: 1331
-page addr of stack: 8000
-in join: find child thread: pid: 1332
-page addr of stack: 8000
-in join: find child thread: pid: 1333
-page addr of stack: 8000
-in join: find child thread: pid: 1334
-page addr of stack: 8000
-in join: find child thread: pid: 1335
-page addr of stack: 8000
-in join: find child thread: pid: 1336
-page addr of stack: 8000
-in join: find child thread: pid: 1337
-page addr of stack: 8000
-in join: find child thread: pid: 1338
-page addr of stack: 8000
-in join: find child thread: pid: 1339
-page addr of stack: 8000
-in join: find child thread: pid: 1340
-page addr of stack: 8000
-in join: find child thread: pid: 1341
-page addr of stack: 8000
-in join: find child thread: pid: 1342
-page addr of stack: 8000
-in join: find child thread: pid: 1343
-page addr of stack: 8000
-in join: find child thread: pid: 1344
-page addr of stack: 8000
-in join: find child thread: pid: 1345
-page addr of stack: 8000
-in join: find child thread: pid: 1346
-page addr of stack: 8000
-in join: find child thread: pid: 1347
-page addr of stack: 8000
-in join: find child thread: pid: 1348
-page addr of stack: 8000
-in join: find child thread: pid: 1349
-page addr of stack: 8000
-in join: find child thread: pid: 1350
-page addr of stack: 8000
-in join: find child thread: pid: 1351
-page addr of stack: 8000
-in join: find child thread: pid: 1352
-page addr of stack: 8000
-in join: find child thread: pid: 1353
-page addr of stack: 8000
-in join: find child thread: pid: 1354
-page addr of stack: 8000
-in join: find child thread: pid: 1355
-page addr of stack: 8000
-in join: find child thread: pid: 1356
-page addr of stack: 8000
-in join: find child thread: pid: 1357
-page addr of stack: 8000
-in join: find child thread: pid: 1358
-page addr of stack: 8000
-in join: find child thread: pid: 1359
-page addr of stack: 8000
-in join: find child thread: pid: 1360
-page addr of stack: 8000
-in join: find child thread: pid: 1361
-page addr of stack: 8000
-in join: find child thread: pid: 1362
-page addr of stack: 8000
-in join: find child thread: pid: 1363
-page addr of stack: 8000
-in join: find child thread: pid: 1364
-page addr of stack: 8000
-in join: find child thread: pid: 1365
-page addr of stack: 8000
-in join: find child thread: pid: 1366
-page addr of stack: 8000
-in join: find child thread: pid: 1367
-page addr of stack: 8000
-in join: find child thread: pid: 1368
-page addr of stack: 8000
-in join: find child thread: pid: 1369
-page addr of stack: 8000
-in join: find child thread: pid: 1370
-page addr of stack: 8000
-in join: find child thread: pid: 1371
-page addr of stack: 8000
-in join: find child thread: pid: 1372
-page addr of stack: 8000
-in join: find child thread: pid: 1373
-page addr of stack: 8000
-in join: find child thread: pid: 1374
-page addr of stack: 8000
-in join: find child thread: pid: 1375
-page addr of stack: 8000
-in join: find child thread: pid: 1376
-page addr of stack: 8000
-in join: find child thread: pid: 1377
-page addr of stack: 8000
-in join: find child thread: pid: 1378
-page addr of stack: 8000
-in join: find child thread: pid: 1379
-page addr of stack: 8000
-in join: find child thread: pid: 1380
-page addr of stack: 8000
-in join: find child thread: pid: 1381
-page addr of stack: 8000
-in join: find child thread: pid: 1382
-page addr of stack: 8000
-in join: find child thread: pid: 1383
-page addr of stack: 8000
-in join: find child thread: pid: 1384
-page addr of stack: 8000
-in join: find child thread: pid: 1385
-page addr of stack: 8000
-in join: find child thread: pid: 1386
-page addr of stack: 8000
-in join: find child thread: pid: 1387
-page addr of stack: 8000
-in join: find child thread: pid: 1388
-page addr of stack: 8000
-in join: find child thread: pid: 1389
-page addr of stack: 8000
-in join: find child thread: pid: 1390
-page addr of stack: 8000
-in join: find child thread: pid: 1391
-page addr of stack: 8000
-in join: find child thread: pid: 1392
-page addr of stack: 8000
-in join: find child thread: pid: 1393
-page addr of stack: 8000
-in join: find child thread: pid: 1394
-page addr of stack: 8000
-in join: find child thread: pid: 1395
-page addr of stack: 8000
-in join: find child thread: pid: 1396
-page addr of stack: 8000
-in join: find child thread: pid: 1397
-page addr of stack: 8000
-in join: find child thread: pid: 1398
-page addr of stack: 8000
-in join: find child thread: pid: 1399
-page addr of stack: 8000
-in join: find child thread: pid: 1400
-page addr of stack: 8000
-in join: find child thread: pid: 1401
-page addr of stack: 8000
-in join: find child thread: pid: 1402
-page addr of stack: 8000
-in join: find child thread: pid: 1403
-page addr of stack: 8000
-in join: find child thread: pid: 1404
-page addr of stack: 8000
-in join: find child thread: pid: 1405
-page addr of stack: 8000
-in join: find child thread: pid: 1406
-page addr of stack: 8000
-in join: find child thread: pid: 1407
-page addr of stack: 8000
-in join: find child thread: pid: 1408
-page addr of stack: 8000
-in join: find child thread: pid: 1409
-page addr of stack: 8000
-in join: find child thread: pid: 1410
-page addr of stack: 8000
-in join: find child thread: pid: 1411
-page addr of stack: 8000
-in join: find child thread: pid: 1412
-page addr of stack: 8000
-in join: find child thread: pid: 1413
-page addr of stack: 8000
-in join: find child thread: pid: 1414
-page addr of stack: 8000
-in join: find child thread: pid: 1415
-page addr of stack: 8000
-in join: find child thread: pid: 1416
-page addr of stack: 8000
-in join: find child thread: pid: 1417
-page addr of stack: 8000
-in join: find child thread: pid: 1418
-page addr of stack: 8000
-in join: find child thread: pid: 1419
-page addr of stack: 8000
-in join: find child thread: pid: 1420
-page addr of stack: 8000
-in join: find child thread: pid: 1421
-page addr of stack: 8000
-in join: find child thread: pid: 1422
-page addr of stack: 8000
-in join: find child thread: pid: 1423
-page addr of stack: 8000
-in join: find child thread: pid: 1424
-page addr of stack: 8000
-in join: find child thread: pid: 1425
-page addr of stack: 8000
-in join: find child thread: pid: 1426
-page addr of stack: 8000
-in join: find child thread: pid: 1427
-page addr of stack: 8000
-in join: find child thread: pid: 1428
-page addr of stack: 8000
-in join: find child thread: pid: 1429
-page addr of stack: 8000
-in join: find child thread: pid: 1430
-page addr of stack: 8000
-in join: find child thread: pid: 1431
-page addr of stack: 8000
-in join: find child thread: pid: 1432
-page addr of stack: 8000
-in join: find child thread: pid: 1433
-page addr of stack: 8000
-in join: find child thread: pid: 1434
-page addr of stack: 8000
-in join: find child thread: pid: 1435
-page addr of stack: 8000
-in join: find child thread: pid: 1436
-page addr of stack: 8000
-in join: find child thread: pid: 1437
-page addr of stack: 8000
-in join: find child thread: pid: 1438
-page addr of stack: 8000
-in join: find child thread: pid: 1439
-page addr of stack: 8000
-in join: find child thread: pid: 1440
-page addr of stack: 8000
-in join: find child thread: pid: 1441
-page addr of stack: 8000
-in join: find child thread: pid: 1442
-page addr of stack: 8000
-in join: find child thread: pid: 1443
-page addr of stack: 8000
-in join: find child thread: pid: 1444
-page addr of stack: 8000
-in join: find child thread: pid: 1445
-page addr of stack: 8000
-in join: find child thread: pid: 1446
-page addr of stack: 8000
-in join: find child thread: pid: 1447
-page addr of stack: 8000
-in join: find child thread: pid: 1448
-page addr of stack: 8000
-in join: find child thread: pid: 1449
-page addr of stack: 8000
-in join: find child thread: pid: 1450
-page addr of stack: 8000
-in join: find child thread: pid: 1451
-page addr of stack: 8000
-in join: find child thread: pid: 1452
-page addr of stack: 8000
-in join: find child thread: pid: 1453
-page addr of stack: 8000
-in join: find child thread: pid: 1454
-page addr of stack: 8000
-in join: find child thread: pid: 1455
-page addr of stack: 8000
-in join: find child thread: pid: 1456
-page addr of stack: 8000
-in join: find child thread: pid: 1457
-page addr of stack: 8000
-in join: find child thread: pid: 1458
-page addr of stack: 8000
-in join: find child thread: pid: 1459
-page addr of stack: 8000
-in join: find child thread: pid: 1460
-page addr of stack: 8000
-in join: find child thread: pid: 1461
-page addr of stack: 8000
-in join: find child thread: pid: 1462
-page addr of stack: 8000
-in join: find child thread: pid: 1463
-page addr of stack: 8000
-in join: find child thread: pid: 1464
-page addr of stack: 8000
-in join: find child thread: pid: 1465
-page addr of stack: 8000
-in join: find child thread: pid: 1466
-page addr of stack: 8000
-in join: find child thread: pid: 1467
-page addr of stack: 8000
-in join: find child thread: pid: 1468
-page addr of stack: 8000
-in join: find child thread: pid: 1469
-page addr of stack: 8000
-in join: find child thread: pid: 1470
-page addr of stack: 8000
-in join: find child thread: pid: 1471
-page addr of stack: 8000
-in join: find child thread: pid: 1472
-page addr of stack: 8000
-in join: find child thread: pid: 1473
-page addr of stack: 8000
-in join: find child thread: pid: 1474
-page addr of stack: 8000
-in join: find child thread: pid: 1475
-page addr of stack: 8000
-in join: find child thread: pid: 1476
-page addr of stack: 8000
-in join: find child thread: pid: 1477
-page addr of stack: 8000
-in join: find child thread: pid: 1478
-page addr of stack: 8000
-in join: find child thread: pid: 1479
-page addr of stack: 8000
-in join: find child thread: pid: 1480
-page addr of stack: 8000
-in join: find child thread: pid: 1481
-page addr of stack: 8000
-in join: find child thread: pid: 1482
-page addr of stack: 8000
-in join: find child thread: pid: 1483
-page addr of stack: 8000
-in join: find child thread: pid: 1484
-page addr of stack: 8000
-in join: find child thread: pid: 1485
-page addr of stack: 8000
-in join: find child thread: pid: 1486
-page addr of stack: 8000
-in join: find child thread: pid: 1487
-page addr of stack: 8000
-in join: find child thread: pid: 1488
-page addr of stack: 8000
-in join: find child thread: pid: 1489
-page addr of stack: 8000
-in join: find child thread: pid: 1490
-page addr of stack: 8000
-in join: find child thread: pid: 1491
-page addr of stack: 8000
-in join: find child thread: pid: 1492
-page addr of stack: 8000
-in join: find child thread: pid: 1493
-page addr of stack: 8000
-in join: find child thread: pid: 1494
-page addr of stack: 8000
-in join: find child thread: pid: 1495
-page addr of stack: 8000
-in join: find child thread: pid: 1496
-page addr of stack: 8000
-in join: find child thread: pid: 1497
-page addr of stack: 8000
-in join: find child thread: pid: 1498
-page addr of stack: 8000
-in join: find child thread: pid: 1499
-page addr of stack: 8000
-in join: find child thread: pid: 1500
-page addr of stack: 8000
-in join: find child thread: pid: 1501
-page addr of stack: 8000
-in join: find child thread: pid: 1502
-page addr of stack: 8000
-in join: find child thread: pid: 1503
-page addr of stack: 8000
-in join: find child thread: pid: 1504
-page addr of stack: 8000
-in join: find child thread: pid: 1505
-page addr of stack: 8000
-in join: find child thread: pid: 1506
-page addr of stack: 8000
-in join: find child thread: pid: 1507
-page addr of stack: 8000
-in join: find child thread: pid: 1508
-page addr of stack: 8000
-in join: find child thread: pid: 1509
-page addr of stack: 8000
-in join: find child thread: pid: 1510
-page addr of stack: 8000
-in join: find child thread: pid: 1511
-page addr of stack: 8000
-in join: find child thread: pid: 1512
-page addr of stack: 8000
-in join: find child thread: pid: 1513
-page addr of stack: 8000
-in join: find child thread: pid: 1514
-page addr of stack: 8000
-in join: find child thread: pid: 1515
-page addr of stack: 8000
-in join: find child thread: pid: 1516
-page addr of stack: 8000
-in join: find child thread: pid: 1517
-page addr of stack: 8000
-in join: find child thread: pid: 1518
-page addr of stack: 8000
-in join: find child thread: pid: 1519
-page addr of stack: 8000
-in join: find child thread: pid: 1520
-page addr of stack: 8000
-in join: find child thread: pid: 1521
-page addr of stack: 8000
-in join: find child thread: pid: 1522
-page addr of stack: 8000
-in join: find child thread: pid: 1523
-page addr of stack: 8000
-in join: find child thread: pid: 1524
-page addr of stack: 8000
-in join: find child thread: pid: 1525
-page addr of stack: 8000
-in join: find child thread: pid: 1526
-page addr of stack: 8000
-in join: find child thread: pid: 1527
-page addr of stack: 8000
-in join: find child thread: pid: 1528
-page addr of stack: 8000
-in join: find child thread: pid: 1529
-page addr of stack: 8000
-in join: find child thread: pid: 1530
-page addr of stack: 8000
-in join: find child thread: pid: 1531
-page addr of stack: 8000
-in join: find child thread: pid: 1532
-page addr of stack: 8000
-in join: find child thread: pid: 1533
-page addr of stack: 8000
-in join: find child thread: pid: 1534
-page addr of stack: 8000
-in join: find child thread: pid: 1535
-page addr of stack: 8000
-in join: find child thread: pid: 1536
-page addr of stack: 8000
-in join: find child thread: pid: 1537
-page addr of stack: 8000
-in join: find child thread: pid: 1538
-page addr of stack: 8000
-in join: find child thread: pid: 1539
-page addr of stack: 8000
-in join: find child thread: pid: 1540
-page addr of stack: 8000
-in join: find child thread: pid: 1541
-page addr of stack: 8000
-in join: find child thread: pid: 1542
-page addr of stack: 8000
-in join: find child thread: pid: 1543
-page addr of stack: 8000
-in join: find child thread: pid: 1544
-page addr of stack: 8000
-in join: find child thread: pid: 1545
-page addr of stack: 8000
-in join: find child thread: pid: 1546
-page addr of stack: 8000
-in join: find child thread: pid: 1547
-page addr of stack: 8000
-in join: find child thread: pid: 1548
-page addr of stack: 8000
-in join: find child thread: pid: 1549
-page addr of stack: 8000
-in join: find child thread: pid: 1550
-page addr of stack: 8000
-in join: find child thread: pid: 1551
-page addr of stack: 8000
-in join: find child thread: pid: 1552
-page addr of stack: 8000
-in join: find child thread: pid: 1553
-page addr of stack: 8000
-in join: find child thread: pid: 1554
-page addr of stack: 8000
-in join: find child thread: pid: 1555
-page addr of stack: 8000
-in join: find child thread: pid: 1556
-page addr of stack: 8000
-in join: find child thread: pid: 1557
-page addr of stack: 8000
-in join: find child thread: pid: 1558
-page addr of stack: 8000
-in join: find child thread: pid: 1559
-page addr of stack: 8000
-in join: find child thread: pid: 1560
-page addr of stack: 8000
-in join: find child thread: pid: 1561
-page addr of stack: 8000
-in join: find child thread: pid: 1562
-page addr of stack: 8000
-in join: find child thread: pid: 1563
-page addr of stack: 8000
-in join: find child thread: pid: 1564
-page addr of stack: 8000
-in join: find child thread: pid: 1565
-page addr of stack: 8000
-in join: find child thread: pid: 1566
-page addr of stack: 8000
-in join: find child thread: pid: 1567
-page addr of stack: 8000
-in join: find child thread: pid: 1568
-page addr of stack: 8000
-in join: find child thread: pid: 1569
-page addr of stack: 8000
-in join: find child thread: pid: 1570
-page addr of stack: 8000
-in join: find child thread: pid: 1571
-page addr of stack: 8000
-in join: find child thread: pid: 1572
-page addr of stack: 8000
-in join: find child thread: pid: 1573
-page addr of stack: 8000
-in join: find child thread: pid: 1574
-page addr of stack: 8000
-in join: find child thread: pid: 1575
-page addr of stack: 8000
-in join: find child thread: pid: 1576
-page addr of stack: 8000
-in join: find child thread: pid: 1577
-page addr of stack: 8000
-in join: find child thread: pid: 1578
-page addr of stack: 8000
-in join: find child thread: pid: 1579
-page addr of stack: 8000
-in join: find child thread: pid: 1580
-page addr of stack: 8000
-in join: find child thread: pid: 1581
-page addr of stack: 8000
-in join: find child thread: pid: 1582
-page addr of stack: 8000
-in join: find child thread: pid: 1583
-page addr of stack: 8000
-in join: find child thread: pid: 1584
-page addr of stack: 8000
-in join: find child thread: pid: 1585
-page addr of stack: 8000
-in join: find child thread: pid: 1586
-page addr of stack: 8000
-in join: find child thread: pid: 1587
-page addr of stack: 8000
-in join: find child thread: pid: 1588
-page addr of stack: 8000
-in join: find child thread: pid: 1589
-page addr of stack: 8000
-in join: find child thread: pid: 1590
-page addr of stack: 8000
-in join: find child thread: pid: 1591
-page addr of stack: 8000
-in join: find child thread: pid: 1592
-page addr of stack: 8000
-in join: find child thread: pid: 1593
-page addr of stack: 8000
-in join: find child thread: pid: 1594
-page addr of stack: 8000
-in join: find child thread: pid: 1595
-page addr of stack: 8000
-in join: find child thread: pid: 1596
-page addr of stack: 8000
-in join: find child thread: pid: 1597
-page addr of stack: 8000
-in join: find child thread: pid: 1598
-page addr of stack: 8000
-in join: find child thread: pid: 1599
-page addr of stack: 8000
-in join: find child thread: pid: 1600
-page addr of stack: 8000
-in join: find child thread: pid: 1601
-page addr of stack: 8000
-in join: find child thread: pid: 1602
-page addr of stack: 8000
-in join: find child thread: pid: 1603
-page addr of stack: 8000
-in join: find child thread: pid: 1604
-page addr of stack: 8000
-in join: find child thread: pid: 1605
-page addr of stack: 8000
-in join: find child thread: pid: 1606
-page addr of stack: 8000
-in join: find child thread: pid: 1607
-page addr of stack: 8000
-in join: find child thread: pid: 1608
-page addr of stack: 8000
-in join: find child thread: pid: 1609
-page addr of stack: 8000
-in join: find child thread: pid: 1610
-page addr of stack: 8000
-in join: find child thread: pid: 1611
-page addr of stack: 8000
-in join: find child thread: pid: 1612
-page addr of stack: 8000
-in join: find child thread: pid: 1613
-page addr of stack: 8000
-in join: find child thread: pid: 1614
-page addr of stack: 8000
-in join: find child thread: pid: 1615
-page addr of stack: 8000
-in join: find child thread: pid: 1616
-page addr of stack: 8000
-in join: find child thread: pid: 1617
-page addr of stack: 8000
-in join: find child thread: pid: 1618
-page addr of stack: 8000
-in join: find child thread: pid: 1619
-page addr of stack: 8000
-in join: find child thread: pid: 1620
-page addr of stack: 8000
-in join: find child thread: pid: 1621
-page addr of stack: 8000
-in join: find child thread: pid: 1622
-page addr of stack: 8000
-in join: find child thread: pid: 1623
-page addr of stack: 8000
-in join: find child thread: pid: 1624
-page addr of stack: 8000
-in join: find child thread: pid: 1625
-page addr of stack: 8000
-in join: find child thread: pid: 1626
-page addr of stack: 8000
-in join: find child thread: pid: 1627
-page addr of stack: 8000
-in join: find child thread: pid: 1628
-page addr of stack: 8000
-in join: find child thread: pid: 1629
-page addr of stack: 8000
-in join: find child thread: pid: 1630
-page addr of stack: 8000
-in join: find child thread: pid: 1631
-page addr of stack: 8000
-in join: find child thread: pid: 1632
-page addr of stack: 8000
-in join: find child thread: pid: 1633
-page addr of stack: 8000
-in join: find child thread: pid: 1634
-page addr of stack: 8000
-in join: find child thread: pid: 1635
-page addr of stack: 8000
-in join: find child thread: pid: 1636
-page addr of stack: 8000
-in join: find child thread: pid: 1637
-page addr of stack: 8000
-in join: find child thread: pid: 1638
-page addr of stack: 8000
-in join: find child thread: pid: 1639
-page addr of stack: 8000
-in join: find child thread: pid: 1640
-page addr of stack: 8000
-in join: find child thread: pid: 1641
-page addr of stack: 8000
-in join: find child thread: pid: 1642
-page addr of stack: 8000
-in join: find child thread: pid: 1643
-page addr of stack: 8000
-in join: find child thread: pid: 1644
-page addr of stack: 8000
-in join: find child thread: pid: 1645
-page addr of stack: 8000
-in join: find child thread: pid: 1646
-page addr of stack: 8000
-in join: find child thread: pid: 1647
-page addr of stack: 8000
-in join: find child thread: pid: 1648
-page addr of stack: 8000
-in join: find child thread: pid: 1649
-page addr of stack: 8000
-in join: find child thread: pid: 1650
-page addr of stack: 8000
-in join: find child thread: pid: 1651
-page addr of stack: 8000
-in join: find child thread: pid: 1652
-page addr of stack: 8000
-in join: find child thread: pid: 1653
-page addr of stack: 8000
-in join: find child thread: pid: 1654
-page addr of stack: 8000
-in join: find child thread: pid: 1655
-page addr of stack: 8000
-in join: find child thread: pid: 1656
-page addr of stack: 8000
-in join: find child thread: pid: 1657
-page addr of stack: 8000
-in join: find child thread: pid: 1658
-page addr of stack: 8000
-in join: find child thread: pid: 1659
-page addr of stack: 8000
-in join: find child thread: pid: 1660
-page addr of stack: 8000
-in join: find child thread: pid: 1661
-page addr of stack: 8000
-in join: find child thread: pid: 1662
-page addr of stack: 8000
-in join: find child thread: pid: 1663
-page addr of stack: 8000
-in join: find child thread: pid: 1664
-page addr of stack: 8000
-in join: find child thread: pid: 1665
-page addr of stack: 8000
-in join: find child thread: pid: 1666
-page addr of stack: 8000
-in join: find child thread: pid: 1667
-page addr of stack: 8000
-in join: find child thread: pid: 1668
-page addr of stack: 8000
-in join: find child thread: pid: 1669
-page addr of stack: 8000
-in join: find child thread: pid: 1670
-page addr of stack: 8000
-in join: find child thread: pid: 1671
-page addr of stack: 8000
-in join: find child thread: pid: 1672
-page addr of stack: 8000
-in join: find child thread: pid: 1673
-page addr of stack: 8000
-in join: find child thread: pid: 1674
-page addr of stack: 8000
-in join: find child thread: pid: 1675
-page addr of stack: 8000
-in join: find child thread: pid: 1676
-page addr of stack: 8000
-in join: find child thread: pid: 1677
-page addr of stack: 8000
-in join: find child thread: pid: 1678
-page addr of stack: 8000
-in join: find child thread: pid: 1679
-page addr of stack: 8000
-in join: find child thread: pid: 1680
-page addr of stack: 8000
-in join: find child thread: pid: 1681
-page addr of stack: 8000
-in join: find child thread: pid: 1682
-page addr of stack: 8000
-in join: find child thread: pid: 1683
-page addr of stack: 8000
-in join: find child thread: pid: 1684
-page addr of stack: 8000
-in join: find child thread: pid: 1685
-page addr of stack: 8000
-in join: find child thread: pid: 1686
-page addr of stack: 8000
-in join: find child thread: pid: 1687
-page addr of stack: 8000
-in join: find child thread: pid: 1688
-page addr of stack: 8000
-in join: find child thread: pid: 1689
-page addr of stack: 8000
-in join: find child thread: pid: 1690
-page addr of stack: 8000
-in join: find child thread: pid: 1691
-page addr of stack: 8000
-in join: find child thread: pid: 1692
-page addr of stack: 8000
-in join: find child thread: pid: 1693
-page addr of stack: 8000
-in join: find child thread: pid: 1694
-page addr of stack: 8000
-in join: find child thread: pid: 1695
-page addr of stack: 8000
-in join: find child thread: pid: 1696
-page addr of stack: 8000
-in join: find child thread: pid: 1697
-page addr of stack: 8000
-in join: find child thread: pid: 1698
-page addr of stack: 8000
-in join: find child thread: pid: 1699
-page addr of stack: 8000
-in join: find child thread: pid: 1700
-page addr of stack: 8000
-in join: find child thread: pid: 1701
-page addr of stack: 8000
-in join: find child thread: pid: 1702
-page addr of stack: 8000
-in join: find child thread: pid: 1703
-page addr of stack: 8000
-in join: find child thread: pid: 1704
-page addr of stack: 8000
-in join: find child thread: pid: 1705
-page addr of stack: 8000
-in join: find child thread: pid: 1706
-page addr of stack: 8000
-in join: find child thread: pid: 1707
-page addr of stack: 8000
-in join: find child thread: pid: 1708
-page addr of stack: 8000
-in join: find child thread: pid: 1709
-page addr of stack: 8000
-in join: find child thread: pid: 1710
-page addr of stack: 8000
-in join: find child thread: pid: 1711
-page addr of stack: 8000
-in join: find child thread: pid: 1712
-page addr of stack: 8000
-in join: find child thread: pid: 1713
-page addr of stack: 8000
-in join: find child thread: pid: 1714
-page addr of stack: 8000
-in join: find child thread: pid: 1715
-page addr of stack: 8000
-in join: find child thread: pid: 1716
-page addr of stack: 8000
-in join: find child thread: pid: 1717
-page addr of stack: 8000
-in join: find child thread: pid: 1718
-page addr of stack: 8000
-in join: find child thread: pid: 1719
-page addr of stack: 8000
-in join: find child thread: pid: 1720
-page addr of stack: 8000
-in join: find child thread: pid: 1721
-page addr of stack: 8000
-in join: find child thread: pid: 1722
-page addr of stack: 8000
-in join: find child thread: pid: 1723
-page addr of stack: 8000
-in join: find child thread: pid: 1724
-page addr of stack: 8000
-in join: find child thread: pid: 1725
-page addr of stack: 8000
-in join: find child thread: pid: 1726
-page addr of stack: 8000
-in join: find child thread: pid: 1727
-page addr of stack: 8000
-in join: find child thread: pid: 1728
-page addr of stack: 8000
-in join: find child thread: pid: 1729
-page addr of stack: 8000
-in join: find child thread: pid: 1730
-page addr of stack: 8000
-in join: find child thread: pid: 1731
-page addr of stack: 8000
-in join: find child thread: pid: 1732
-page addr of stack: 8000
-in join: find child thread: pid: 1733
-page addr of stack: 8000
-in join: find child thread: pid: 1734
-page addr of stack: 8000
-in join: find child thread: pid: 1735
-page addr of stack: 8000
-in join: find child thread: pid: 1736
-page addr of stack: 8000
-in join: find child thread: pid: 1737
-page addr of stack: 8000
-in join: find child thread: pid: 1738
-page addr of stack: 8000
-in join: find child thread: pid: 1739
-page addr of stack: 8000
-in join: find child thread: pid: 1740
-page addr of stack: 8000
-in join: find child thread: pid: 1741
-page addr of stack: 8000
-in join: find child thread: pid: 1742
-page addr of stack: 8000
-in join: find child thread: pid: 1743
-page addr of stack: 8000
-in join: find child thread: pid: 1744
-page addr of stack: 8000
-in join: find child thread: pid: 1745
-page addr of stack: 8000
-in join: find child thread: pid: 1746
-page addr of stack: 8000
-in join: find child thread: pid: 1747
-page addr of stack: 8000
-in join: find child thread: pid: 1748
-page addr of stack: 8000
-in join: find child thread: pid: 1749
-page addr of stack: 8000
-in join: find child thread: pid: 1750
-page addr of stack: 8000
-in join: find child thread: pid: 1751
-page addr of stack: 8000
-in join: find child thread: pid: 1752
-page addr of stack: 8000
-in join: find child thread: pid: 1753
-page addr of stack: 8000
-in join: find child thread: pid: 1754
-page addr of stack: 8000
-in join: find child thread: pid: 1755
-page addr of stack: 8000
-in join: find child thread: pid: 1756
-page addr of stack: 8000
-in join: find child thread: pid: 1757
-page addr of stack: 8000
-in join: find child thread: pid: 1758
-page addr of stack: 8000
-in join: find child thread: pid: 1759
-page addr of stack: 8000
-in join: find child thread: pid: 1760
-page addr of stack: 8000
-in join: find child thread: pid: 1761
-page addr of stack: 8000
-in join: find child thread: pid: 1762
-page addr of stack: 8000
-in join: find child thread: pid: 1763
-page addr of stack: 8000
-in join: find child thread: pid: 1764
-page addr of stack: 8000
-in join: find child thread: pid: 1765
-page addr of stack: 8000
-in join: find child thread: pid: 1766
-page addr of stack: 8000
-in join: find child thread: pid: 1767
-page addr of stack: 8000
-in join: find child thread: pid: 1768
-page addr of stack: 8000
-in join: find child thread: pid: 1769
-page addr of stack: 8000
-in join: find child thread: pid: 1770
-page addr of stack: 8000
-in join: find child thread: pid: 1771
-page addr of stack: 8000
-in join: find child thread: pid: 1772
-page addr of stack: 8000
-in join: find child thread: pid: 1773
-page addr of stack: 8000
-in join: find child thread: pid: 1774
-page addr of stack: 8000
-in join: find child thread: pid: 1775
-page addr of stack: 8000
-in join: find child thread: pid: 1776
-page addr of stack: 8000
-in join: find child thread: pid: 1777
-page addr of stack: 8000
-in join: find child thread: pid: 1778
-page addr of stack: 8000
-in join: find child thread: pid: 1779
-page addr of stack: 8000
-in join: find child thread: pid: 1780
-page addr of stack: 8000
-in join: find child thread: pid: 1781
-page addr of stack: 8000
-in join: find child thread: pid: 1782
-page addr of stack: 8000
-in join: find child thread: pid: 1783
-page addr of stack: 8000
-in join: find child thread: pid: 1784
-page addr of stack: 8000
-in join: find child thread: pid: 1785
-page addr of stack: 8000
-in join: find child thread: pid: 1786
-page addr of stack: 8000
-in join: find child thread: pid: 1787
-page addr of stack: 8000
-in join: find child thread: pid: 1788
-page addr of stack: 8000
-in join: find child thread: pid: 1789
-page addr of stack: 8000
-in join: find child thread: pid: 1790
-page addr of stack: 8000
-in join: find child thread: pid: 1791
-page addr of stack: 8000
-in join: find child thread: pid: 1792
-page addr of stack: 8000
-in join: find child thread: pid: 1793
-page addr of stack: 8000
-in join: find child thread: pid: 1794
-page addr of stack: 8000
-in join: find child thread: pid: 1795
-page addr of stack: 8000
-in join: find child thread: pid: 1796
-page addr of stack: 8000
-in join: find child thread: pid: 1797
-page addr of stack: 8000
-in join: find child thread: pid: 1798
-page addr of stack: 8000
-in join: find child thread: pid: 1799
-page addr of stack: 8000
-in join: find child thread: pid: 1800
-page addr of stack: 8000
-in join: find child thread: pid: 1801
-page addr of stack: 8000
-in join: find child thread: pid: 1802
-page addr of stack: 8000
-in join: find child thread: pid: 1803
-page addr of stack: 8000
-in join: find child thread: pid: 1804
-page addr of stack: 8000
-in join: find child thread: pid: 1805
-page addr of stack: 8000
-in join: find child thread: pid: 1806
-page addr of stack: 8000
-in join: find child thread: pid: 1807
-page addr of stack: 8000
-in join: find child thread: pid: 1808
-page addr of stack: 8000
-in join: find child thread: pid: 1809
-page addr of stack: 8000
-in join: find child thread: pid: 1810
-page addr of stack: 8000
-in join: find child thread: pid: 1811
-page addr of stack: 8000
-in join: find child thread: pid: 1812
-page addr of stack: 8000
-in join: find child thread: pid: 1813
-page addr of stack: 8000
-in join: find child thread: pid: 1814
-page addr of stack: 8000
-in join: find child thread: pid: 1815
-page addr of stack: 8000
-in join: find child thread: pid: 1816
-page addr of stack: 8000
-in join: find child thread: pid: 1817
-page addr of stack: 8000
-in join: find child thread: pid: 1818
-page addr of stack: 8000
-in join: find child thread: pid: 1819
-page addr of stack: 8000
-in join: find child thread: pid: 1820
-page addr of stack: 8000
-in join: find child thread: pid: 1821
-page addr of stack: 8000
-in join: find child thread: pid: 1822
-page addr of stack: 8000
-in join: find child thread: pid: 1823
-page addr of stack: 8000
-in join: find child thread: pid: 1824
-page addr of stack: 8000
-in join: find child thread: pid: 1825
-page addr of stack: 8000
-in join: find child thread: pid: 1826
-page addr of stack: 8000
-in join: find child thread: pid: 1827
-page addr of stack: 8000
-in join: find child thread: pid: 1828
-page addr of stack: 8000
-in join: find child thread: pid: 1829
-page addr of stack: 8000
-in join: find child thread: pid: 1830
-page addr of stack: 8000
-in join: find child thread: pid: 1831
-page addr of stack: 8000
-in join: find child thread: pid: 1832
-page addr of stack: 8000
-in join: find child thread: pid: 1833
-page addr of stack: 8000
-in join: find child thread: pid: 1834
-page addr of stack: 8000
-in join: find child thread: pid: 1835
-page addr of stack: 8000
-in join: find child thread: pid: 1836
-page addr of stack: 8000
-in join: find child thread: pid: 1837
-page addr of stack: 8000
-in join: find child thread: pid: 1838
-page addr of stack: 8000
-in join: find child thread: pid: 1839
-page addr of stack: 8000
-in join: find child thread: pid: 1840
-page addr of stack: 8000
-in join: find child thread: pid: 1841
-page addr of stack: 8000
-in join: find child thread: pid: 1842
-page addr of stack: 8000
-in join: find child thread: pid: 1843
-page addr of stack: 8000
-in join: find child thread: pid: 1844
-page addr of stack: 8000
-in join: find child thread: pid: 1845
-page addr of stack: 8000
-in join: find child thread: pid: 1846
-page addr of stack: 8000
-in join: find child thread: pid: 1847
-page addr of stack: 8000
-in join: find child thread: pid: 1848
-page addr of stack: 8000
-in join: find child thread: pid: 1849
-page addr of stack: 8000
-in join: find child thread: pid: 1850
-page addr of stack: 8000
-in join: find child thread: pid: 1851
-page addr of stack: 8000
-in join: find child thread: pid: 1852
-page addr of stack: 8000
-in join: find child thread: pid: 1853
-page addr of stack: 8000
-in join: find child thread: pid: 1854
-page addr of stack: 8000
-in join: find child thread: pid: 1855
-page addr of stack: 8000
-in join: find child thread: pid: 1856
-page addr of stack: 8000
-in join: find child thread: pid: 1857
-page addr of stack: 8000
-in join: find child thread: pid: 1858
-page addr of stack: 8000
-in join: find child thread: pid: 1859
-page addr of stack: 8000
-in join: find child thread: pid: 1860
-page addr of stack: 8000
-in join: find child thread: pid: 1861
-page addr of stack: 8000
-in join: find child thread: pid: 1862
-page addr of stack: 8000
-in join: find child thread: pid: 1863
-page addr of stack: 8000
-in join: find child thread: pid: 1864
-page addr of stack: 8000
-in join: find child thread: pid: 1865
-page addr of stack: 8000
-in join: find child thread: pid: 1866
-page addr of stack: 8000
-in join: find child thread: pid: 1867
-page addr of stack: 8000
-in join: find child thread: pid: 1868
-page addr of stack: 8000
-in join: find child thread: pid: 1869
-page addr of stack: 8000
-in join: find child thread: pid: 1870
-page addr of stack: 8000
-in join: find child thread: pid: 1871
-page addr of stack: 8000
-in join: find child thread: pid: 1872
-page addr of stack: 8000
-in join: find child thread: pid: 1873
-page addr of stack: 8000
-in join: find child thread: pid: 1874
-page addr of stack: 8000
-in join: find child thread: pid: 1875
-page addr of stack: 8000
-in join: find child thread: pid: 1876
-page addr of stack: 8000
-in join: find child thread: pid: 1877
-page addr of stack: 8000
-in join: find child thread: pid: 1878
-page addr of stack: 8000
-in join: find child thread: pid: 1879
-page addr of stack: 8000
-in join: find child thread: pid: 1880
-page addr of stack: 8000
-in join: find child thread: pid: 1881
-page addr of stack: 8000
-in join: find child thread: pid: 1882
-page addr of stack: 8000
-in join: find child thread: pid: 1883
-page addr of stack: 8000
-in join: find child thread: pid: 1884
-page addr of stack: 8000
-in join: find child thread: pid: 1885
-page addr of stack: 8000
-in join: find child thread: pid: 1886
-page addr of stack: 8000
-in join: find child thread: pid: 1887
-page addr of stack: 8000
-in join: find child thread: pid: 1888
-page addr of stack: 8000
-in join: find child thread: pid: 1889
-page addr of stack: 8000
-in join: find child thread: pid: 1890
-page addr of stack: 8000
-in join: find child thread: pid: 1891
-page addr of stack: 8000
-in join: find child thread: pid: 1892
-page addr of stack: 8000
-in join: find child thread: pid: 1893
-page addr of stack: 8000
-in join: find child thread: pid: 1894
-page addr of stack: 8000
-in join: find child thread: pid: 1895
-page addr of stack: 8000
-in join: find child thread: pid: 1896
-page addr of stack: 8000
-in join: find child thread: pid: 1897
-page addr of stack: 8000
-in join: find child thread: pid: 1898
-page addr of stack: 8000
-in join: find child thread: pid: 1899
-page addr of stack: 8000
-in join: find child thread: pid: 1900
-page addr of stack: 8000
-in join: find child thread: pid: 1901
-page addr of stack: 8000
-in join: find child thread: pid: 1902
-page addr of stack: 8000
-in join: find child thread: pid: 1903
-page addr of stack: 8000
-in join: find child thread: pid: 1904
-page addr of stack: 8000
-in join: find child thread: pid: 1905
-page addr of stack: 8000
-in join: find child thread: pid: 1906
-page addr of stack: 8000
-in join: find child thread: pid: 1907
-page addr of stack: 8000
-in join: find child thread: pid: 1908
-page addr of stack: 8000
-in join: find child thread: pid: 1909
-page addr of stack: 8000
-in join: find child thread: pid: 1910
-page addr of stack: 8000
-in join: find child thread: pid: 1911
-page addr of stack: 8000
-in join: find child thread: pid: 1912
-page addr of stack: 8000
-in join: find child thread: pid: 1913
-page addr of stack: 8000
-in join: find child thread: pid: 1914
-page addr of stack: 8000
-in join: find child thread: pid: 1915
-page addr of stack: 8000
-in join: find child thread: pid: 1916
-page addr of stack: 8000
-in join: find child thread: pid: 1917
-page addr of stack: 8000
-in join: find child thread: pid: 1918
-page addr of stack: 8000
-in join: find child thread: pid: 1919
-page addr of stack: 8000
-in join: find child thread: pid: 1920
-page addr of stack: 8000
-in join: find child thread: pid: 1921
-page addr of stack: 8000
-in join: find child thread: pid: 1922
-page addr of stack: 8000
-in join: find child thread: pid: 1923
-page addr of stack: 8000
-in join: find child thread: pid: 1924
-page addr of stack: 8000
-in join: find child thread: pid: 1925
-page addr of stack: 8000
-in join: find child thread: pid: 1926
-page addr of stack: 8000
-in join: find child thread: pid: 1927
-page addr of stack: 8000
-in join: find child thread: pid: 1928
-page addr of stack: 8000
-in join: find child thread: pid: 1929
-page addr of stack: 8000
-in join: find child thread: pid: 1930
-page addr of stack: 8000
-in join: find child thread: pid: 1931
-page addr of stack: 8000
-in join: find child thread: pid: 1932
-page addr of stack: 8000
-in join: find child thread: pid: 1933
-page addr of stack: 8000
-in join: find child thread: pid: 1934
-page addr of stack: 8000
-in join: find child thread: pid: 1935
-page addr of stack: 8000
-in join: find child thread: pid: 1936
-page addr of stack: 8000
-in join: find child thread: pid: 1937
-page addr of stack: 8000
-in join: find child thread: pid: 1938
-page addr of stack: 8000
-in join: find child thread: pid: 1939
-page addr of stack: 8000
-in join: find child thread: pid: 1940
-page addr of stack: 8000
-in join: find child thread: pid: 1941
-page addr of stack: 8000
-in join: find child thread: pid: 1942
-page addr of stack: 8000
-in join: find child thread: pid: 1943
-page addr of stack: 8000
-in join: find child thread: pid: 1944
-page addr of stack: 8000
-in join: find child thread: pid: 1945
-page addr of stack: 8000
-in join: find child thread: pid: 1946
-page addr of stack: 8000
-in join: find child thread: pid: 1947
-page addr of stack: 8000
-in join: find child thread: pid: 1948
-page addr of stack: 8000
-in join: find child thread: pid: 1949
-page addr of stack: 8000
-in join: find child thread: pid: 1950
-page addr of stack: 8000
-in join: find child thread: pid: 1951
-page addr of stack: 8000
-in join: find child thread: pid: 1952
-page addr of stack: 8000
-in join: find child thread: pid: 1953
-page addr of stack: 8000
-in join: find child thread: pid: 1954
-page addr of stack: 8000
-in join: find child thread: pid: 1955
-page addr of stack: 8000
-in join: find child thread: pid: 1956
-page addr of stack: 8000
-in join: find child thread: pid: 1957
-page addr of stack: 8000
-in join: find child thread: pid: 1958
-page addr of stack: 8000
-in join: find child thread: pid: 1959
-page addr of stack: 8000
-in join: find child thread: pid: 1960
-page addr of stack: 8000
-in join: find child thread: pid: 1961
-page addr of stack: 8000
-in join: find child thread: pid: 1962
-page addr of stack: 8000
-in join: find child thread: pid: 1963
-page addr of stack: 8000
-in join: find child thread: pid: 1964
-page addr of stack: 8000
-in join: find child thread: pid: 1965
-page addr of stack: 8000
-in join: find child thread: pid: 1966
-page addr of stack: 8000
-in join: find child thread: pid: 1967
-page addr of stack: 8000
-in join: find child thread: pid: 1968
-page addr of stack: 8000
-in join: find child thread: pid: 1969
-page addr of stack: 8000
-in join: find child thread: pid: 1970
-page addr of stack: 8000
-in join: find child thread: pid: 1971
-page addr of stack: 8000
-in join: find child thread: pid: 1972
-page addr of stack: 8000
-in join: find child thread: pid: 1973
-page addr of stack: 8000
-in join: find child thread: pid: 1974
-page addr of stack: 8000
-in join: find child thread: pid: 1975
-page addr of stack: 8000
-in join: find child thread: pid: 1976
-page addr of stack: 8000
-in join: find child thread: pid: 1977
-page addr of stack: 8000
-in join: find child thread: pid: 1978
-page addr of stack: 8000
-in join: find child thread: pid: 1979
-page addr of stack: 8000
-in join: find child thread: pid: 1980
-page addr of stack: 8000
-in join: find child thread: pid: 1981
-page addr of stack: 8000
-in join: find child thread: pid: 1982
-page addr of stack: 8000
-in join: find child thread: pid: 1983
-page addr of stack: 8000
-in join: find child thread: pid: 1984
-page addr of stack: 8000
-in join: find child thread: pid: 1985
-page addr of stack: 8000
-in join: find child thread: pid: 1986
-page addr of stack: 8000
-in join: find child thread: pid: 1987
-page addr of stack: 8000
-in join: find child thread: pid: 1988
-page addr of stack: 8000
-in join: find child thread: pid: 1989
-page addr of stack: 8000
-in join: find child thread: pid: 1990
-page addr of stack: 8000
-in join: find child thread: pid: 1991
-page addr of stack: 8000
-in join: find child thread: pid: 1992
-page addr of stack: 8000
-in join: find child thread: pid: 1993
-page addr of stack: 8000
-in join: find child thread: pid: 1994
-page addr of stack: 8000
-in join: find child thread: pid: 1995
-page addr of stack: 8000
-in join: find child thread: pid: 1996
-page addr of stack: 8000
-in join: find child thread: pid: 1997
-page addr of stack: 8000
-in join: find child thread: pid: 1998
-page addr of stack: 8000
-in join: find child thread: pid: 1999
-page addr of stack: 8000
-in join: find child thread: pid: 2000
-page addr of stack: 8000
-in join: find child thread: pid: 2001
-page addr of stack: 8000
-in join: find child thread: pid: 2002
-page addr of stack: 8000
-in join: find child thread: pid: 2003
 TEST PASSED
 
 
@@ -5022,28 +1030,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
-sh
-usertests
 mkdir
-wc
-grep
-cond
-rm
-cat
-forktest
-README
-join3
-init
-zombie
 kill
+zombie
+cond
+wc
+sh
 hello
-echo
-tester
-stressfs
 ln
+grep
+echo
+usertests
+cloneTest
+cat
 ls
-balloc: first 630 blocks have been allocated
+join3
+forktest
+race
+tester
+README
+init
+rm
+stressfs
+balloc: first 640 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -5057,66 +1066,6 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-page addr of stack: 9000
-page addr of stack: 7000
-page addr of stack: 5000
-page addr of stack: 11000
-page addr of stack: f000
-page addr of stack: d000
-page addr of stack: 19000
-page addr of stack: 17000
-page addr of stack: 15000
-page addr of stack: 21000
-page addr of stack: 1f000
-page addr of stack: 1d000
-page addr of stack: 29000
-page addr of stack: 27000
-page addr of stack: 25000
-page addr of stack: 31000
-page addr of stack: 2f000
-page addr of stack: 2d000
-page addr of stack: 39000
-page addr of stack: 37000
-page addr of stack: 35000
-page addr of stack: 41000
-page addr of stack: 3f000
-page addr of stack: 3d000
-page addr of stack: 49000
-page addr of stack: 47000
-page addr of stack: 45000
-page addr of stack: 51000
-page addr of stack: 4f000
-page addr of stack: 4d000
-in join: find child thread: pid: 4
-in join: find child thread: pid: 5
-in join: find child thread: pid: 6
-in join: find child thread: pid: 7
-in join: find child thread: pid: 8
-in join: find child thread: pid: 9
-in join: find child thread: pid: 10
-in join: find child thread: pid: 11
-in join: find child thread: pid: 12
-in join: find child thread: pid: 13
-in join: find child thread: pid: 14
-in join: find child thread: pid: 15
-in join: find child thread: pid: 16
-in join: find child thread: pid: 18
-in join: find child thread: pid: 19
-in join: find child thread: pid: 20
-in join: find child thread: pid: 21
-in join: find child thread: pid: 22
-in join: find child thread: pid: 23
-in join: find child thread: pid: 24
-in join: find child thread: pid: 25
-in join: find child thread: pid: 26
-in join: find child thread: pid: 27
-in join: find child thread: pid: 28
-in join: find child thread: pid: 29
-in join: find child thread: pid: 30
-in join: find child thread: pid: 31
-in join: find child thread: pid: 32
-in join: find child thread: pid: 33
-in join: find child thread: pid: 17
 TEST PASSED
 
 
@@ -5140,28 +1089,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
-sh
-usertests
 mkdir
-wc
-grep
-cond
-rm
-cat
-forktest
-README
-join3
-init
-zombie
 kill
+zombie
+cond
+wc
+sh
 hello
-echo
-tester
-stressfs
 ln
+grep
+echo
+usertests
+cloneTest
+cat
 ls
-balloc: first 629 blocks have been allocated
+join3
+forktest
+race
+tester
+README
+init
+rm
+stressfs
+balloc: first 639 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -5175,67 +1125,8 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-page addr of stack: 8000
-page addr of stack: 6000
-page addr of stack: 4000
-page addr of stack: 10000
-page addr of stack: e000
-page addr of stack: c000
-page addr of stack: 18000
-page addr of stack: 16000
-page addr of stack: 14000
-page addr of stack: 20000
-page addr of stack: 1e000
-page addr of stack: 1c000
-page addr of stack: 28000
-page addr of stack: 26000
-page addr of stack: 24000
-page addr of stack: 30000
-page addr of stack: 2e000
-page addr of stack: 2c000
-page addr of stack: 38000
-page addr of stack: 36000
-page addr of stack: 34000
-page addr of stack: 40000
-page addr of stack: 3e000
-page addr of stack: 3c000
-page addr of stack: 48000
-page addr of stack: 46000
-page addr of stack: 44000
-page addr of stack: 50000
-page addr of stack: 4e000
-page addr of stack: 4c000
-in join: find child thread: pid: 4
-in join: find child thread: pid: 5
-in join: find child thread: pid: 6
-in join: find child thread: pid: 8
-in join: find child thread: pid: 9
-in join: find child thread: pid: 10
-in join: find child thread: pid: 11
-in join: find child thread: pid: 12
-in join: find child thread: pid: 13
-in join: find child thread: pid: 14
-in join: find child thread: pid: 15
-in join: find child thread: pid: 16
-in join: find child thread: pid: 17
-in join: find child thread: pid: 18
-in join: find child thread: pid: 19
-in join: find child thread: pid: 20
-in join: find child thread: pid: 21
-in join: find child thread: pid: 22
-in join: find child thread: pid: 23
-in join: find child thread: pid: 24
-in join: find child thread: pid: 25
-in join: find child thread: pid: 26
-in join: find child thread: pid: 27
-in join: find child thread: pid: 28
-in join: find child thread: pid: 29
-in join: find child thread: pid: 30
-in join: find child thread: pid: 31
-in join: find child thread: pid: 32
-in join: find child thread: pid: 33
-in join: find child thread: pid: 7
 TEST PASSED
+
 
 test locks PASSED
  (test lock correctness)
@@ -5257,28 +1148,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
-sh
-usertests
 mkdir
-wc
-grep
-cond
-rm
-cat
-forktest
-README
-join3
-init
-zombie
 kill
+zombie
+cond
+wc
+sh
 hello
-echo
-tester
-stressfs
 ln
+grep
+echo
+usertests
+cloneTest
+cat
 ls
-balloc: first 629 blocks have been allocated
+join3
+forktest
+race
+tester
+README
+init
+rm
+stressfs
+balloc: first 639 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -5292,14 +1184,12 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-page addr of stack: 9000
-in cv_wait, try to grab cv lock: 
-in cv_wait, initial cv lock value: -2082109099
+add pid to waiting: 4, next available idx: 1
+TEST PASSED
 
 
-test cond FAILED
+test cond PASSED
  (test cv_wait and cv_signal, cannot leave cv_wait without lock)
- Timelimit (10.0s) exceeded
 
 
 **********************************************************************
@@ -5318,28 +1208,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
-sh
-usertests
 mkdir
-wc
-grep
-cond
-rm
-cat
-forktest
-README
-join3
-init
-zombie
 kill
+zombie
+cond
+wc
+sh
 hello
-echo
-tester
-stressfs
 ln
+grep
+echo
+usertests
+cloneTest
+cat
 ls
-balloc: first 629 blocks have been allocated
+join3
+forktest
+race
+tester
+README
+init
+rm
+stressfs
+balloc: first 639 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -5353,14 +1244,12 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-page addr of stack: 9000
-in cv_wait, try to grab cv lock: 
-in cv_wait, initial cv lock value: -2082109099
+add pid to waiting: 4, next available idx: 1
+TEST PASSED
 
 
-test cond2 FAILED
+test cond2 PASSED
  (test cv_wait and cv_signal, don't wakeup on wrong cv)
- Timelimit (10.0s) exceeded
 
 
 **********************************************************************
@@ -5379,28 +1268,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
-sh
-usertests
 mkdir
-wc
-grep
-cond
-rm
-cat
-forktest
-README
-join3
-init
-zombie
 kill
+zombie
+cond
+wc
+sh
 hello
-echo
-tester
-stressfs
 ln
+grep
+echo
+usertests
+cloneTest
+cat
 ls
-balloc: first 630 blocks have been allocated
+join3
+forktest
+race
+tester
+README
+init
+rm
+stressfs
+balloc: first 640 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -5414,43 +1304,41 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-page addr of stack: 9000
-in cv_wait, try to grab cv lock: 
-in cv_wait, initial cv lock value: -2082109099
-page addr of stack: 7000
-page addr of stack: 5000
-page addr of stack: 11000
-page addr of stack: f000
-page addr of stack: d000
-page addr of stack: 19000
-page addr of stack: 17000
-page addr of stack: 15000
-page addr of stack: 21000
-page addr of stack: 1f000
-page addr of stack: 1d000
-page addr of stack: 29000
-page addr of stack: 27000
-page addr of stack: 25000
-page addr of stack: 31000
-page addr of stack: 2f000
-page addr of stack: 2d000
-page addr of stack: 39000
-page addr of stack: 37000
-page addr of stack: 35000
-page addr of stack: 41000
-page addr of stack: 3f000
-page addr of stack: 3d000
-page addr of stack: 49000
-page addr of stack: 47000
-page addr of stack: 45000
-page addr of stack: 51000
-page addr of stack: 4f000
-page addr of stack: 4d000
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 2
+add pid to waiting: 6, next available idx: 3
+add pid to waiting: 7, next available idx: 4
+add pid to waiting: 8, next available idx: 5
+add pid to waiting: 9, next available idx: 6
+add pid to waiting: 10, next available idx: 7
+add pid to waiting: 11, next available idx: 8
+add pid to waiting: 12, next available idx: 9
+add pid to waiting: 13, next available idx: 10
+add pid to waiting: 14, next available idx: 11
+add pid to waiting: 16, next available idx: 12
+add pid to waiting: 17, next available idx: 13
+add pid to waiting: 18, next available idx: 14
+add pid to waiting: 19, next available idx: 15
+add pid to waiting: 21, next available idx: 16
+add pid to waiting: 22, next available idx: 17
+add pid to waiting: 23, next available idx: 18
+add pid to waiting: 24, next available idx: 19
+add pid to waiting: 25, next available idx: 20
+add pid to waiting: 26, next available idx: 21
+add pid to waiting: 27, next available idx: 22
+add pid to waiting: 28, next available idx: 23
+add pid to waiting: 29, next available idx: 24
+add pid to waiting: 30, next available idx: 25
+add pid to waiting: 31, next available idx: 26
+add pid to waiting: 32, next available idx: 27
+add pid to waiting: 33, next available idx: 28
+add pid to waiting: 15, next available idx: 29
+add pid to waiting: 20, next available idx: 30
+TEST PASSED
 
 
-test cond3 FAILED
+test cond3 PASSED
  (test cv_wait and cv_signal, signal, don't broadcast)
- Timelimit (10.0s) exceeded
 
 
 **********************************************************************
@@ -5469,28 +1357,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
-sh
-usertests
 mkdir
-wc
-grep
-cond
-rm
-cat
-forktest
-README
-join3
-init
-zombie
 kill
+zombie
+cond
+wc
+sh
 hello
-echo
-tester
-stressfs
 ln
+grep
+echo
+usertests
+cloneTest
+cat
 ls
-balloc: first 631 blocks have been allocated
+join3
+forktest
+race
+tester
+README
+init
+rm
+stressfs
+balloc: first 640 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -5504,16 +1393,442 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-page addr of stack: 9000
-page addr of stack: 7000
-in join: find child thread: pid: 4
-in join: find child thread: pid: 5
-0
-$ 
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+add pid to waiting: 4, next available idx: 1
+add pid to waiting: 5, next available idx: 1
+FA3F28FD
+TEST PASSED
 
-test race FAILED
+
+test race PASSED
  (race condition in CV? (must atomically release lock and sleep))
- tester failed
 
 
 **********************************************************************
@@ -5532,28 +1847,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
-sh
-usertests
 mkdir
-wc
-grep
-cond
-rm
-cat
-forktest
-README
-join3
-init
-zombie
 kill
+zombie
+cond
+wc
+sh
 hello
-echo
-tester
-stressfs
 ln
+grep
+echo
+usertests
+cloneTest
+cat
 ls
-balloc: first 628 blocks have been allocated
+join3
+forktest
+race
+tester
+README
+init
+rm
+stressfs
+balloc: first 639 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -5567,9 +1883,7 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-page addr of stack: 8000
 pid 4 tester: trap 14 err 5 on cpu 1 eip 0xffffffff addr 0xffffffff--kill proc
-in join: find child thread: pid: 4
 TEST PASSED
 
 
@@ -5593,28 +1907,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
-sh
-usertests
 mkdir
-wc
-grep
-cond
-rm
-cat
-forktest
-README
-join3
-init
-zombie
 kill
+zombie
+cond
+wc
+sh
 hello
-echo
-tester
-stressfs
 ln
+grep
+echo
+usertests
+cloneTest
+cat
 ls
-balloc: first 630 blocks have been allocated
+join3
+forktest
+race
+tester
+README
+init
+rm
+stressfs
+balloc: first 640 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -5628,43 +1943,10 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-page addr of stack: 8000
-page addr of stack: 6000
-page addr of stack: 4000
-page addr of stack: 10000
-page addr of stack: e000
-page addr of stack: c000
-page addr of stack: 18000
-page addr of stack: 16000
-page addr of stack: 14000
-page addr of stack: 20000
-page addr of stack: 1e000
-page addr of stack: 1c000
-page addr of stack: 28000
-page addr of stack: 26000
-page addr of stack: 24000
-page addr of stack: 30000
-page addr of stack: 2e000
-page addr of stack: 2c000
-page addr of stack: 38000
-page addr of stack: 36000
-page addr of stack: 34000
-page addr of stack: 40000
-page addr of stack: 3e000
-page addr of stack: 3c000
-page addr of stack: 48000
-page addr of stack: 46000
-page addr of stack: 44000
-page addr of stack: 50000
-page addr of stack: 4e000
-page addr of stack: 4c000
-user/tester.c: 79 assert failed ((unsigned int)sbrk(0) == size)
-TEST FAILED
+TEST PASSED
 
-
-test size FAILED
+test size PASSED
  (check that address space size is updated in threads)
- tester failed
 
 **********************************************************************
 Summary:
@@ -5710,28 +1992,23 @@ test multi PASSED
 test locks PASSED
  (test lock correctness)
 
-test cond FAILED
+test cond PASSED
  (test cv_wait and cv_signal, cannot leave cv_wait without lock)
- Timelimit (10.0s) exceeded
 
-test cond2 FAILED
+test cond2 PASSED
  (test cv_wait and cv_signal, don't wakeup on wrong cv)
- Timelimit (10.0s) exceeded
 
-test cond3 FAILED
+test cond3 PASSED
  (test cv_wait and cv_signal, signal, don't broadcast)
- Timelimit (10.0s) exceeded
 
-test race FAILED
+test race PASSED
  (race condition in CV? (must atomically release lock and sleep))
- tester failed
 
 test noexit PASSED
  (no exit call in thread, should trap at bogus address)
 
-test size FAILED
+test size PASSED
  (check that address space size is updated in threads)
- tester failed
 
-Passed 15 of 20 tests.
-Overall 15 of 20
+Passed 20 of 20 tests.
+Overall 20 of 20

@@ -35,6 +35,8 @@ main(int argc, char *argv[])
    printf(1, "created thread,parent sleep waiting for lock \n");   
 
    sleep(20);
+   printf(1, "in parent thread, after sleep(20), try to grab lock \n");
+   printf(1, "lock value:%d \n",lock);                
    lock_acquire(&lock);
    printf(1, "in parent thread, grabbed lock \n");          
    global = 2;
