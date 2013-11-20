@@ -7,8 +7,6 @@ build xv6 using make
 **********************************************************************
 Trying to clean project using make clean
 make clean
-gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
-		-M -MG user/uthread.c -MF user/uthread.d -MT user/uthread.d -MT user/uthread.o
 rm -rf kernel/bio.o kernel/console.o kernel/exec.o kernel/file.o kernel/fs.o kernel/ide.o kernel/ioapic.o kernel/kalloc.o kernel/kbd.o kernel/lapic.o kernel/main.o kernel/mp.o kernel/picirq.o kernel/pipe.o kernel/proc.o kernel/spinlock.o kernel/string.o kernel/swtch.o kernel/syscall.o kernel/sysfile.o kernel/sysproc.o kernel/timer.o kernel/trapasm.o kernel/trap.o kernel/uart.o kernel/vectors.o kernel/vm.o kernel/bootmain.o kernel/bootasm.o kernel/multiboot.o kernel/data.o kernel/bootother.o kernel/initcode.o kernel/bio.d kernel/console.d kernel/exec.d kernel/file.d kernel/fs.d kernel/ide.d kernel/ioapic.d kernel/kalloc.d kernel/kbd.d kernel/lapic.d kernel/main.d kernel/mp.d kernel/picirq.d kernel/pipe.d kernel/proc.d kernel/spinlock.d kernel/string.d kernel/swtch.d kernel/syscall.d kernel/sysfile.d kernel/sysproc.d kernel/timer.d kernel/trapasm.d kernel/trap.d kernel/uart.d kernel/vectors.d kernel/vm.d kernel/bootmain.d kernel/bootasm.d kernel/multiboot.d kernel/data.d kernel/bootother.d kernel/initcode.d kernel/vectors.S kernel/bootblock kernel/bootblock.out kernel/bootother.out kernel/initcode.out kernel/kernel bootother initcode xv6.img user/bin user/cat user/echo user/forktest user/grep user/init user/kill user/ln user/ls user/mkdir user/rm user/hello user/sh user/stressfs user/tester user/usertests user/cloneTest user/wc user/zombie user/join3 user/cond user/race user/cat.o user/echo.o user/forktest.o user/grep.o user/init.o user/kill.o user/ln.o user/ls.o user/mkdir.o user/rm.o user/hello.o user/sh.o user/stressfs.o user/tester.o user/usertests.o user/cloneTest.o user/wc.o user/zombie.o user/join3.o user/cond.o user/race.o user/ulib.o user/usys.o user/printf.o user/umalloc.o user/uthread.o user/cat.d user/echo.d user/forktest.d user/grep.d user/init.d user/kill.d user/ln.d user/ls.d user/mkdir.d user/rm.d user/hello.d user/sh.d user/stressfs.d user/tester.d user/usertests.d user/cloneTest.d user/wc.d user/zombie.d user/join3.d user/cond.d user/race.d user/ulib.d user/usys.d user/printf.d user/umalloc.d user/uthread.d tools/mkfs tools/mkfs.o tools/mkfs.d fs fs.img .gdbinit .bochsrc dist
 Trying to build project using make
 make
@@ -248,15 +246,15 @@ ld  -m    elf_i386 -nostdlib --omagic \
 dd if=/dev/zero of=xv6.img count=10000
 10000+0 records in
 10000+0 records out
-5120000 bytes (5.1 MB) copied, 0.0221074 s, 232 MB/s
+5120000 bytes (5.1 MB) copied, 0.0226166 s, 226 MB/s
 dd if=kernel/bootblock of=xv6.img conv=notrunc
 1+0 records in
 1+0 records out
-512 bytes (512 B) copied, 2.1614e-05 s, 23.7 MB/s
+512 bytes (512 B) copied, 2.0622e-05 s, 24.8 MB/s
 dd if=kernel/kernel of=xv6.img seek=1 conv=notrunc
 257+1 records in
 257+1 records out
-131610 bytes (132 kB) copied, 0.000402234 s, 327 MB/s
+131610 bytes (132 kB) copied, 0.000406056 s, 324 MB/s
 gcc -c  -iquote include -Wall -Werror -ggdb  -o tools/mkfs.o tools/mkfs.c
 gcc  tools/mkfs.o -o tools/mkfs
 mkdir -p fs
@@ -332,29 +330,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/race fs/race
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-mkdir
-kill
-zombie
-cond
-wc
-sh
-hello
-ln
-grep
-echo
-usertests
 cloneTest
-cat
-ls
-join3
-forktest
-race
-tester
-README
+echo
 init
-rm
+race
+cond
+ls
+hello
+zombie
+join3
+usertests
+grep
+tester
 stressfs
-balloc: first 636 blocks have been allocated
+wc
+forktest
+mkdir
+sh
+rm
+README
+ln
+cat
+kill
+balloc: first 635 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/stressfs user/bin/grep user/bin/tester user/bin/hello user/bin/kill user/bin/cond user/bin/cat user/bin/mkdir user/bin/init user/bin/rm user/bin/race user/bin/join3 user/bin/echo user/bin/ls user/bin/ln user/bin/usertests user/bin/sh user/bin/wc user/bin/cloneTest user/bin/zombie
 
@@ -379,29 +377,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-mkdir
-kill
-zombie
-cond
-wc
-sh
-hello
-ln
-grep
-echo
-usertests
 cloneTest
-cat
-ls
-join3
-forktest
-race
-tester
-README
+echo
 init
-rm
+race
+cond
+ls
+hello
+zombie
+join3
+usertests
+grep
+tester
 stressfs
-balloc: first 638 blocks have been allocated
+wc
+forktest
+mkdir
+sh
+rm
+README
+ln
+cat
+kill
+balloc: first 637 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -438,29 +436,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-mkdir
-kill
-zombie
-cond
-wc
-sh
-hello
-ln
-grep
-echo
-usertests
 cloneTest
-cat
-ls
-join3
-forktest
-race
-tester
-README
+echo
 init
-rm
+race
+cond
+ls
+hello
+zombie
+join3
+usertests
+grep
+tester
 stressfs
-balloc: first 639 blocks have been allocated
+wc
+forktest
+mkdir
+sh
+rm
+README
+ln
+cat
+kill
+balloc: first 637 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -475,7 +473,7 @@ init: starting sh
 $ tester
 tester
 TEST PASSED
-
+$ 
 
 test clone2 PASSED
  (clone and play with the argument)
@@ -497,29 +495,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-mkdir
-kill
-zombie
-cond
-wc
-sh
-hello
-ln
-grep
-echo
-usertests
 cloneTest
-cat
-ls
-join3
-forktest
-race
-tester
-README
+echo
 init
-rm
+race
+cond
+ls
+hello
+zombie
+join3
+usertests
+grep
+tester
 stressfs
-balloc: first 639 blocks have been allocated
+wc
+forktest
+mkdir
+sh
+rm
+README
+ln
+cat
+kill
+balloc: first 638 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -556,29 +554,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-mkdir
-kill
-zombie
-cond
-wc
-sh
-hello
-ln
-grep
-echo
-usertests
 cloneTest
-cat
-ls
-join3
-forktest
-race
-tester
-README
+echo
 init
-rm
+race
+cond
+ls
+hello
+zombie
+join3
+usertests
+grep
+tester
 stressfs
-balloc: first 639 blocks have been allocated
+wc
+forktest
+mkdir
+sh
+rm
+README
+ln
+cat
+kill
+balloc: first 637 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -615,29 +613,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-mkdir
-kill
-zombie
-cond
-wc
-sh
-hello
-ln
-grep
-echo
-usertests
 cloneTest
-cat
-ls
-join3
-forktest
-race
-tester
-README
+echo
 init
-rm
+race
+cond
+ls
+hello
+zombie
+join3
+usertests
+grep
+tester
 stressfs
-balloc: first 638 blocks have been allocated
+wc
+forktest
+mkdir
+sh
+rm
+README
+ln
+cat
+kill
+balloc: first 637 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -674,29 +672,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-mkdir
-kill
-zombie
-cond
-wc
-sh
-hello
-ln
-grep
-echo
-usertests
 cloneTest
-cat
-ls
-join3
-forktest
-race
-tester
-README
+echo
 init
-rm
+race
+cond
+ls
+hello
+zombie
+join3
+usertests
+grep
+tester
 stressfs
-balloc: first 639 blocks have been allocated
+wc
+forktest
+mkdir
+sh
+rm
+README
+ln
+cat
+kill
+balloc: first 638 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -735,29 +733,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-mkdir
-kill
-zombie
-cond
-wc
-sh
-hello
-ln
-grep
-echo
-usertests
 cloneTest
-cat
-ls
-join3
-forktest
-race
-tester
-README
+echo
 init
-rm
+race
+cond
+ls
+hello
+zombie
+join3
+usertests
+grep
+tester
 stressfs
-balloc: first 640 blocks have been allocated
+wc
+forktest
+mkdir
+sh
+rm
+README
+ln
+cat
+kill
+balloc: first 638 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -794,29 +792,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-mkdir
-kill
-zombie
-cond
-wc
-sh
-hello
-ln
-grep
-echo
-usertests
 cloneTest
-cat
-ls
-join3
-forktest
-race
-tester
-README
+echo
 init
-rm
+race
+cond
+ls
+hello
+zombie
+join3
+usertests
+grep
+tester
 stressfs
-balloc: first 637 blocks have been allocated
+wc
+forktest
+mkdir
+sh
+rm
+README
+ln
+cat
+kill
+balloc: first 636 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -853,29 +851,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-mkdir
-kill
-zombie
-cond
-wc
-sh
-hello
-ln
-grep
-echo
-usertests
 cloneTest
-cat
-ls
-join3
-forktest
-race
-tester
-README
+echo
 init
-rm
+race
+cond
+ls
+hello
+zombie
+join3
+usertests
+grep
+tester
 stressfs
-balloc: first 640 blocks have been allocated
+wc
+forktest
+mkdir
+sh
+rm
+README
+ln
+cat
+kill
+balloc: first 638 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -912,29 +910,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-mkdir
-kill
-zombie
-cond
-wc
-sh
-hello
-ln
-grep
-echo
-usertests
 cloneTest
-cat
-ls
-join3
-forktest
-race
-tester
-README
+echo
 init
-rm
+race
+cond
+ls
+hello
+zombie
+join3
+usertests
+grep
+tester
 stressfs
-balloc: first 638 blocks have been allocated
+wc
+forktest
+mkdir
+sh
+rm
+README
+ln
+cat
+kill
+balloc: first 637 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -971,29 +969,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-mkdir
-kill
-zombie
-cond
-wc
-sh
-hello
-ln
-grep
-echo
-usertests
 cloneTest
-cat
-ls
-join3
-forktest
-race
-tester
-README
+echo
 init
-rm
+race
+cond
+ls
+hello
+zombie
+join3
+usertests
+grep
+tester
 stressfs
-balloc: first 639 blocks have been allocated
+wc
+forktest
+mkdir
+sh
+rm
+README
+ln
+cat
+kill
+balloc: first 638 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -1030,29 +1028,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-mkdir
-kill
-zombie
-cond
-wc
-sh
-hello
-ln
-grep
-echo
-usertests
 cloneTest
-cat
-ls
-join3
-forktest
-race
-tester
-README
+echo
 init
-rm
+race
+cond
+ls
+hello
+zombie
+join3
+usertests
+grep
+tester
 stressfs
-balloc: first 640 blocks have been allocated
+wc
+forktest
+mkdir
+sh
+rm
+README
+ln
+cat
+kill
+balloc: first 639 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -1089,29 +1087,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-mkdir
-kill
-zombie
-cond
-wc
-sh
-hello
-ln
-grep
-echo
-usertests
 cloneTest
-cat
-ls
-join3
-forktest
-race
-tester
-README
+echo
 init
-rm
+race
+cond
+ls
+hello
+zombie
+join3
+usertests
+grep
+tester
 stressfs
-balloc: first 639 blocks have been allocated
+wc
+forktest
+mkdir
+sh
+rm
+README
+ln
+cat
+kill
+balloc: first 638 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -1148,29 +1146,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-mkdir
-kill
-zombie
-cond
-wc
-sh
-hello
-ln
-grep
-echo
-usertests
 cloneTest
-cat
-ls
-join3
-forktest
-race
-tester
-README
+echo
 init
-rm
+race
+cond
+ls
+hello
+zombie
+join3
+usertests
+grep
+tester
 stressfs
-balloc: first 639 blocks have been allocated
+wc
+forktest
+mkdir
+sh
+rm
+README
+ln
+cat
+kill
+balloc: first 638 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -1184,9 +1182,7 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-add pid to waiting: 4, next available idx: 1
 TEST PASSED
-
 
 test cond PASSED
  (test cv_wait and cv_signal, cannot leave cv_wait without lock)
@@ -1208,29 +1204,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-mkdir
-kill
-zombie
-cond
-wc
-sh
-hello
-ln
-grep
-echo
-usertests
 cloneTest
-cat
-ls
-join3
-forktest
-race
-tester
-README
+echo
 init
-rm
+race
+cond
+ls
+hello
+zombie
+join3
+usertests
+grep
+tester
 stressfs
-balloc: first 639 blocks have been allocated
+wc
+forktest
+mkdir
+sh
+rm
+README
+ln
+cat
+kill
+balloc: first 638 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -1244,7 +1240,6 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-add pid to waiting: 4, next available idx: 1
 TEST PASSED
 
 
@@ -1268,29 +1263,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-mkdir
-kill
-zombie
-cond
-wc
-sh
-hello
-ln
-grep
-echo
-usertests
 cloneTest
-cat
-ls
-join3
-forktest
-race
-tester
-README
+echo
 init
-rm
+race
+cond
+ls
+hello
+zombie
+join3
+usertests
+grep
+tester
 stressfs
-balloc: first 640 blocks have been allocated
+wc
+forktest
+mkdir
+sh
+rm
+README
+ln
+cat
+kill
+balloc: first 638 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -1304,36 +1299,6 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 2
-add pid to waiting: 6, next available idx: 3
-add pid to waiting: 7, next available idx: 4
-add pid to waiting: 8, next available idx: 5
-add pid to waiting: 9, next available idx: 6
-add pid to waiting: 10, next available idx: 7
-add pid to waiting: 11, next available idx: 8
-add pid to waiting: 12, next available idx: 9
-add pid to waiting: 13, next available idx: 10
-add pid to waiting: 14, next available idx: 11
-add pid to waiting: 16, next available idx: 12
-add pid to waiting: 17, next available idx: 13
-add pid to waiting: 18, next available idx: 14
-add pid to waiting: 19, next available idx: 15
-add pid to waiting: 21, next available idx: 16
-add pid to waiting: 22, next available idx: 17
-add pid to waiting: 23, next available idx: 18
-add pid to waiting: 24, next available idx: 19
-add pid to waiting: 25, next available idx: 20
-add pid to waiting: 26, next available idx: 21
-add pid to waiting: 27, next available idx: 22
-add pid to waiting: 28, next available idx: 23
-add pid to waiting: 29, next available idx: 24
-add pid to waiting: 30, next available idx: 25
-add pid to waiting: 31, next available idx: 26
-add pid to waiting: 32, next available idx: 27
-add pid to waiting: 33, next available idx: 28
-add pid to waiting: 15, next available idx: 29
-add pid to waiting: 20, next available idx: 30
 TEST PASSED
 
 
@@ -1357,29 +1322,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-mkdir
-kill
-zombie
-cond
-wc
-sh
-hello
-ln
-grep
-echo
-usertests
 cloneTest
-cat
-ls
-join3
-forktest
-race
-tester
-README
+echo
 init
-rm
+race
+cond
+ls
+hello
+zombie
+join3
+usertests
+grep
+tester
 stressfs
-balloc: first 640 blocks have been allocated
+wc
+forktest
+mkdir
+sh
+rm
+README
+ln
+cat
+kill
+balloc: first 639 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -1393,437 +1358,7 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-add pid to waiting: 4, next available idx: 1
-add pid to waiting: 5, next available idx: 1
-FA3F28FD
+FFFFFFF4
 TEST PASSED
 
 
@@ -1847,29 +1382,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-mkdir
-kill
-zombie
-cond
-wc
-sh
-hello
-ln
-grep
-echo
-usertests
 cloneTest
-cat
-ls
-join3
-forktest
-race
-tester
-README
+echo
 init
-rm
+race
+cond
+ls
+hello
+zombie
+join3
+usertests
+grep
+tester
 stressfs
-balloc: first 639 blocks have been allocated
+wc
+forktest
+mkdir
+sh
+rm
+README
+ln
+cat
+kill
+balloc: first 637 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -1885,7 +1420,6 @@ $ tester
 tester
 pid 4 tester: trap 14 err 5 on cpu 1 eip 0xffffffff addr 0xffffffff--kill proc
 TEST PASSED
-
 
 test noexit PASSED
  (no exit call in thread, should trap at bogus address)
@@ -1907,29 +1441,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-mkdir
-kill
-zombie
-cond
-wc
-sh
-hello
-ln
-grep
-echo
-usertests
 cloneTest
-cat
-ls
-join3
-forktest
-race
-tester
-README
+echo
 init
-rm
+race
+cond
+ls
+hello
+zombie
+join3
+usertests
+grep
+tester
 stressfs
-balloc: first 640 blocks have been allocated
+wc
+forktest
+mkdir
+sh
+rm
+README
+ln
+cat
+kill
+balloc: first 639 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -1944,6 +1478,7 @@ init: starting sh
 $ tester
 tester
 TEST PASSED
+
 
 test size PASSED
  (check that address space size is updated in threads)

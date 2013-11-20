@@ -60,7 +60,7 @@ void cv_wait(cond_t * mcond, lock_t * outsidelock){
   int curpid=getpid();
   mcond->waitingList[mcond->idx] = curpid;
   (mcond->idx)++;
-  printf(1,"add pid to waiting: %d, next available idx: %d\n",curpid,mcond->idx);
+  /* printf(1,"add pid to waiting: %d, next available idx: %d\n",curpid,mcond->idx); */
   /* printf(1,"in cv_wait, release outside and cv lock: %d\n");     */
   //bug, what if scheduler interrupt here???
   //put cur thread to sleep
