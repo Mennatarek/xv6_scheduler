@@ -246,15 +246,15 @@ ld  -m    elf_i386 -nostdlib --omagic \
 dd if=/dev/zero of=xv6.img count=10000
 10000+0 records in
 10000+0 records out
-5120000 bytes (5.1 MB) copied, 0.0226166 s, 226 MB/s
+5120000 bytes (5.1 MB) copied, 0.0220176 s, 233 MB/s
 dd if=kernel/bootblock of=xv6.img conv=notrunc
 1+0 records in
 1+0 records out
-512 bytes (512 B) copied, 2.0622e-05 s, 24.8 MB/s
+512 bytes (512 B) copied, 1.9964e-05 s, 25.6 MB/s
 dd if=kernel/kernel of=xv6.img seek=1 conv=notrunc
 257+1 records in
 257+1 records out
-131610 bytes (132 kB) copied, 0.000406056 s, 324 MB/s
+131610 bytes (132 kB) copied, 0.000407052 s, 323 MB/s
 gcc -c  -iquote include -Wall -Werror -ggdb  -o tools/mkfs.o tools/mkfs.c
 gcc  tools/mkfs.o -o tools/mkfs
 mkdir -p fs
@@ -330,29 +330,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/race fs/race
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
 echo
-init
-race
-cond
-ls
-hello
-zombie
-join3
-usertests
-grep
-tester
-stressfs
-wc
-forktest
-mkdir
-sh
-rm
-README
-ln
-cat
 kill
-balloc: first 635 blocks have been allocated
+grep
+cloneTest
+join3
+ls
+rm
+mkdir
+race
+tester
+forktest
+cond
+README
+cat
+zombie
+stressfs
+init
+sh
+wc
+hello
+ln
+usertests
+balloc: first 639 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/stressfs user/bin/grep user/bin/tester user/bin/hello user/bin/kill user/bin/cond user/bin/cat user/bin/mkdir user/bin/init user/bin/rm user/bin/race user/bin/join3 user/bin/echo user/bin/ls user/bin/ln user/bin/usertests user/bin/sh user/bin/wc user/bin/cloneTest user/bin/zombie
 
@@ -377,29 +377,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
 echo
-init
-race
-cond
-ls
-hello
-zombie
-join3
-usertests
-grep
-tester
-stressfs
-wc
-forktest
-mkdir
-sh
-rm
-README
-ln
-cat
 kill
-balloc: first 637 blocks have been allocated
+grep
+cloneTest
+join3
+ls
+rm
+mkdir
+race
+tester
+forktest
+cond
+README
+cat
+zombie
+stressfs
+init
+sh
+wc
+hello
+ln
+usertests
+balloc: first 641 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -414,7 +414,7 @@ init: starting sh
 $ tester
 tester
 TEST PASSED
-
+$ 
 
 test clone PASSED
  (clone and verify that address space is shared)
@@ -436,29 +436,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
 echo
-init
-race
-cond
-ls
-hello
-zombie
-join3
-usertests
-grep
-tester
-stressfs
-wc
-forktest
-mkdir
-sh
-rm
-README
-ln
-cat
 kill
-balloc: first 637 blocks have been allocated
+grep
+cloneTest
+join3
+ls
+rm
+mkdir
+race
+tester
+forktest
+cond
+README
+cat
+zombie
+stressfs
+init
+sh
+wc
+hello
+ln
+usertests
+balloc: first 642 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -495,29 +495,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
 echo
-init
-race
-cond
-ls
-hello
-zombie
-join3
-usertests
-grep
-tester
-stressfs
-wc
-forktest
-mkdir
-sh
-rm
-README
-ln
-cat
 kill
-balloc: first 638 blocks have been allocated
+grep
+cloneTest
+join3
+ls
+rm
+mkdir
+race
+tester
+forktest
+cond
+README
+cat
+zombie
+stressfs
+init
+sh
+wc
+hello
+ln
+usertests
+balloc: first 642 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -554,29 +554,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
 echo
-init
-race
-cond
-ls
-hello
-zombie
-join3
-usertests
-grep
-tester
-stressfs
-wc
-forktest
-mkdir
-sh
-rm
-README
-ln
-cat
 kill
-balloc: first 637 blocks have been allocated
+grep
+cloneTest
+join3
+ls
+rm
+mkdir
+race
+tester
+forktest
+cond
+README
+cat
+zombie
+stressfs
+init
+sh
+wc
+hello
+ln
+usertests
+balloc: first 642 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -613,29 +613,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
 echo
-init
-race
-cond
-ls
-hello
-zombie
-join3
-usertests
-grep
-tester
-stressfs
-wc
-forktest
-mkdir
-sh
-rm
-README
-ln
-cat
 kill
-balloc: first 637 blocks have been allocated
+grep
+cloneTest
+join3
+ls
+rm
+mkdir
+race
+tester
+forktest
+cond
+README
+cat
+zombie
+stressfs
+init
+sh
+wc
+hello
+ln
+usertests
+balloc: first 642 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -672,29 +672,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
 echo
-init
-race
-cond
-ls
-hello
-zombie
-join3
-usertests
-grep
-tester
-stressfs
-wc
-forktest
-mkdir
-sh
-rm
-README
-ln
-cat
 kill
-balloc: first 638 blocks have been allocated
+grep
+cloneTest
+join3
+ls
+rm
+mkdir
+race
+tester
+forktest
+cond
+README
+cat
+zombie
+stressfs
+init
+sh
+wc
+hello
+ln
+usertests
+balloc: first 642 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -733,29 +733,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
 echo
-init
-race
-cond
-ls
-hello
-zombie
-join3
-usertests
-grep
-tester
-stressfs
-wc
-forktest
-mkdir
-sh
-rm
-README
-ln
-cat
 kill
-balloc: first 638 blocks have been allocated
+grep
+cloneTest
+join3
+ls
+rm
+mkdir
+race
+tester
+forktest
+cond
+README
+cat
+zombie
+stressfs
+init
+sh
+wc
+hello
+ln
+usertests
+balloc: first 643 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -792,29 +792,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
 echo
-init
-race
-cond
-ls
-hello
-zombie
-join3
-usertests
-grep
-tester
-stressfs
-wc
-forktest
-mkdir
-sh
-rm
-README
-ln
-cat
 kill
-balloc: first 636 blocks have been allocated
+grep
+cloneTest
+join3
+ls
+rm
+mkdir
+race
+tester
+forktest
+cond
+README
+cat
+zombie
+stressfs
+init
+sh
+wc
+hello
+ln
+usertests
+balloc: first 640 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -829,7 +829,7 @@ init: starting sh
 $ tester
 tester
 TEST PASSED
-
+zombie
 
 test join3 PASSED
  (join should not handle child processes (forked))
@@ -851,29 +851,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
 echo
-init
-race
-cond
-ls
-hello
-zombie
-join3
-usertests
-grep
-tester
-stressfs
-wc
-forktest
-mkdir
-sh
-rm
-README
-ln
-cat
 kill
-balloc: first 638 blocks have been allocated
+grep
+cloneTest
+join3
+ls
+rm
+mkdir
+race
+tester
+forktest
+cond
+README
+cat
+zombie
+stressfs
+init
+sh
+wc
+hello
+ln
+usertests
+balloc: first 643 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -910,29 +910,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
 echo
-init
-race
-cond
-ls
-hello
-zombie
-join3
-usertests
-grep
-tester
-stressfs
-wc
-forktest
-mkdir
-sh
-rm
-README
-ln
-cat
 kill
-balloc: first 637 blocks have been allocated
+grep
+cloneTest
+join3
+ls
+rm
+mkdir
+race
+tester
+forktest
+cond
+README
+cat
+zombie
+stressfs
+init
+sh
+wc
+hello
+ln
+usertests
+balloc: first 642 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -969,29 +969,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
 echo
-init
-race
-cond
-ls
-hello
-zombie
-join3
-usertests
-grep
-tester
-stressfs
-wc
-forktest
-mkdir
-sh
-rm
-README
-ln
-cat
 kill
-balloc: first 638 blocks have been allocated
+grep
+cloneTest
+join3
+ls
+rm
+mkdir
+race
+tester
+forktest
+cond
+README
+cat
+zombie
+stressfs
+init
+sh
+wc
+hello
+ln
+usertests
+balloc: first 642 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -1028,29 +1028,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
 echo
-init
-race
-cond
-ls
-hello
-zombie
-join3
-usertests
-grep
-tester
-stressfs
-wc
-forktest
-mkdir
-sh
-rm
-README
-ln
-cat
 kill
-balloc: first 639 blocks have been allocated
+grep
+cloneTest
+join3
+ls
+rm
+mkdir
+race
+tester
+forktest
+cond
+README
+cat
+zombie
+stressfs
+init
+sh
+wc
+hello
+ln
+usertests
+balloc: first 643 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -1065,7 +1065,6 @@ init: starting sh
 $ tester
 tester
 TEST PASSED
-
 
 test multi PASSED
  (multiple threads with some depth of function calls)
@@ -1087,29 +1086,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
 echo
-init
-race
-cond
-ls
-hello
-zombie
-join3
-usertests
-grep
-tester
-stressfs
-wc
-forktest
-mkdir
-sh
-rm
-README
-ln
-cat
 kill
-balloc: first 638 blocks have been allocated
+grep
+cloneTest
+join3
+ls
+rm
+mkdir
+race
+tester
+forktest
+cond
+README
+cat
+zombie
+stressfs
+init
+sh
+wc
+hello
+ln
+usertests
+balloc: first 642 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -1146,29 +1145,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
 echo
-init
-race
-cond
-ls
-hello
-zombie
-join3
-usertests
-grep
-tester
-stressfs
-wc
-forktest
-mkdir
-sh
-rm
-README
-ln
-cat
 kill
-balloc: first 638 blocks have been allocated
+grep
+cloneTest
+join3
+ls
+rm
+mkdir
+race
+tester
+forktest
+cond
+README
+cat
+zombie
+stressfs
+init
+sh
+wc
+hello
+ln
+usertests
+balloc: first 642 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -1183,6 +1182,7 @@ init: starting sh
 $ tester
 tester
 TEST PASSED
+
 
 test cond PASSED
  (test cv_wait and cv_signal, cannot leave cv_wait without lock)
@@ -1204,29 +1204,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
 echo
-init
-race
-cond
-ls
-hello
-zombie
-join3
-usertests
-grep
-tester
-stressfs
-wc
-forktest
-mkdir
-sh
-rm
-README
-ln
-cat
 kill
-balloc: first 638 blocks have been allocated
+grep
+cloneTest
+join3
+ls
+rm
+mkdir
+race
+tester
+forktest
+cond
+README
+cat
+zombie
+stressfs
+init
+sh
+wc
+hello
+ln
+usertests
+balloc: first 642 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -1263,29 +1263,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
 echo
-init
-race
-cond
-ls
-hello
-zombie
-join3
-usertests
-grep
-tester
-stressfs
-wc
-forktest
-mkdir
-sh
-rm
-README
-ln
-cat
 kill
-balloc: first 638 blocks have been allocated
+grep
+cloneTest
+join3
+ls
+rm
+mkdir
+race
+tester
+forktest
+cond
+README
+cat
+zombie
+stressfs
+init
+sh
+wc
+hello
+ln
+usertests
+balloc: first 643 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -1322,29 +1322,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
 echo
-init
-race
-cond
-ls
-hello
-zombie
-join3
-usertests
-grep
-tester
-stressfs
-wc
-forktest
-mkdir
-sh
-rm
-README
-ln
-cat
 kill
-balloc: first 639 blocks have been allocated
+grep
+cloneTest
+join3
+ls
+rm
+mkdir
+race
+tester
+forktest
+cond
+README
+cat
+zombie
+stressfs
+init
+sh
+wc
+hello
+ln
+usertests
+balloc: first 643 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -1358,7 +1358,7 @@ cpu0: starting
 init: starting sh
 $ tester
 tester
-FFFFFFF4
+FFFFFF64
 TEST PASSED
 
 
@@ -1382,29 +1382,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
 echo
-init
-race
-cond
-ls
-hello
-zombie
-join3
-usertests
-grep
-tester
-stressfs
-wc
-forktest
-mkdir
-sh
-rm
-README
-ln
-cat
 kill
-balloc: first 637 blocks have been allocated
+grep
+cloneTest
+join3
+ls
+rm
+mkdir
+race
+tester
+forktest
+cond
+README
+cat
+zombie
+stressfs
+init
+sh
+wc
+hello
+ln
+usertests
+balloc: first 642 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 
@@ -1420,6 +1420,7 @@ $ tester
 tester
 pid 4 tester: trap 14 err 5 on cpu 1 eip 0xffffffff addr 0xffffffff--kill proc
 TEST PASSED
+
 
 test noexit PASSED
  (no exit call in thread, should trap at bogus address)
@@ -1441,29 +1442,29 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-cloneTest
 echo
-init
-race
-cond
-ls
-hello
-zombie
-join3
-usertests
-grep
-tester
-stressfs
-wc
-forktest
-mkdir
-sh
-rm
-README
-ln
-cat
 kill
-balloc: first 639 blocks have been allocated
+grep
+cloneTest
+join3
+ls
+rm
+mkdir
+race
+tester
+forktest
+cond
+README
+cat
+zombie
+stressfs
+init
+sh
+wc
+hello
+ln
+usertests
+balloc: first 643 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
 make qemu-nox 

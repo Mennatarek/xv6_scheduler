@@ -68,7 +68,8 @@ typedef struct cond_type{
   //  lock_t* mlock;
   int condition;
   int waitingList[100]; // how large should I allocate? is 100 enough? best should be a list
-  int idx;  
+  int idx;
+  int guard; //used to make sure we've initilized idx
 } cond_t;
 
 void cv_wait(cond_t *, lock_t *);

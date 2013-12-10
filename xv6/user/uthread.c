@@ -56,6 +56,11 @@ void cv_wait(cond_t * mcond, lock_t * outsidelock){
   /* printf(1,"in cv_wait, try to grab cv lock: \n"); */
   /* printf(1,"in cv_wait, initial cv lock value: %d\n", *(mcond->mlock));   */
   /* printf(1,"in cv_wait, got cv lock: %d\n");   */
+  //provide the guard
+  if ( 123456 != mcond->guard){
+    mcond->guard = 123456;
+    mcond->idx = 0;
+  }
   //add self to list
   int curpid=getpid();
   mcond->waitingList[mcond->idx] = curpid;
@@ -73,6 +78,11 @@ void cv_wait(cond_t * mcond, lock_t * outsidelock){
 void cv_signal(cond_t * mcond){
   //release mlock
   //the whole operation is atomic
+  if ( 123456 != mcond->guard){
+    mcond->guard = 123456;
+    mcond->idx = 0;
+  }
+
   if (0 != mcond->idx){ //at least there is one thread waking
       (mcond->idx)--;  
       int curpid=mcond->waitingList[mcond->idx];
