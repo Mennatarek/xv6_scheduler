@@ -357,14 +357,23 @@ static void
 itrunc(struct inode *ip)
 {
 
- int i, j;
+  int i, j;
   struct buf *bp;
   uint *a;
 
   for(i = 0; i < NDIRECT; i++){
-    if(ip->addrs[i]){
-      bfree(ip->dev, ip->addrs[i]);
-      ip->addrs[i] = 0;
+    if (ip->type == T_CHECKED){
+      uint rudiAddr=ip->addrs[i];
+      uint baddr= rudiAddr & (0x00ffffff) ;
+      if(baddr){
+        bfree(ip->dev, baddr);
+        ip->addrs[i] = 0;
+      }
+    } else {
+      if(ip->addrs[i]){
+        bfree(ip->dev, ip->addrs[i]);
+        ip->addrs[i] = 0;
+      }
     }
   }
   
@@ -372,8 +381,16 @@ itrunc(struct inode *ip)
     bp = bread(ip->dev, ip->addrs[NDIRECT]);
     a = (uint*)bp->data;
     for(j = 0; j < NINDIRECT; j++){
-      if(a[j])
-        bfree(ip->dev, a[j]);
+      if (ip->type == T_CHECKED){
+        uint rudiAddr=a[j];
+        uint baddr= rudiAddr & (0x00ffffff) ;
+        if(baddr){
+          bfree(ip->dev, baddr);
+        }
+      } else {
+        if(a[j])
+          bfree(ip->dev, a[j]);
+      }
     }
     brelse(bp);
     bfree(ip->dev, ip->addrs[NDIRECT]);
@@ -416,18 +433,18 @@ readi(struct inode *ip, char *dst, uint off, uint n)
 
   //BSIZE is the block size, which is 512
   for(tot=0; tot<n; tot+=m, off+=m, dst+=m){
-    /****************** p5 **************/
-    if (T_CHECKED == ip->type){
+    /*****************p5******************/
+    if (ip->type == T_CHECKED){
       //read in the whole block
       //bmap returns the off/BSIZEth block address on disk in ip
       /* bp = bread(ip->dev, bmap(ip, off/BSIZE)); */
       uint rudiAddr=bmap(ip,off/BSIZE);
-      uint baddr=( (rudiAddr & (0x00ffffff)) );
-      cprintf("readi: inode number:%d, offset: %d, block addr: %d, block addr with checksum:%x\n", ip->inum, off, baddr,rudiAddr);
+      uint baddr= rudiAddr & (0x00ffffff) ;
+      /* cprintf("readi: inode number:%d, offset: %d, block addr: %d, block addr with checksum:%x\n", ip->inum, off, baddr,rudiAddr); */
       //bread return a buffer of data on disk for such block addr
       bp = bread(ip->dev, baddr);
 
-      cprintf("debug\n");
+      /* cprintf("debug\n"); */
       //calculate checksum
       /* int curBlockNum=off/BSIZE; */
       uchar checksumValue=(bp->data)[0];
@@ -435,9 +452,9 @@ readi(struct inode *ip, char *dst, uint off, uint n)
       int dataIdx=1;
       /* uchar * debug=bp->data;       */
       for (;dataIdx<BSIZE;dataIdx++){
-        checksumValue= ( checksumValue ^ ((bp->data)[dataIdx]) ); 
+        checksumValue= ( checksumValue ^ ((bp->data)[dataIdx]) );
       }
-      cprintf("find checksum\n");      
+      /* cprintf("find checksum\n"); */
       /* cprintf("check sum from readi: %d\n",checksumValue);       */
       //verify checksum
       /* if (curBlockNum < NDIRECT){ //direct ptrs */
@@ -447,9 +464,8 @@ readi(struct inode *ip, char *dst, uint off, uint n)
         cprintf("check sum from readi: %d, correct checksum :%d\n",checksumValue,correctCheckSum);
         cprintf("readi: inode number:%d, blockNumber: %d, block addr: %d, block addr with checksum:%x\n", ip->inum, off/BSIZE, baddr,rudiAddr);
         return -1;
-      } else
-        cprintf("checksum correct\n");              
-    /****************** p5 **************/      
+      } 
+      /****************** p5 **************/
     }else {
       bp = bread(ip->dev, bmap(ip, off/BSIZE));    
     }
@@ -486,7 +502,6 @@ writei(struct inode *ip, char *src, uint off, uint n)
     // m: how many bytes are written
     // 1: since off%BSIZE start from 0
     if (T_CHECKED == ip->type){
-      
       //bmap returns the off/BSIZEth block address on disk in ip
       // bread read out the buffer specified into memory
       uint rudiAddr=bmap(ip,off/BSIZE);
@@ -542,7 +557,10 @@ writei(struct inode *ip, char *src, uint off, uint n)
           brelse(indirectbp);
         } // end indirect ptr is not 0
       } // end indirect
-     //end if check type
+      
+      bwrite(bp);
+      brelse(bp);
+      //end if check type
     } else{ // other type
       bp = bread(ip->dev, bmap(ip, off/BSIZE));
       m = min(n - tot, BSIZE - off%BSIZE);

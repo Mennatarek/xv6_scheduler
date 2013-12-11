@@ -240,15 +240,15 @@ ld  -m    elf_i386 -nostdlib --omagic \
 dd if=/dev/zero of=xv6.img count=10000
 10000+0 records in
 10000+0 records out
-5120000 bytes (5.1 MB) copied, 0.0218782 s, 234 MB/s
+5120000 bytes (5.1 MB) copied, 0.0219733 s, 233 MB/s
 dd if=kernel/bootblock of=xv6.img conv=notrunc
 1+0 records in
 1+0 records out
-512 bytes (512 B) copied, 2.9897e-05 s, 17.1 MB/s
+512 bytes (512 B) copied, 2.2186e-05 s, 23.1 MB/s
 dd if=kernel/kernel of=xv6.img seek=1 conv=notrunc
 254+1 records in
 254+1 records out
-130174 bytes (130 kB) copied, 0.000381757 s, 341 MB/s
+130278 bytes (130 kB) copied, 0.000395486 s, 329 MB/s
 gcc -c  -iquote include -Wall -Werror -ggdb  -o tools/mkfs.o tools/mkfs.c
 gcc  tools/mkfs.o -o tools/mkfs
 mkdir -p fs
@@ -408,12 +408,327 @@ writing file
 inwritei: inum: 24, block num:0, block addr: 511, addr with checksum :410001ff
 reopening read only
 reading file
-readi: inode number:24, offset: 0, block addr: 511, block addr with checksum:410001ff
+TEST PASSED
 
 
-test write1 FAILED
+test write1 PASSED
  (write then read a block)
- Timelimit (10.0s) exceeded
 
-Skipped 8 tests.
+
+**********************************************************************
+
+Test write2
+write then read largest possible file
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-2/ta/tests/5b/tests/write2.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+stressfs
+forktest
+tester
+ls
+zombie
+echo
+ln
+write3
+rm
+sh
+kill
+check
+init
+README
+wc
+grep
+cat
+write2
+mkdir
+hello
+usertests
+balloc: first 511 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox 
+Ctrl+a h for help
+/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 2
+Could not open option rom 'sgabios.bin': No such file or directory
+xv6...
+lapicinit: 1 0xfee00000
+cpu1: starting
+cpu0: starting
+init: starting sh
+$ tester
+tester
+buffer size: 512
+file size: 71680
+create checked file
+writing file
+inwritei: inum: 24, block num:0, block addr: 511, addr with checksum :410001ff
+inwritei: inum: 24, block num:1, block addr: 512, addr with checksum :42000200
+inwritei: inum: 24, block num:2, block addr: 513, addr with checksum :43000201
+inwritei: inum: 24, block num:3, block addr: 514, addr with checksum :44000202
+inwritei: inum: 24, block num:4, block addr: 515, addr with checksum :45000203
+inwritei: inum: 24, block num:5, block addr: 516, addr with checksum :46000204
+inwritei: inum: 24, block num:6, block addr: 517, addr with checksum :47000205
+inwritei: inum: 24, block num:7, block addr: 518, addr with checksum :48000206
+inwritei: inum: 24, block num:8, block addr: 519, addr with checksum :49000207
+inwritei: inum: 24, block num:9, block addr: 520, addr with checksum :4a000208
+inwritei: inum: 24, block num:10, block addr: 521, addr with checksum :4b000209
+inwritei: inum: 24, block num:11, block addr: 522, addr with checksum :4c00020a
+reopening read only
+reading file
+TEST PASSED
+
+
+test write2 PASSED
+ (write then read largest possible file)
+
+
+**********************************************************************
+
+Test write3
+write then read, buffer smaller than one block
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-2/ta/tests/5b/tests/write3.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+stressfs
+forktest
+tester
+ls
+zombie
+echo
+ln
+write3
+rm
+sh
+kill
+check
+init
+README
+wc
+grep
+cat
+write2
+mkdir
+hello
+usertests
+balloc: first 511 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox 
+Ctrl+a h for help
+/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 2
+Could not open option rom 'sgabios.bin': No such file or directory
+xv6...
+lapicinit: 1 0xfee00000
+cpu1: starting
+cpu0: starting
+init: starting sh
+$ tester
+tester
+buffer size: 500
+file size: 71500
+create checked file
+writing file
+inwritei: inum: 24, block num:0, block addr: 511, addr with checksum :410001ff
+inwritei: inum: 24, block num:0, block addr: 511, addr with checksum :30001ff
+inwritei: inum: 24, block num:1, block addr: 512, addr with checksum :200
+inwritei: inum: 24, block num:1, block addr: 512, addr with checksum :43000200
+inwritei: inum: 24, block num:2, block addr: 513, addr with checksum :201
+inwritei: inum: 24, block num:2, block addr: 513, addr with checksum :44000201
+inwritei: inum: 24, block num:3, block addr: 514, addr with checksum :202
+inwritei: inum: 24, block num:3, block addr: 514, addr with checksum :45000202
+inwritei: inum: 24, block num:4, block addr: 515, addr with checksum :203
+inwritei: inum: 24, block num:4, block addr: 515, addr with checksum :46000203
+inwritei: inum: 24, block num:5, block addr: 516, addr with checksum :204
+inwritei: inum: 24, block num:5, block addr: 516, addr with checksum :47000204
+inwritei: inum: 24, block num:6, block addr: 517, addr with checksum :205
+inwritei: inum: 24, block num:6, block addr: 517, addr with checksum :48000205
+inwritei: inum: 24, block num:7, block addr: 518, addr with checksum :206
+inwritei: inum: 24, block num:7, block addr: 518, addr with checksum :49000206
+inwritei: inum: 24, block num:8, block addr: 519, addr with checksum :207
+inwritei: inum: 24, block num:8, block addr: 519, addr with checksum :4a000207
+inwritei: inum: 24, block num:9, block addr: 520, addr with checksum :208
+inwritei: inum: 24, block num:9, block addr: 520, addr with checksum :4b000208
+inwritei: inum: 24, block num:10, block addr: 521, addr with checksum :209
+inwritei: inum: 24, block num:10, block addr: 521, addr with checksum :4c000209
+inwritei: inum: 24, block num:11, block addr: 522, addr with checksum :20a
+inwritei: inum: 24, block num:11, block addr: 522, addr with checksum :4d00020a
+reopening read only
+reading file
+TEST PASSED
+
+
+test write3 PASSED
+ (write then read, buffer smaller than one block)
+
+
+**********************************************************************
+
+Test write4
+write then read, buffer larger than one block
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-2/ta/tests/5b/tests/write4.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/tester fs/tester
+./tools/mkfs fs.img fs
+used 29 (bit 1 ninode 26) free 29 total 1024
+stressfs
+forktest
+tester
+ls
+zombie
+echo
+ln
+write3
+rm
+sh
+kill
+check
+init
+README
+wc
+grep
+cat
+write2
+mkdir
+hello
+usertests
+balloc: first 511 blocks have been allocated
+balloc: write bitmap block at sector 28
+rm user/bin/tester
+make qemu-nox 
+Ctrl+a h for help
+/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 2
+Could not open option rom 'sgabios.bin': No such file or directory
+xv6...
+lapicinit: 1 0xfee00000
+cpu1: starting
+cpu0: starting
+init: starting sh
+$ tester
+tester
+buffer size: 1000
+file size: 71000
+create checked file
+writing file
+inwritei: inum: 24, block num:0, block addr: 511, addr with checksum :410001ff
+inwritei: inum: 24, block num:1, block addr: 512, addr with checksum :200
+inwritei: inum: 24, block num:1, block addr: 512, addr with checksum :42000200
+inwritei: inum: 24, block num:2, block addr: 513, addr with checksum :201
+inwritei: inum: 24, block num:3, block addr: 514, addr with checksum :202
+inwritei: inum: 24, block num:3, block addr: 514, addr with checksum :43000202
+inwritei: inum: 24, block num:4, block addr: 515, addr with checksum :203
+inwritei: inum: 24, block num:5, block addr: 516, addr with checksum :204
+inwritei: inum: 24, block num:5, block addr: 516, addr with checksum :44000204
+inwritei: inum: 24, block num:6, block addr: 517, addr with checksum :205
+inwritei: inum: 24, block num:7, block addr: 518, addr with checksum :206
+inwritei: inum: 24, block num:7, block addr: 518, addr with checksum :45000206
+inwritei: inum: 24, block num:8, block addr: 519, addr with checksum :207
+inwritei: inum: 24, block num:9, block addr: 520, addr with checksum :208
+inwritei: inum: 24, block num:9, block addr: 520, addr with checksum :46000208
+inwritei: inum: 24, block num:10, block addr: 521, addr with checksum :209
+inwritei: inum: 24, block num:11, block addr: 522, addr with checksum :20a
+inwritei: inum: 24, block num:11, block addr: 522, addr with checksum :4700020a
+reopening read only
+reading file
+TEST PASSED
+
+
+test write4 PASSED
+ (write then read, buffer larger than one block)
+
+
+**********************************************************************
+
+Test write5
+check the correct image is produced after writing
+
+**********************************************************************
+Trying to build project using make
+make
+make: Nothing to be done for `all'.
+Using image /u/c/s/cs537-2/ta/tests/5b/images/write5-before.img
+make qemu-nox
+Ctrl+a h for help
+/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 2
+Could not open option rom 'sgabios.bin': No such file or directory
+xv6...
+lapicinit: 1 0xfee00000
+cpu1: starting
+cpu0: starting
+init: starting sh
+$ write5
+write5
+buffer size: 512
+file size: 71680
+create checked file
+writing file
+inwritei: inum: 26, block num:0, block addr: 557, addr with checksum :4100022d
+inwritei: inum: 26, block num:1, block addr: 558, addr with checksum :4200022e
+inwritei: inum: 26, block num:2, block addr: 559, addr with checksum :4300022f
+inwritei: inum: 26, block num:3, block addr: 560, addr with checksum :44000230
+inwritei: inum: 26, block num:4, block addr: 561, addr with checksum :45000231
+inwritei: inum: 26, block num:5, block addr: 562, addr with checksum :46000232
+inwritei: inum: 26, block num:6, block addr: 563, addr with checksum :47000233
+inwritei: inum: 26, block num:7, block addr: 564, addr with checksum :48000234
+inwritei: inum: 26, block num:8, block addr: 565, addr with checksum :49000235
+inwritei: inum: 26, block num:9, block addr: 566, addr with checksum :4a000236
+inwritei: inum: 26, block num:10, block addr: 567, addr with checksum :4b000237
+inwritei: inum: 26, block num:11, block addr: 568, addr with checksum :4c000238
+reopening read only
+reading file
+TEST PASSED
+$ Comparing actual image with expected image
+
+
+test write5 PASSED
+ (check the correct image is produced after writing)
+
+
+**********************************************************************
+
+Test checksum1
+check that stat gives the correct checksum
+
+**********************************************************************
+Running xv6 user progam /u/c/s/cs537-2/ta/tests/5b/tests/checksum1.c
+Trying to build project using make
+make
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
+user/tester.c: In function ‘main’:
+user/tester.c:52: error: ‘struct stat’ has no member named ‘checksum’
+user/tester.c:53: error: ‘struct stat’ has no member named ‘checksum’
+make: *** [user/tester.o] Error 1
+
+
+test checksum1 FAILED
+ (check that stat gives the correct checksum)
+ make failed (error 2)
+
+Skipped 3 tests.
 To keep testing after failing a test, use flag '-c' or '--continue'
