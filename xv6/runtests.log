@@ -7,7 +7,7 @@ build xv6 using make
 **********************************************************************
 Trying to clean project using make clean
 make clean
-rm -rf kernel/bio.o kernel/console.o kernel/exec.o kernel/file.o kernel/fs.o kernel/ide.o kernel/ioapic.o kernel/kalloc.o kernel/kbd.o kernel/lapic.o kernel/main.o kernel/mp.o kernel/picirq.o kernel/pipe.o kernel/proc.o kernel/spinlock.o kernel/string.o kernel/swtch.o kernel/syscall.o kernel/sysfile.o kernel/sysproc.o kernel/timer.o kernel/trapasm.o kernel/trap.o kernel/uart.o kernel/vectors.o kernel/vm.o kernel/bootmain.o kernel/bootasm.o kernel/multiboot.o kernel/data.o kernel/bootother.o kernel/initcode.o kernel/bio.d kernel/console.d kernel/exec.d kernel/file.d kernel/fs.d kernel/ide.d kernel/ioapic.d kernel/kalloc.d kernel/kbd.d kernel/lapic.d kernel/main.d kernel/mp.d kernel/picirq.d kernel/pipe.d kernel/proc.d kernel/spinlock.d kernel/string.d kernel/swtch.d kernel/syscall.d kernel/sysfile.d kernel/sysproc.d kernel/timer.d kernel/trapasm.d kernel/trap.d kernel/uart.d kernel/vectors.d kernel/vm.d kernel/bootmain.d kernel/bootasm.d kernel/multiboot.d kernel/data.d kernel/bootother.d kernel/initcode.d kernel/vectors.S kernel/bootblock kernel/bootblock.out kernel/bootother.out kernel/initcode.out kernel/kernel bootother initcode xv6.img user/bin user/cat user/echo user/forktest user/grep user/init user/kill user/ln user/ls user/mkdir user/rm user/hello user/sh user/stressfs user/tester user/usertests user/wc user/zombie user/cat.o user/echo.o user/forktest.o user/grep.o user/init.o user/kill.o user/ln.o user/ls.o user/mkdir.o user/rm.o user/hello.o user/sh.o user/stressfs.o user/tester.o user/usertests.o user/wc.o user/zombie.o user/ulib.o user/usys.o user/printf.o user/umalloc.o user/cat.d user/echo.d user/forktest.d user/grep.d user/init.d user/kill.d user/ln.d user/ls.d user/mkdir.d user/rm.d user/hello.d user/sh.d user/stressfs.d user/tester.d user/usertests.d user/wc.d user/zombie.d user/ulib.d user/usys.d user/printf.d user/umalloc.d tools/mkfs tools/mkfs.o tools/mkfs.d fs fs.img .gdbinit .bochsrc dist
+rm -rf kernel/bio.o kernel/console.o kernel/exec.o kernel/file.o kernel/fs.o kernel/ide.o kernel/ioapic.o kernel/kalloc.o kernel/kbd.o kernel/lapic.o kernel/main.o kernel/mp.o kernel/picirq.o kernel/pipe.o kernel/proc.o kernel/spinlock.o kernel/string.o kernel/swtch.o kernel/syscall.o kernel/sysfile.o kernel/sysproc.o kernel/timer.o kernel/trapasm.o kernel/trap.o kernel/uart.o kernel/vectors.o kernel/vm.o kernel/bootmain.o kernel/bootasm.o kernel/multiboot.o kernel/data.o kernel/bootother.o kernel/initcode.o kernel/bio.d kernel/console.d kernel/exec.d kernel/file.d kernel/fs.d kernel/ide.d kernel/ioapic.d kernel/kalloc.d kernel/kbd.d kernel/lapic.d kernel/main.d kernel/mp.d kernel/picirq.d kernel/pipe.d kernel/proc.d kernel/spinlock.d kernel/string.d kernel/swtch.d kernel/syscall.d kernel/sysfile.d kernel/sysproc.d kernel/timer.d kernel/trapasm.d kernel/trap.d kernel/uart.d kernel/vectors.d kernel/vm.d kernel/bootmain.d kernel/bootasm.d kernel/multiboot.d kernel/data.d kernel/bootother.d kernel/initcode.d kernel/vectors.S kernel/bootblock kernel/bootblock.out kernel/bootother.out kernel/initcode.out kernel/kernel bootother initcode xv6.img user/bin user/cat user/echo user/forktest user/grep user/init user/kill user/ln user/ls user/mkdir user/rm user/hello user/sh user/stressfs user/tester user/check user/usertests user/wc user/write2 user/write3 user/zombie user/cat.o user/echo.o user/forktest.o user/grep.o user/init.o user/kill.o user/ln.o user/ls.o user/mkdir.o user/rm.o user/hello.o user/sh.o user/stressfs.o user/tester.o user/check.o user/usertests.o user/wc.o user/write2.o user/write3.o user/zombie.o user/ulib.o user/usys.o user/printf.o user/umalloc.o user/cat.d user/echo.d user/forktest.d user/grep.d user/init.d user/kill.d user/ln.d user/ls.d user/mkdir.d user/rm.d user/hello.d user/sh.d user/stressfs.d user/tester.d user/check.d user/usertests.d user/wc.d user/write2.d user/write3.d user/zombie.d user/ulib.d user/usys.d user/printf.d user/umalloc.d tools/mkfs tools/mkfs.o tools/mkfs.d fs fs.img .gdbinit .bochsrc dist
 Trying to build project using make
 make
 Makefile:149: kernel/bio.d: No such file or directory
@@ -57,8 +57,11 @@ Makefile:149: user/hello.d: No such file or directory
 Makefile:149: user/sh.d: No such file or directory
 Makefile:149: user/stressfs.d: No such file or directory
 Makefile:149: user/tester.d: No such file or directory
+Makefile:149: user/check.d: No such file or directory
 Makefile:149: user/usertests.d: No such file or directory
 Makefile:149: user/wc.d: No such file or directory
+Makefile:149: user/write2.d: No such file or directory
+Makefile:149: user/write3.d: No such file or directory
 Makefile:149: user/zombie.d: No such file or directory
 Makefile:149: user/ulib.d: No such file or directory
 Makefile:149: user/usys.d: No such file or directory
@@ -78,9 +81,15 @@ gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
 		-M -MG user/zombie.c -MF user/zombie.d -MT user/zombie.d -MT user/zombie.o
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/write3.c -MF user/write3.d -MT user/write3.d -MT user/write3.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/write2.c -MF user/write2.d -MT user/write2.d -MT user/write2.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
 		-M -MG user/wc.c -MF user/wc.d -MT user/wc.d -MT user/wc.o
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
 		-M -MG user/usertests.c -MF user/usertests.d -MT user/usertests.d -MT user/usertests.o
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
+		-M -MG user/check.c -MF user/check.d -MT user/check.d -MT user/check.o
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
 		-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
@@ -231,15 +240,15 @@ ld  -m    elf_i386 -nostdlib --omagic \
 dd if=/dev/zero of=xv6.img count=10000
 10000+0 records in
 10000+0 records out
-5120000 bytes (5.1 MB) copied, 0.0222752 s, 230 MB/s
+5120000 bytes (5.1 MB) copied, 0.0218782 s, 234 MB/s
 dd if=kernel/bootblock of=xv6.img conv=notrunc
 1+0 records in
 1+0 records out
-512 bytes (512 B) copied, 2.0393e-05 s, 25.1 MB/s
+512 bytes (512 B) copied, 2.9897e-05 s, 17.1 MB/s
 dd if=kernel/kernel of=xv6.img seek=1 conv=notrunc
-253+1 records in
-253+1 records out
-129730 bytes (130 kB) copied, 0.000396573 s, 327 MB/s
+254+1 records in
+254+1 records out
+130174 bytes (130 kB) copied, 0.000381757 s, 341 MB/s
 gcc -c  -iquote include -Wall -Werror -ggdb  -o tools/mkfs.o tools/mkfs.c
 gcc  tools/mkfs.o -o tools/mkfs
 mkdir -p fs
@@ -291,38 +300,50 @@ cp user/bin/stressfs fs/stressfs
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
 ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
 cp user/bin/tester fs/tester
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/check.o user/check.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/check user/check.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/check fs/check
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/usertests.o user/usertests.c
 ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/usertests user/usertests.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
 cp user/bin/usertests fs/usertests
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/wc.o user/wc.c
 ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/wc user/wc.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
 cp user/bin/wc fs/wc
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/write2.o user/write2.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/write2 user/write2.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/write2 fs/write2
+gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/write3.o user/write3.c
+ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/write3 user/write3.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+cp user/bin/write3 fs/write3
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/zombie.o user/zombie.c
 ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/zombie user/zombie.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
 cp user/bin/zombie fs/zombie
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-hello
-sh
-init
-tester
 stressfs
-echo
-grep
-wc
-ls
 forktest
-usertests
-ln
-mkdir
+tester
+ls
 zombie
-kill
-README
+echo
+ln
+write3
 rm
+sh
+kill
+check
+init
+README
+wc
+grep
 cat
-balloc: first 441 blocks have been allocated
+write2
+mkdir
+hello
+usertests
+balloc: first 508 blocks have been allocated
 balloc: write bitmap block at sector 28
-rm user/bin/stressfs user/bin/grep user/bin/tester user/bin/hello user/bin/kill user/bin/cat user/bin/mkdir user/bin/init user/bin/rm user/bin/echo user/bin/ls user/bin/ln user/bin/usertests user/bin/sh user/bin/wc user/bin/zombie
+rm user/bin/stressfs user/bin/grep user/bin/write2 user/bin/tester user/bin/hello user/bin/kill user/bin/cat user/bin/mkdir user/bin/init user/bin/check user/bin/rm user/bin/echo user/bin/write3 user/bin/ls user/bin/ln user/bin/usertests user/bin/sh user/bin/wc user/bin/zombie
 
 
 test build PASSED
@@ -331,11 +352,11 @@ test build PASSED
 
 **********************************************************************
 
-Test basic
-call getsyscallinfo() from a user program
+Test write1
+write then read a block
 
 **********************************************************************
-Running xv6 user progam /u/c/s/cs537-2/ta/tests/1b/basic.c
+Running xv6 user progam /u/c/s/cs537-2/ta/tests/5b/tests/write1.c
 Trying to build project using make
 make
 gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
@@ -345,234 +366,54 @@ ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --o
 cp user/bin/tester fs/tester
 ./tools/mkfs fs.img fs
 used 29 (bit 1 ninode 26) free 29 total 1024
-hello
-sh
-init
-tester
 stressfs
-echo
-grep
-wc
-ls
 forktest
-usertests
-ln
-mkdir
+tester
+ls
 zombie
-kill
-README
+echo
+ln
+write3
 rm
+sh
+kill
+check
+init
+README
+wc
+grep
 cat
-balloc: first 441 blocks have been allocated
+write2
+mkdir
+hello
+usertests
+balloc: first 511 blocks have been allocated
 balloc: write bitmap block at sector 28
 rm user/bin/tester
-make qemu-nox CPUS=1
+make qemu-nox 
 Ctrl+a h for help
-/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 1
+/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 2
 Could not open option rom 'sgabios.bin': No such file or directory
 xv6...
+lapicinit: 1 0xfee00000
+cpu1: starting
 cpu0: starting
 init: starting sh
 $ tester
 tester
-TEST PASSED$ 
-
-test basic PASSED
- (call getsyscallinfo() from a user program)
-
-
-**********************************************************************
-
-Test getsyscallinfo
-repeated calls of getsyscallinfo()
-
-**********************************************************************
-Running xv6 user progam /u/c/s/cs537-2/ta/tests/1b/getsyscallinfo.c
-Trying to build project using make
-make
-gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
-		-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
-gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
-ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
-cp user/bin/tester fs/tester
-./tools/mkfs fs.img fs
-used 29 (bit 1 ninode 26) free 29 total 1024
-hello
-sh
-init
-tester
-stressfs
-echo
-grep
-wc
-ls
-forktest
-usertests
-ln
-mkdir
-zombie
-kill
-README
-rm
-cat
-balloc: first 442 blocks have been allocated
-balloc: write bitmap block at sector 28
-rm user/bin/tester
-make qemu-nox CPUS=1
-Ctrl+a h for help
-/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 1
-Could not open option rom 'sgabios.bin': No such file or directory
-xv6...
-cpu0: starting
-init: starting sh
-$ tester
-tester
-calling (getsyscallinfo), should count 1 syscalls
-1) counted 1 syscalls
-2) counted 1 syscalls
-3) counted 1 syscalls
-TEST PASSED
-
-test getsyscallinfo PASSED
- (repeated calls of getsyscallinfo())
+buffer size: 512
+file size: 512
+create checked file
+writing file
+inwritei: inum: 24, block num:0, block addr: 511, addr with checksum :410001ff
+reopening read only
+reading file
+readi: inode number:24, offset: 0, block addr: 511, block addr with checksum:410001ff
 
 
-**********************************************************************
+test write1 FAILED
+ (write then read a block)
+ Timelimit (10.0s) exceeded
 
-Test many
-count many other syscalls
-
-**********************************************************************
-Running xv6 user progam /u/c/s/cs537-2/ta/tests/1b/many.c
-Trying to build project using make
-make
-gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 \
-		-M -MG user/tester.c -MF user/tester.d -MT user/tester.d -MT user/tester.o
-gcc  -I include -nostdinc -Wall -Werror -ggdb -fno-pic -fno-builtin -fno-strict-aliasing -fno-stack-protector -m32 -c -o user/tester.o user/tester.c
-ld  -m    elf_i386 -nostdlib --omagic --entry=main --section-start=.text=0x0 --output=user/bin/tester user/tester.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
-cp user/bin/tester fs/tester
-./tools/mkfs fs.img fs
-used 29 (bit 1 ninode 26) free 29 total 1024
-hello
-sh
-init
-tester
-stressfs
-echo
-grep
-wc
-ls
-forktest
-usertests
-ln
-mkdir
-zombie
-kill
-README
-rm
-cat
-balloc: first 453 blocks have been allocated
-balloc: write bitmap block at sector 28
-rm user/bin/tester
-make qemu-nox CPUS=1
-Ctrl+a h for help
-/u/c/s/cs537-2/ta/tools/qemu -nographic -hdb fs.img xv6.img -smp 1
-Could not open option rom 'sgabios.bin': No such file or directory
-xv6...
-cpu0: starting
-init: starting sh
-$ tester
-tester
-calling (fork, exit, wait), should count 4 syscalls
-1) counted 4 syscalls
-2) counted 4 syscalls
-3) counted 4 syscalls
-calling (pipe), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (write), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (read), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (close), should count 3 syscalls
-1) counted 3 syscalls
-2) counted 3 syscalls
-3) counted 3 syscalls
-calling (fork, kill), should count 3 syscalls
-1) counted 3 syscalls
-2) counted 3 syscalls
-3) counted 3 syscalls
-calling (getpid), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (sleep), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (uptime), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (open, dup), should count 3 syscalls
-1) counted 3 syscalls
-2) counted 3 syscalls
-3) counted 3 syscalls
-calling (fstat), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (mkdir), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (chdir), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (link), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (unlink), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (exec), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (mknod), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-calling (sbrk), should count 2 syscalls
-1) counted 2 syscalls
-2) counted 2 syscalls
-3) counted 2 syscalls
-TEST PASSED
-
-test many PASSED
- (count many other syscalls)
-
-**********************************************************************
-Summary:
-test build PASSED
- (build xv6 using make)
-
-test basic PASSED
- (call getsyscallinfo() from a user program)
-
-test getsyscallinfo PASSED
- (repeated calls of getsyscallinfo())
-
-test many PASSED
- (count many other syscalls)
-
-Passed 4 of 4 tests.
-Overall 4 of 4
+Skipped 8 tests.
+To keep testing after failing a test, use flag '-c' or '--continue'

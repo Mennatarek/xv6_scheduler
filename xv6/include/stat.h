@@ -7,6 +7,9 @@
 #define T_FILE 2   // File
 #define T_DEV  3   // Special device
 
+//p5 for checksum
+#define T_CHECKED  4 //regular file but checked
+
 struct stat {
   short type;  // Type of file
   int dev;     // Device number

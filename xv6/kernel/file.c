@@ -85,6 +85,7 @@ filestat(struct file *f, struct stat *st)
 }
 
 // Read from file f.  Addr is kernel address.
+// read n bytes from f, to addr
 int
 fileread(struct file *f, char *addr, int n)
 {

@@ -7,7 +7,7 @@ struct file {
   char writable;
   struct pipe *pipe;
   struct inode *ip;
-  uint off;
+  uint off; // offset in the file
 };
 
 

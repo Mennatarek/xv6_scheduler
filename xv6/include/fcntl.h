@@ -8,4 +8,7 @@
 #define O_RDWR    0x002
 #define O_CREATE  0x200
 
+//p5
+#define O_CHECKED  0x400
+
 #endif //_FCNTL_H_

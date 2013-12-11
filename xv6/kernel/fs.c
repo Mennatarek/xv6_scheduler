@@ -182,6 +182,7 @@ iupdate(struct inode *ip)
   dip->nlink = ip->nlink;
   dip->size = ip->size;
   memmove(dip->addrs, ip->addrs, sizeof(ip->addrs));
+  /* cprintf("iupdate: inum:%d, addr[0]: %x\n", ip->inum, (dip->addrs)[0]); */
   bwrite(bp);
   brelse(bp);
 }
@@ -316,14 +317,17 @@ iunlockput(struct inode *ip)
 
 // Return the disk block address of the nth block in inode ip.
 // If there is no such block, bmap allocates one.
+
+/**********P5***************/
+//bmap is only called within this file
 static uint
 bmap(struct inode *ip, uint bn)
 {
   uint addr, *a;
   struct buf *bp;
 
-  if(bn < NDIRECT){
-    if((addr = ip->addrs[bn]) == 0)
+  if(bn < NDIRECT){ // direct blocks
+    if((addr = ip->addrs[bn]) == 0) // if haven't allocated
       ip->addrs[bn] = addr = balloc(ip->dev);
     return addr;
   }
@@ -352,7 +356,8 @@ bmap(struct inode *ip, uint bn)
 static void
 itrunc(struct inode *ip)
 {
-  int i, j;
+
+ int i, j;
   struct buf *bp;
   uint *a;
 
@@ -395,6 +400,7 @@ int
 readi(struct inode *ip, char *dst, uint off, uint n)
 {
   uint tot, m;
+  //defined in buf.h
   struct buf *bp;
 
   if(ip->type == T_DEV){
@@ -408,14 +414,52 @@ readi(struct inode *ip, char *dst, uint off, uint n)
   if(off + n > ip->size)
     n = ip->size - off;
 
+  //BSIZE is the block size, which is 512
   for(tot=0; tot<n; tot+=m, off+=m, dst+=m){
-    bp = bread(ip->dev, bmap(ip, off/BSIZE));
-    m = min(n - tot, BSIZE - off%BSIZE);
-    memmove(dst, bp->data + off%BSIZE, m);
+    /****************** p5 **************/
+    if (T_CHECKED == ip->type){
+      //read in the whole block
+      //bmap returns the off/BSIZEth block address on disk in ip
+      /* bp = bread(ip->dev, bmap(ip, off/BSIZE)); */
+      uint rudiAddr=bmap(ip,off/BSIZE);
+      uint baddr=( (rudiAddr & (0x00ffffff)) );
+      cprintf("readi: inode number:%d, offset: %d, block addr: %d, block addr with checksum:%x\n", ip->inum, off, baddr,rudiAddr);
+      //bread return a buffer of data on disk for such block addr
+      bp = bread(ip->dev, baddr);
+
+      cprintf("debug\n");
+      //calculate checksum
+      /* int curBlockNum=off/BSIZE; */
+      uchar checksumValue=(bp->data)[0];
+      /* cprintf("value in the block: id:%d, %x\n",0, (bp->data)[0]);             */
+      int dataIdx=1;
+      /* uchar * debug=bp->data;       */
+      for (;dataIdx<BSIZE;dataIdx++){
+        checksumValue= ( checksumValue ^ ((bp->data)[dataIdx]) ); 
+      }
+      cprintf("find checksum\n");      
+      /* cprintf("check sum from readi: %d\n",checksumValue);       */
+      //verify checksum
+      /* if (curBlockNum < NDIRECT){ //direct ptrs */
+      uchar correctCheckSum = ( (rudiAddr & (0xff000000)) >> 24 );
+      if (checksumValue != correctCheckSum){ //doesn't match
+        cprintf("check sum value doesn't match!!!!\n");
+        cprintf("check sum from readi: %d, correct checksum :%d\n",checksumValue,correctCheckSum);
+        cprintf("readi: inode number:%d, blockNumber: %d, block addr: %d, block addr with checksum:%x\n", ip->inum, off/BSIZE, baddr,rudiAddr);
+        return -1;
+      } else
+        cprintf("checksum correct\n");              
+    /****************** p5 **************/      
+    }else {
+      bp = bread(ip->dev, bmap(ip, off/BSIZE));    
+    }
+    m = min(n - tot, BSIZE - off%BSIZE);    
+    memmove(dst, bp->data + off%BSIZE, m);    
     brelse(bp);
   }
   return n;
 }
+
 
 // Write data to inode.
 int
@@ -434,16 +478,83 @@ writei(struct inode *ip, char *src, uint off, uint n)
     return -1;
   if(off + n > MAXFILE*BSIZE)
     n = MAXFILE*BSIZE - off;
-
+  
   for(tot=0; tot<n; tot+=m, off+=m, src+=m){
-    bp = bread(ip->dev, bmap(ip, off/BSIZE));
-    m = min(n - tot, BSIZE - off%BSIZE);
-    memmove(bp->data + off%BSIZE, src, m);
-    bwrite(bp);
-    brelse(bp);
+    /****************** p5 **************/
+    //in this block, how many bytes are valid
+    // off%BSIZE: in current block, how many data are already valid before write(start from idx 0)
+    // m: how many bytes are written
+    // 1: since off%BSIZE start from 0
+    if (T_CHECKED == ip->type){
+      
+      //bmap returns the off/BSIZEth block address on disk in ip
+      // bread read out the buffer specified into memory
+      uint rudiAddr=bmap(ip,off/BSIZE);
+      uint baddr=( (rudiAddr & (0x00ffffff)) );
+    
+      bp = bread(ip->dev,baddr);
+      m = min(n - tot, BSIZE - off%BSIZE);
+      //finished copy in memory
+      memmove(bp->data + off%BSIZE, src, m);
+    
+      //calculate the check sum
+      int curBlockNum=off/BSIZE;
+      uchar checksumValue=(bp->data)[0];
+      /* cprintf("value in the block: id:%d, %x\n",0, (bp->data)[0]);       */
+      int dataIdx=1;
+      /* uchar * debug=bp->data; */
+      for (;dataIdx<BSIZE;dataIdx++){
+        /* if (curBlockNum == 0){ */
+        /*   cprintf("value in the block: id:%d, %x\n ",dataIdx, debug[dataIdx]); */
+        /* } */
+        checksumValue=( checksumValue ^ ((bp->data)[dataIdx]) ); 
+      }
+      /* cprintf("inwritei: written check sum value: %d, inum:%d, block:%d, block addr:%d\n", checksumValue,ip->inum,curBlockNum,baddr); */
+      //put check sum into a part of the 
+      if (curBlockNum < NDIRECT){ //direct ptrs
+        //update inode addr ptr. put the checksumValue to the top bits.
+        (ip->addrs)[curBlockNum] =( ((ip->addrs)[curBlockNum] & 0x00ffffff) | (checksumValue<<24) );
+        cprintf("inwritei: inum: %d, block num:%d, block addr: %d, addr with checksum :%x\n",ip->inum,off/BSIZE,baddr, (ip->addrs)[curBlockNum]) ;
+        /* } else if (curBlockNum <NINDIRECT){ //for indirect ptrs. NINDIRECT is 128. NDIRECT is 12 */
+      } else { //indirect
+
+        uint addr;
+        // Load indirect block, try to re-write inode that is on the disk
+        if( 0 == (addr = (ip->addrs)[NDIRECT]) )
+          {
+            cprintf("in writei addrs[NDIRECT] is 0");
+            return -1;
+          }
+        struct buf * indirectbp = bread(ip->dev, addr);
+        uint * dataptr = (uint*)indirectbp->data;
+        int indirectPtrIdx=(curBlockNum-NDIRECT)%NINDIRECT; //calculate which indirect ptr
+        if((addr = dataptr[indirectPtrIdx]) == 0){
+          cprintf("in writei. indirect ptr: %d is 0. try to access block: %d\n ", indirectPtrIdx,curBlockNum);          
+          return -1;
+          /* panic("in writei for checksum. try to use the direct ptr in the data block of indirect ptr block. but that particular direct ptr points to 0");                     */
+        } else {
+          /* cprintf("inwritei: block addr before adding checksum :%x, block num:%d\n", dataptr[indirectPtrIdx],curBlockNum); */
+          //find such direct ptr. add check sum onto the direct ptr
+          dataptr[indirectPtrIdx] =( (dataptr[indirectPtrIdx] & 0x00ffffff) | (checksumValue<<24) );
+          /* cprintf("inwritei: block addr with checksum :%x\n", dataptr[indirectPtrIdx]); */
+          //write the buffer in memory to disk
+          bwrite(indirectbp);
+          brelse(indirectbp);
+        } // end indirect ptr is not 0
+      } // end indirect
+     //end if check type
+    } else{ // other type
+      bp = bread(ip->dev, bmap(ip, off/BSIZE));
+      m = min(n - tot, BSIZE - off%BSIZE);
+      memmove(bp->data + off%BSIZE, src, m);
+      bwrite(bp);
+      brelse(bp);
+    }
   }
 
+  /* cprintf("before call iupdate. n:%d, off:%d, ip->size:%d\n",n,off,ip->size);   */
   if(n > 0 && off > ip->size){
+    /* cprintf("call iupdate\n"); */
     ip->size = off;
     iupdate(ip);
   }
