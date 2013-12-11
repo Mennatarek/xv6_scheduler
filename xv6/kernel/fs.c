@@ -410,6 +410,32 @@ stati(struct inode *ip, struct stat *st)
   st->type = ip->type;
   st->nlink = ip->nlink;
   st->size = ip->size;
+  
+  /*********p5*************/
+  //xor over all checksum
+  if (ip->type == T_CHECKED){
+    //read in the whole block
+    //bmap returns the off/BSIZEth block address on disk in ip
+    /* bp = bread(ip->dev, bmap(ip, off/BSIZE)); */
+    //handle direct ptrs
+    uint finalCheckSum=0xffffffff;
+    int blockIdx=0;
+    for (;blockIdx < MAXFILE; blockIdx++){
+      uint rudiAddr=bmap(ip,blockIdx);
+      uint baddr= rudiAddr & (0x00ffffff) ;
+      uint subCheckSum = ( (rudiAddr & (0xff000000)) >> 24 );
+      if (baddr){
+        if (finalCheckSum == 0xffffffff){
+          //uninitialized
+          finalCheckSum=subCheckSum;
+        } else {
+          finalCheckSum = ( finalCheckSum ^ subCheckSum );
+        }
+      }
+    }
+    st->checksum=finalCheckSum;
+  }
+  
 }
 
 // Read data from inode.
